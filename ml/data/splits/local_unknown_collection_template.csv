@@ -1,0 +1,4 @@
+sample_id,image_path,capture_date,location_context,object_description,why_unknown_or_difficult,lighting_condition,background_condition,human_note,usage
+local_000001,ml/data/local_unknown/local_000001.jpg,YYYY-MM-DD,home/kitchen/outdoor,shiny food wrapper,Reflective mixed-material packaging,indoor,cluttered,Needs manual review,local_unknown
+local_000002,ml/data/local_unknown/local_000002.jpg,YYYY-MM-DD,home/kitchen/outdoor,dirty plastic container,Contaminated object may confuse plastic vs residual,indoor,plain,Useful difficult sample,local_unknown
+local_000003,ml/data/local_unknown/local_000003.jpg,YYYY-MM-DD,home/kitchen/outdoor,damaged packaging,Damaged object not similar to training images,outdoor,cluttered,Good open-world stress case,local_unknown

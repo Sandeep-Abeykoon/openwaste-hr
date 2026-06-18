@@ -1,0 +1,5 @@
+sample_id,source_dataset,source_split,image_path,original_label,fine_label,coarse_label,is_known,usage,license_notes
+sample_000001,trashnet,train,ml/data/raw/trashnet/cardboard/example_001.jpg,cardboard,paper_cardboard,recyclable,true,known_train,Follow original dataset license/citation
+sample_000002,trashnet,val,ml/data/raw/trashnet/plastic/example_002.jpg,plastic,plastic,recyclable,true,known_val,Follow original dataset license/citation
+sample_000003,trashnet,test,ml/data/raw/trashnet/glass/example_003.jpg,glass,glass,recyclable,true,known_test,Follow original dataset license/citation
+sample_000004,local_phone_images,unknown_test,ml/data/local_unknown/example_unknown_001.jpg,unknown,unknown,unknown,false,unknown_test,Own local image

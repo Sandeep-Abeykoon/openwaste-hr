@@ -32,6 +32,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-18 | Selected OpenWaste-HR direction | Stronger novelty than standard classifier + XAI + advice system |
 | 2026-06-18 | Repository structure created | Keeps ML, backend, frontend, data, documentation, and experiments organized |
 | 2026-06-18 | Frozen Taxonomy v1 | Created 7 fine known classes, 4 coarse classes, and reserved unknown/manual-review labels |
+| 2026-06-18 | Added dataset intake plan | Created dataset source plan, manifest template, label mapping template, and validation tests |
 
 ## Taxonomy v1 Summary
 
@@ -58,3 +59,22 @@ Reserved labels:
 - manual_review
 
 The unknown label is not used as a normal training class. It is used for open-set evaluation, rejection, manual review, and active learning.
+
+## Dataset Intake v1 Summary
+
+The project will not mix image datasets directly.
+
+Each image must be tracked using a manifest row containing:
+
+- source dataset
+- original label
+- OpenWaste-HR fine label
+- OpenWaste-HR coarse label
+- known or unknown status
+- experiment usage role
+- image path
+- license or citation note
+
+Dataset intake starts with a simple baseline source, then moves to harder open-world and local unknown evaluation.
+
+Unknown samples are not used as normal known-class training data in the first baseline.

@@ -1,0 +1,10 @@
+source_dataset,original_label,mapped_fine_label,mapped_coarse_label,mapping_status,notes
+trashnet,cardboard,paper_cardboard,recyclable,approved,Cardboard maps to paper_cardboard
+trashnet,paper,paper_cardboard,recyclable,approved,Paper maps to paper_cardboard
+trashnet,plastic,plastic,recyclable,approved,Direct mapping
+trashnet,glass,glass,recyclable,approved,Direct mapping
+trashnet,metal,metal,recyclable,approved,Direct mapping
+trashnet,trash,residual,residual,approved,Trash maps to residual for first baseline
+taco,,,,pending,TACO labels need manual review because annotation categories are more detailed
+globalwastedata,,,,pending,GlobalWasteData labels need review after dataset access
+local_phone_images,unknown,unknown,unknown,approved,Local difficult images can be used for unknown/manual review testing

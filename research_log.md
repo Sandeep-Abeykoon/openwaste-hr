@@ -33,6 +33,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-18 | Repository structure created | Keeps ML, backend, frontend, data, documentation, and experiments organized |
 | 2026-06-18 | Frozen Taxonomy v1 | Created 7 fine known classes, 4 coarse classes, and reserved unknown/manual-review labels |
 | 2026-06-18 | Added dataset intake plan | Created dataset source plan, manifest template, label mapping template, and validation tests |
+| 2026-06-18 | Added TrashNet manifest builder | Created first dataset intake script for folder-based closed-set baseline data |
 
 ## Taxonomy v1 Summary
 
@@ -78,3 +79,27 @@ Each image must be tracked using a manifest row containing:
 Dataset intake starts with a simple baseline source, then moves to harder open-world and local unknown evaluation.
 
 Unknown samples are not used as normal known-class training data in the first baseline.
+
+## TrashNet Intake v1 Summary
+
+TrashNet is used as the first simple closed-set baseline dataset.
+
+TrashNet original labels are mapped into OpenWaste-HR labels as follows:
+
+| TrashNet Label | Fine Label | Coarse Label |
+|---|---|---|
+| cardboard | paper_cardboard | recyclable |
+| paper | paper_cardboard | recyclable |
+| plastic | plastic | recyclable |
+| glass | glass | recyclable |
+| metal | metal | recyclable |
+| trash | residual | residual |
+
+The generated manifest files are:
+
+- ml/data/splits/trashnet_manifest_v1.csv
+- ml/data/splits/known_train.csv
+- ml/data/splits/known_val.csv
+- ml/data/splits/known_test.csv
+
+These files prepare the first baseline training stage.

@@ -14,6 +14,18 @@ Use for: model training implementation.
 ### 4. FastAPI Documentation
 Use for: backend API implementation.
 
+### 5. TrashNet Dataset Repository
+(https://github.com/garythung/trashnet)
+Use for: first simple closed-set baseline dataset.
+
+Research use:
+- Baseline training only
+- Early pipeline validation
+- Not the main novelty
+
+Important note:
+TrashNet must be cited when used. The original dataset has six classes: glass, paper, cardboard, plastic, metal, and trash.
+
 ## How references will be used
 
 Each implementation feature must connect to a research reason:

@@ -31,3 +31,30 @@ Most existing waste classification systems are evaluated as closed-set classifie
 |---|---|---|
 | 2026-06-18 | Selected OpenWaste-HR direction | Stronger novelty than standard classifier + XAI + advice system |
 | 2026-06-18 | Repository structure created | Keeps ML, backend, frontend, data, documentation, and experiments organized |
+| 2026-06-18 | Frozen Taxonomy v1 | Created 7 fine known classes, 4 coarse classes, and reserved unknown/manual-review labels |
+
+## Taxonomy v1 Summary
+
+Known fine labels:
+
+1. paper_cardboard
+2. plastic
+3. glass
+4. metal
+5. organic
+6. e_waste_battery
+7. residual
+
+Known coarse labels:
+
+1. recyclable
+2. organic
+3. hazardous
+4. residual
+
+Reserved labels:
+
+- unknown
+- manual_review
+
+The unknown label is not used as a normal training class. It is used for open-set evaluation, rejection, manual review, and active learning.

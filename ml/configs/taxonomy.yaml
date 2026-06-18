@@ -1,0 +1,139 @@
+project:
+  name: OpenWaste-HR
+  taxonomy_version: v1
+  description: >
+    Hierarchical waste taxonomy for known-class training, coarse fallback,
+    unknown rejection, and local active learning.
+
+coarse_labels:
+  - id: 0
+    name: recyclable
+    description: Waste that is commonly recyclable through standard recycling streams.
+
+  - id: 1
+    name: organic
+    description: Biodegradable food or plant-based waste.
+
+  - id: 2
+    name: hazardous
+    description: Waste that may require special handling because of safety or environmental risk.
+
+  - id: 3
+    name: residual
+    description: General non-recyclable waste that does not clearly belong to other known categories.
+
+fine_labels:
+  - id: 0
+    name: paper_cardboard
+    coarse_id: 0
+    coarse_name: recyclable
+    examples:
+      - paper
+      - cardboard
+      - paper packaging
+      - notebook paper
+      - cardboard box
+
+  - id: 1
+    name: plastic
+    coarse_id: 0
+    coarse_name: recyclable
+    examples:
+      - plastic bottle
+      - plastic container
+      - plastic packaging
+      - plastic cup
+
+  - id: 2
+    name: glass
+    coarse_id: 0
+    coarse_name: recyclable
+    examples:
+      - glass bottle
+      - glass jar
+      - broken glass object if safe to classify visually
+
+  - id: 3
+    name: metal
+    coarse_id: 0
+    coarse_name: recyclable
+    examples:
+      - aluminium can
+      - metal tin
+      - metal lid
+      - foil container
+
+  - id: 4
+    name: organic
+    coarse_id: 1
+    coarse_name: organic
+    examples:
+      - fruit peel
+      - vegetable waste
+      - food leftovers
+      - leaves
+
+  - id: 5
+    name: e_waste_battery
+    coarse_id: 2
+    coarse_name: hazardous
+    examples:
+      - battery
+      - small electronic waste
+      - charger
+      - cable
+      - circuit board
+
+  - id: 6
+    name: residual
+    coarse_id: 3
+    coarse_name: residual
+    examples:
+      - tissue
+      - dirty wrapper
+      - mixed non-recyclable packaging
+      - ceramic-like waste
+      - contaminated packaging
+
+reserved_labels:
+  unknown:
+    id: -1
+    name: unknown
+    description: >
+      Used only for rejection, manual review, and open-set evaluation.
+      This is not trained as a normal fine class in the baseline model.
+
+  manual_review:
+    id: -2
+    name: manual_review
+    description: >
+      User-facing system output when the model should not make a confident disposal decision.
+
+decision_outputs:
+  fine_label:
+    description: Returned when fine-level confidence and open-set score are acceptable.
+
+  coarse_fallback:
+    description: Returned when fine-level prediction is uncertain but coarse-level prediction is reliable.
+
+  unknown_manual_review:
+    description: Returned when the image appears unknown, out-of-distribution, mixed, or too ambiguous.
+
+active_learning:
+  store_uncertain_samples: true
+  correction_required_fields:
+    - image_path
+    - predicted_fine_label
+    - predicted_coarse_label
+    - confidence
+    - reject_reason
+    - human_corrected_label
+    - timestamp
+
+thresholds:
+  fine_confidence_threshold: null
+  coarse_confidence_threshold: null
+  unknown_reject_threshold: null
+  note: >
+    Thresholds must not be guessed at the beginning.
+    They will be tuned later using validation and calibration experiments.

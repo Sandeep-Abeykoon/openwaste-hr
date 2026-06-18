@@ -1,0 +1,10 @@
+fine_id,fine_label,coarse_id,coarse_label,is_known,training_role
+0,paper_cardboard,0,recyclable,true,known_training
+1,plastic,0,recyclable,true,known_training
+2,glass,0,recyclable,true,known_training
+3,metal,0,recyclable,true,known_training
+4,organic,1,organic,true,known_training
+5,e_waste_battery,2,hazardous,true,known_training
+6,residual,3,residual,true,known_training
+-1,unknown,-1,unknown,false,evaluation_and_rejection_only
+-2,manual_review,-2,manual_review,false,user_facing_output_only

@@ -34,6 +34,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-18 | Frozen Taxonomy v1 | Created 7 fine known classes, 4 coarse classes, and reserved unknown/manual-review labels |
 | 2026-06-18 | Added dataset intake plan | Created dataset source plan, manifest template, label mapping template, and validation tests |
 | 2026-06-18 | Added TrashNet manifest builder | Created first dataset intake script for folder-based closed-set baseline data |
+| 2026-06-18 | Added data inspection pipeline | Created manifest-based image loader, image validation, label distribution summaries, and inspection figures |
 
 ## Taxonomy v1 Summary
 
@@ -103,3 +104,34 @@ The generated manifest files are:
 - ml/data/splits/known_test.csv
 
 These files prepare the first baseline training stage.
+
+## TrashNet Data Inspection v1 Summary
+
+The first real TrashNet manifest contains:
+
+| Usage | Count |
+|---|---:|
+| known_train | 1766 |
+| known_val | 377 |
+| known_test | 384 |
+
+Fine-label distribution:
+
+| Fine Label | Count |
+|---|---:|
+| paper_cardboard | 997 |
+| glass | 501 |
+| plastic | 482 |
+| metal | 410 |
+| residual | 137 |
+
+Research observation:
+
+TrashNet is suitable for the first closed-set baseline because it provides simple folder-based waste images. However, it has important limitations for OpenWaste-HR:
+
+1. It does not contain organic waste as a dedicated class.
+2. It does not contain e-waste or battery waste as a dedicated class.
+3. The residual/trash class is much smaller than the other main material classes.
+4. It does not directly test unknown rejection or local adaptation.
+
+Therefore, TrashNet will be used only for the first baseline pipeline. Later stages must add additional dataset sources and local unknown images.

@@ -1,0 +1,28 @@
+project:
+  name: OpenWaste-HR
+  inspection_version: v1
+
+paths:
+  manifest: ml/data/splits/trashnet_manifest_v1.csv
+  taxonomy: ml/configs/taxonomy.yaml
+  output_metrics_dir: ml/outputs/metrics
+  output_figures_dir: ml/outputs/figures
+
+outputs:
+  image_file_report: trashnet_image_file_report_v1.csv
+  usage_counts: trashnet_usage_counts_v1.csv
+  fine_label_counts: trashnet_fine_label_counts_v1.csv
+  coarse_label_counts: trashnet_coarse_label_counts_v1.csv
+  original_label_counts: trashnet_original_label_counts_v1.csv
+  dimension_summary: trashnet_dimension_summary_v1.csv
+  markdown_report: trashnet_inspection_report_v1.md
+  fine_label_distribution_plot: trashnet_fine_label_distribution_v1.png
+  sample_grid: trashnet_sample_grid_v1.png
+
+sampling:
+  sample_grid_images_per_label: 4
+  sample_seed: 42
+
+rules:
+  fail_on_missing_images: true
+  fail_on_unreadable_images: true

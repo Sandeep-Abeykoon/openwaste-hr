@@ -9,6 +9,7 @@ PyYAML
 rich
 
 torchmetrics
+torchvision
 timm
 
 onnx

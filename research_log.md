@@ -35,6 +35,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-18 | Added dataset intake plan | Created dataset source plan, manifest template, label mapping template, and validation tests |
 | 2026-06-18 | Added TrashNet manifest builder | Created first dataset intake script for folder-based closed-set baseline data |
 | 2026-06-18 | Added data inspection pipeline | Created manifest-based image loader, image validation, label distribution summaries, and inspection figures |
+| 2026-06-18 | Added baseline training pipeline | Created PyTorch dataset, label encoder, MobileNetV3 baseline model, and closed-set training script |
 
 ## Taxonomy v1 Summary
 
@@ -135,3 +136,25 @@ TrashNet is suitable for the first closed-set baseline because it provides simpl
 4. It does not directly test unknown rejection or local adaptation.
 
 Therefore, TrashNet will be used only for the first baseline pipeline. Later stages must add additional dataset sources and local unknown images.
+
+## Baseline Training v1 Summary
+
+The first training pipeline prepares a closed-set baseline classifier using TrashNet.
+
+This baseline predicts only the fine labels currently available from TrashNet:
+
+1. paper_cardboard
+2. plastic
+3. glass
+4. metal
+5. residual
+
+The baseline does not yet include:
+
+1. organic
+2. e_waste_battery
+3. unknown rejection
+4. coarse fallback
+5. active learning
+
+This is intentional. The closed-set baseline is needed so that the later OpenWaste-HR method can be compared against a normal forced-classification model.

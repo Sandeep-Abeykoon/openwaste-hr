@@ -1,0 +1,33 @@
+# OpenWaste-HR Research Log
+
+## Project Direction
+
+Selected direction: OpenWaste-HR, a hierarchical open-set waste classification system with reject option, coarse-to-fine fallback, and local active learning.
+
+## Why This Direction Was Selected
+
+The project moves beyond standard closed-set waste classification. Instead of forcing every input into a known class, the system will classify known items, fall back to coarse categories when uncertain, and reject unknown or ambiguous waste items for manual review.
+
+## Initial Research Gap
+
+Most existing waste classification systems are evaluated as closed-set classifiers, while real waste streams are open-world and may contain unknown, mixed, damaged, contaminated, or locally unusual items.
+
+## Initial Implementation Plan
+
+1. Freeze project taxonomy.
+2. Prepare dataset mapping files.
+3. Build closed-set baseline model.
+4. Add confidence/reject-option baseline.
+5. Build hierarchical coarse/fine model.
+6. Evaluate unknown detection.
+7. Add local correction UI.
+8. Run active-learning experiment.
+9. Export model for deployment.
+10. Build final demo and thesis-ready results.
+
+## Decisions
+
+| Date | Decision | Reason |
+|---|---|---|
+| 2026-06-18 | Selected OpenWaste-HR direction | Stronger novelty than standard classifier + XAI + advice system |
+| 2026-06-18 | Repository structure created | Keeps ML, backend, frontend, data, documentation, and experiments organized |

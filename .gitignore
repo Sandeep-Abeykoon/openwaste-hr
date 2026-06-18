@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data - do not push large datasets
+ml/data/raw/
+ml/data/interim/
+ml/data/processed/
+ml/data/local_unknown/
+ml/outputs/checkpoints/
+ml/outputs/exported_models/
+
+# Experiment outputs
+ml/outputs/metrics/
+ml/outputs/figures/
+experiments/
+
+# Environment files
+.env
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

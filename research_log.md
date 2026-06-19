@@ -36,6 +36,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-18 | Added TrashNet manifest builder | Created first dataset intake script for folder-based closed-set baseline data |
 | 2026-06-18 | Added data inspection pipeline | Created manifest-based image loader, image validation, label distribution summaries, and inspection figures |
 | 2026-06-18 | Added baseline training pipeline | Created PyTorch dataset, label encoder, MobileNetV3 baseline model, and closed-set training script |
+| 2026-06-19 | Added confidence-threshold reject baseline | Added first reject-option baseline using validation-selected softmax confidence threshold |
 
 ## Taxonomy v1 Summary
 
@@ -171,3 +172,42 @@ This is intentional. The closed-set baseline is needed so that the later OpenWas
 Training note:
 
 The first official closed-set baseline used MobileNetV3 trained from scratch with class weights and early stopping based on validation macro-F1. The best checkpoint was selected at epoch 34. This baseline is retained as Baseline A. A stronger pretrained baseline may be added later, but the next research step is to evaluate reject-option behaviour.
+
+## Confidence-Threshold Reject Baseline v1 Summary
+
+This stage adds the first reject-option behaviour to OpenWaste-HR.
+
+The closed-set classifier no longer has to force every prediction. Instead:
+
+| Condition | Output |
+|---|---|
+| confidence >= selected threshold | accept fine-label prediction |
+| confidence < selected threshold | manual_review |
+
+The threshold is selected using the validation split only. The test split is used only for final evaluation.
+
+Generated files:
+
+- docs/results/confidence_reject_baseline_v1_report.md
+- docs/results/figures/confidence_reject_coverage_risk_v1.png
+- docs/results/figures/confidence_reject_confidence_histogram_v1.png
+- ml/outputs/metrics/confidence_reject_val_predictions_v1.csv
+- ml/outputs/metrics/confidence_reject_test_predictions_v1.csv
+- ml/outputs/metrics/confidence_reject_threshold_sweep_v1.csv
+- ml/outputs/metrics/confidence_reject_selected_threshold_v1.json
+- ml/outputs/metrics/confidence_reject_test_metrics_v1.json
+
+Research note:
+
+This is the first move from closed-set classification toward safer open-world behaviour. It does not yet detect true unknown classes, but it tests whether uncertain known-class predictions can be rejected for manual review.
+
+### Actual Confidence-Reject v1 Metrics
+
+| Metric | Value |
+|---|---:|
+| Selected threshold | 0.6400 |
+| Test coverage | 0.682292 |
+| Test rejection rate | 0.317708 |
+| Test forced accuracy | 0.692708 |
+| Test selective accuracy | 0.770992 |
+| Test selective macro-F1 | 0.715164 |

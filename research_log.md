@@ -41,6 +41,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-19 | Added local unknown dataset protocol | Created local unknown collection protocol, metadata template, and manifest builder for future unknown/manual-review evaluation |
 | 2026-06-19 | Ran local unknown evaluation | Evaluated softmax confidence, maximum logit, and energy-score rejection on 40 local phone-captured unknown images |
 | 2026-06-19 | Compared corrected reject baselines | Selected confidence-threshold rejection as the safest current baseline before hierarchical fallback |
+| 2026-06-19 | Added hierarchical decision policy | Implemented first fine-label, coarse-fallback, and manual-review decision policy |
 
 ## Taxonomy v1 Summary
 
@@ -357,4 +358,65 @@ Corrected local unknown comparison:
 Important finding:
 
 Even the best current method still falsely accepted 26 out of 40 corrected local unknown images as known labels. This supports the need for the next stage: hierarchical coarse/fine fallback with manual-review logic.
+
+## Hierarchical Decision Policy v1 Summary
+
+This stage adds the first OpenWaste-HR hierarchical decision policy.
+
+The policy can output:
+
+| Decision Type | Meaning |
+|---|---|
+| fine_label | confident fine-grained prediction |
+| coarse_label | broader fallback category when fine prediction is uncertain |
+| manual_review | unsafe, ambiguous, or low-confidence input |
+
+Policy v1 thresholds:
+
+| Threshold | Value |
+|---|---:|
+| fine_confidence_threshold | 0.64 |
+| coarse_confidence_threshold | 0.80 |
+| coarse_margin_threshold | 0.15 |
+| minimum_confidence_for_coarse | 0.35 |
+
+Generated files:
+
+- docs/results/hierarchical_decision_policy_v1_report.md
+- docs/results/figures/hierarchical_decision_distribution_v1.png
+- ml/outputs/metrics/hierarchical_known_test_decisions_v1.csv
+- ml/outputs/metrics/hierarchical_local_unknown_decisions_v1.csv
+- ml/outputs/metrics/hierarchical_decision_policy_metrics_v1.json
+- ml/outputs/metrics/hierarchical_decision_distribution_v1.csv
+
+Research note:
+
+This is the first implementation of the main OpenWaste-HR decision logic. The system no longer has only accept/reject behaviour. It can now return a fine label, fall back to a coarse category, or send the sample to manual review.
+
+### Actual Hierarchical Decision Policy v1 Metrics
+
+Known-test performance:
+
+| Metric | Value |
+|---|---:|
+| Known total samples | 384.0 |
+| Fine decision count | 262.0 |
+| Coarse fallback count | 96.0 |
+| Manual review count | 26.0 |
+| Known decision coverage | 0.932292 |
+| Known manual review rate | 0.067708 |
+| Hierarchical success rate over all | 0.768229 |
+| Hierarchical success rate over accepted | 0.824022 |
+
+Local unknown performance:
+
+| Metric | Value |
+|---|---:|
+| Unknown total samples | 40.0 |
+| Unknown manual review count | 3.0 |
+| Unknown fine accept count | 26.0 |
+| Unknown coarse accept count | 11.0 |
+| Unknown accepted count | 37.0 |
+| Unknown manual review rate | 0.075 |
+| Unknown acceptance rate | 0.925 |
 

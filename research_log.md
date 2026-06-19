@@ -37,6 +37,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-18 | Added data inspection pipeline | Created manifest-based image loader, image validation, label distribution summaries, and inspection figures |
 | 2026-06-18 | Added baseline training pipeline | Created PyTorch dataset, label encoder, MobileNetV3 baseline model, and closed-set training script |
 | 2026-06-19 | Added confidence-threshold reject baseline | Added first reject-option baseline using validation-selected softmax confidence threshold |
+| 2026-06-19 | Added max-logit and energy-score reject baselines | Added logit-based reject-option baselines to compare against softmax confidence thresholding |
 
 ## Taxonomy v1 Summary
 
@@ -211,3 +212,37 @@ This is the first move from closed-set classification toward safer open-world be
 | Test forced accuracy | 0.692708 |
 | Test selective accuracy | 0.770992 |
 | Test selective macro-F1 | 0.715164 |
+
+## Open-Set Score Baseline v1 Summary
+
+This stage adds two logit-based reject baselines:
+
+| Method | Score | Accept Rule |
+|---|---|---|
+| Maximum Logit Score | max(logits) | accept if score >= selected threshold |
+| Energy Score | -T * logsumexp(logits / T) | accept if score <= selected threshold |
+
+The threshold for each score is selected using the validation split only. The known test split is used only for final evaluation.
+
+Generated files:
+
+- docs/results/open_set_score_baseline_v1_report.md
+- docs/results/figures/open_set_score_coverage_risk_v1.png
+- docs/results/figures/open_set_score_histogram_v1.png
+- ml/outputs/metrics/open_set_score_val_predictions_v1.csv
+- ml/outputs/metrics/open_set_score_test_predictions_v1.csv
+- ml/outputs/metrics/open_set_score_threshold_sweep_v1.csv
+- ml/outputs/metrics/open_set_score_selected_thresholds_v1.json
+- ml/outputs/metrics/open_set_score_test_metrics_v1.json
+
+Research note:
+
+This is a stronger reject-option baseline than softmax confidence because it uses raw classifier logits. At this stage, the evaluation still uses known validation and test images. The next unknown-data step is required before claiming true unknown detection performance.
+
+
+### Actual Open-Set Score v1 Metrics
+
+| Method              | Selected Threshold | Test Coverage | Test Rejection Rate | Test Selective Accuracy | Test Selective Macro-F1 |
+| ------------------- | -----------------: | ------------: | ------------------: | ----------------------: | ----------------------: |
+| Maximum Logit Score |           2.185518 |      0.716146 |            0.283854 |                0.760000 |                0.723257 |
+| Energy Score        |          -2.614076 |      0.744792 |            0.255208 |                0.741259 |                0.705525 |

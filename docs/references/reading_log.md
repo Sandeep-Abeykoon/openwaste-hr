@@ -37,3 +37,19 @@ Each implementation feature must connect to a research reason:
 | Unknown/reject option | Avoids confident wrong predictions |
 | Local correction storage | Supports active learning and local adaptation |
 | Evaluation with unknown classes | Tests open-world reliability |
+
+### 6. Open-Set Recognition: A Good Closed-Set Classifier is All You Need?
+
+Use for: maximum logit score baseline and open-set recognition justification.
+
+Research use:
+- Supports the use of maximum logit score as a simple open-set recognition baseline.
+- Helps justify why strong closed-set baselines still matter before unknown detection evaluation.
+
+### 7. Energy-Based Out-of-Distribution Detection
+
+Use for: energy score baseline.
+
+Research use:
+- Supports energy-based scoring from classifier logits.
+- Helps justify why logit-based scoring may be preferable to softmax confidence when testing uncertain or out-of-distribution inputs.

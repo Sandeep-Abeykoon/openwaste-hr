@@ -39,6 +39,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-19 | Added confidence-threshold reject baseline | Added first reject-option baseline using validation-selected softmax confidence threshold |
 | 2026-06-19 | Added max-logit and energy-score reject baselines | Added logit-based reject-option baselines to compare against softmax confidence thresholding |
 | 2026-06-19 | Added local unknown dataset protocol | Created local unknown collection protocol, metadata template, and manifest builder for future unknown/manual-review evaluation |
+| 2026-06-19 | Ran local unknown evaluation | Evaluated softmax confidence, maximum logit, and energy-score rejection on 42 local phone-captured unknown images |
 
 ## Taxonomy v1 Summary
 
@@ -292,3 +293,33 @@ This prepares the project for true unknown-item evaluation. The next stage will 
 Research note:
 
 The first local unknown dataset contains 42 phone-captured difficult or locally shifted waste/object images. These images are not used for closed-set training. They are reserved for unknown/manual-review evaluation, where the system should ideally reject uncertain or out-of-distribution inputs instead of forcing a known fine label.
+
+## Local Unknown Evaluation v1 Summary
+
+This stage evaluates the first local unknown dataset.
+
+The local unknown dataset contains 42 phone-captured images.
+
+For this evaluation, rejection/manual review is treated as desirable behaviour. Acceptance as a known fine label is treated as a false acceptance.
+
+Evaluated methods:
+
+| Method | Score | Accept Rule |
+|---|---|---|
+| Confidence | max softmax confidence | accept if score >= selected threshold |
+| Maximum Logit Score | max(logits) | accept if score >= selected threshold |
+| Energy Score | -T * logsumexp(logits / T) | accept if score <= selected threshold |
+
+Generated files:
+
+- docs/results/local_unknown_evaluation_v1_report.md
+- docs/results/figures/local_unknown_rejection_rates_v1.png
+- docs/results/figures/local_unknown_accepted_label_distribution_v1.png
+- ml/outputs/metrics/local_unknown_predictions_v1.csv
+- ml/outputs/metrics/local_unknown_method_decisions_v1.csv
+- ml/outputs/metrics/local_unknown_evaluation_metrics_v1.json
+- ml/outputs/metrics/local_unknown_accepted_label_distribution_v1.csv
+
+Research note:
+
+This is the first true unknown/manual-review evaluation in the project. It tests the main OpenWaste-HR motivation more directly than closed-set accuracy because the system is evaluated on local unknown images not used in training.

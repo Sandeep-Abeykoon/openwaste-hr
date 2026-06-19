@@ -1,0 +1,40 @@
+project:
+  name: OpenWaste-HR
+  evaluation_stage: local_unknown_manual_review_evaluation
+  version: v1
+
+paths:
+  checkpoint: ml/outputs/checkpoints/baseline_trashnet_v1/baseline_trashnet_best.pt
+  local_unknown_manifest: ml/data/splits/local_unknown_manifest_v1.csv
+  confidence_threshold_json: ml/outputs/metrics/confidence_reject_selected_threshold_v1.json
+  open_set_thresholds_json: ml/outputs/metrics/open_set_score_selected_thresholds_v1.json
+  output_metrics_dir: ml/outputs/metrics
+  output_figures_dir: ml/outputs/figures
+  docs_results_dir: docs/results
+  docs_figures_dir: docs/results/figures
+
+data:
+  image_size: 224
+  batch_size: 16
+  num_workers: 0
+  device: auto
+
+score_methods:
+  confidence:
+    enabled: true
+
+  max_logit:
+    enabled: true
+
+  energy:
+    enabled: true
+    temperature: 1.0
+
+outputs:
+  predictions_csv: local_unknown_predictions_v1.csv
+  method_decisions_csv: local_unknown_method_decisions_v1.csv
+  metrics_json: local_unknown_evaluation_metrics_v1.json
+  accepted_label_distribution_csv: local_unknown_accepted_label_distribution_v1.csv
+  rejection_rate_plot: local_unknown_rejection_rates_v1.png
+  accepted_label_plot: local_unknown_accepted_label_distribution_v1.png
+  markdown_report: local_unknown_evaluation_v1_report.md

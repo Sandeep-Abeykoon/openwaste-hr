@@ -65,4 +65,7 @@ Ready rows: 0
 
 This stage validates and processes human annotations from the active learning workflow.
 
-If the labelling sheet has not yet been filled, the expected result is that all rows remain pending review. After human annotation, this same script can be rerun to identify samples that are ready to be added to the next dataset version.
+Since the human labelling sheet has not yet been filled, all 20 selected active learning candidates remain pending review. This is the expected result at this stage.
+
+After human annotations are added, the same script can be rerun to identify samples that are ready to be added to the next dataset version.
+

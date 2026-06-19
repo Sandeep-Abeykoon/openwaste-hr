@@ -39,7 +39,8 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-19 | Added confidence-threshold reject baseline | Added first reject-option baseline using validation-selected softmax confidence threshold |
 | 2026-06-19 | Added max-logit and energy-score reject baselines | Added logit-based reject-option baselines to compare against softmax confidence thresholding |
 | 2026-06-19 | Added local unknown dataset protocol | Created local unknown collection protocol, metadata template, and manifest builder for future unknown/manual-review evaluation |
-| 2026-06-19 | Ran local unknown evaluation | Evaluated softmax confidence, maximum logit, and energy-score rejection on 42 local phone-captured unknown images |
+| 2026-06-19 | Ran local unknown evaluation | Evaluated softmax confidence, maximum logit, and energy-score rejection on 40 local phone-captured unknown images |
+| 2026-06-19 | Compared corrected reject baselines | Selected confidence-threshold rejection as the safest current baseline before hierarchical fallback |
 
 ## Taxonomy v1 Summary
 
@@ -280,20 +281,6 @@ Research note:
 
 This prepares the project for true unknown-item evaluation. The next stage will use the current softmax confidence, maximum logit, and energy-score baselines to test whether local unknown images are correctly routed to manual review.
 
-### Actual Local Unknown Dataset v1
-
-| Item | Value |
-|---|---:|
-| Local captured images | 42 |
-| Usage | unknown_test |
-| Fine label | unknown |
-| Coarse label | unknown |
-| Source dataset | local_phone_images |
-
-Research note:
-
-The first local unknown dataset contains 42 phone-captured difficult or locally shifted waste/object images. These images are not used for closed-set training. They are reserved for unknown/manual-review evaluation, where the system should ideally reject uncertain or out-of-distribution inputs instead of forcing a known fine label.
-
 ## Local Unknown Dataset 
 
 The first local image collection included some items that were too close to known TrashNet-trained categories. Therefore, those local unknown evaluation results are not treated as final unknown-detection evidence.
@@ -327,3 +314,47 @@ This corrected local unknown dataset is used to test whether OpenWaste-HR can ro
 Research note:
 
 This is the first true unknown/manual-review evaluation in the project. It tests the main OpenWaste-HR motivation more directly than closed-set accuracy because the system is evaluated on local unknown images not used in training.
+
+### Local Unknown Evaluation v1 Metrics
+
+| Method              | Unknown Samples | Rejected Unknown Count | Accepted Unknown as Known Count | Unknown Rejection Rate | Unknown False Acceptance Rate |
+| ------------------- | --------------: | ---------------------: | ------------------------------: | ---------------------: | ----------------------------: |
+| Confidence          |              40 |                     14 |                              26 |               0.350000 |                      0.650000 |
+| Maximum Logit Score |              40 |                     11 |                              29 |               0.275000 |                      0.725000 |
+| Energy Score        |              40 |                      8 |                              32 |               0.200000 |                      0.800000 |
+
+Interpretation:
+
+This corrected evaluation uses the recreated 40-image local unknown dataset. The previous 42-image local unknown result is not treated as final evidence because the earlier dataset contained some images that were too close to known TrashNet-trained classes.
+
+Among the three reject baselines, the confidence-threshold method produced the strongest unknown rejection result. It rejected 14 out of 40 unknown/manual-review images, giving an unknown rejection rate of 0.350000. Maximum Logit Score rejected 11 out of 40 images, while Energy Score rejected 8 out of 40 images.
+
+However, even the best method still accepted 26 out of 40 unknown images as known labels. This shows that simple threshold-based rejection is not sufficient for reliable open-world deployment. Therefore, the next stage should introduce hierarchical coarse/fine fallback with manual-review logic.
+
+## Corrected Reject Baseline Comparison v1 Summary
+
+The reject baselines were compared using known-test selective performance and the corrected 40-image local unknown/manual-review dataset.
+
+Decision:
+
+Confidence-threshold rejection is selected as the current safest reject baseline before hierarchical fallback.
+
+Reason:
+
+* Maximum Logit Score produced the best known-test selective macro-F1.
+* Confidence Threshold produced the best corrected local unknown rejection rate.
+* Energy Score performed weakest on the corrected local unknown set.
+* The project prioritises safe handling of unknown/local difficult inputs, not only known-test selective accuracy.
+
+Corrected local unknown comparison:
+
+| Method              | Unknown Samples | Rejected Unknown Count | Accepted Unknown as Known Count | Unknown Rejection Rate | Unknown False Acceptance Rate |
+| ------------------- | --------------: | ---------------------: | ------------------------------: | ---------------------: | ----------------------------: |
+| Confidence          |              40 |                     14 |                              26 |               0.350000 |                      0.650000 |
+| Maximum Logit Score |              40 |                     11 |                              29 |               0.275000 |                      0.725000 |
+| Energy Score        |              40 |                      8 |                              32 |               0.200000 |                      0.800000 |
+
+Important finding:
+
+Even the best current method still falsely accepted 26 out of 40 corrected local unknown images as known labels. This supports the need for the next stage: hierarchical coarse/fine fallback with manual-review logic.
+

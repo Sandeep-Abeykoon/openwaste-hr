@@ -671,3 +671,31 @@ Research note:
 
 This stage prepares the selected active learning candidates for human review. It creates a practical annotation workflow for converting model-identified uncertain and risky local samples into labelled feedback.
 
+## Reviewed Human Label Processing v1 Summary
+
+This stage processes the human labelling sheet and converts each row into a review status and dataset action.
+
+Input:
+
+* ml/outputs/metrics/human_labelling_sheet_v1.csv
+
+Outputs:
+
+* ml/outputs/metrics/reviewed_label_decisions_v1.csv
+* ml/outputs/metrics/reviewed_label_ready_for_dataset_v1.csv
+* ml/outputs/metrics/reviewed_label_status_summary_v1.json
+* docs/results/reviewed_label_processing_v1_report.md
+
+Expected current status:
+
+| Metric                 | Value |
+| ---------------------- | ----: |
+| Total rows             |    20 |
+| Reviewed rows          |     0 |
+| Pending review rows    |    20 |
+| Invalid review rows    |     0 |
+| Ready for dataset rows |     0 |
+
+Research note:
+
+At this stage the human labelling sheet has been created but not filled. Therefore, all 20 rows are expected to remain pending review. After human annotation is added, the same processing script can be rerun to identify rows that are ready for the next dataset version.

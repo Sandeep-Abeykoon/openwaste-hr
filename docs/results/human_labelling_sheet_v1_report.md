@@ -50,3 +50,6 @@ This report documents the human labelling sheet created from the active learning
 This stage prepares the active learning candidates for human review.
 
 The reviewed annotations can later be used to identify new local labels, confirm mixed or unclear waste cases, and decide which samples should be added to the next dataset version.
+
+This completes the first active learning feedback workflow in OpenWaste-HR: the model selects useful local unknown samples, and the human labelling sheet prepares them for structured review.
+

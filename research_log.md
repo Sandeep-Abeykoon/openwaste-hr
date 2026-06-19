@@ -512,3 +512,40 @@ Safe hierarchical tuning improves local unknown safety but introduces a clear co
 This supports the OpenWaste-HR argument that open-world waste classification should not only optimise accuracy. It must also manage uncertainty, reject unsafe inputs, and use manual review for ambiguous local cases.
 
 
+## Final Policy Comparison v1 Summary
+
+This stage compares the main OpenWaste-HR decision policies.
+
+Compared methods:
+
+| Method                             | Output Types                               |
+| ---------------------------------- | ------------------------------------------ |
+| Closed-set baseline                | fine label only                            |
+| Confidence-threshold reject        | fine label or manual review                |
+| Hierarchical decision policy v1    | fine label, coarse label, or manual review |
+| Safe hierarchical policy tuning v1 | fine label, coarse label, or manual review |
+
+Key comparison:
+
+| Method                             | Known Coverage | Local Unknown Manual Review Rate | Main Interpretation                                                        |
+| ---------------------------------- | -------------: | -------------------------------: | -------------------------------------------------------------------------- |
+| Closed-set baseline                |       1.000000 |                         0.000000 | always predicts a known label                                              |
+| Confidence-threshold reject        |       0.682292 |                         0.350000 | best simple reject baseline                                                |
+| Hierarchical decision policy v1    |       0.932292 |                         0.075000 | useful for known-test fallback but too permissive for local unknown images |
+| Safe hierarchical policy tuning v1 |       0.658854 |                         0.375000 | safest current hierarchical policy                                         |
+
+Final current decision:
+
+Safe hierarchical policy tuning v1 is selected as the current OpenWaste-HR decision policy.
+
+Reason:
+
+* it supports fine-label, coarse-label, and manual-review outputs
+* it improves manual-review routing for local unknown images
+* it gives high accepted-decision reliability on known-test samples
+* it demonstrates the project’s key coverage-safety trade-off
+
+Research conclusion:
+
+OpenWaste-HR should not be evaluated only as a normal waste classifier. The important contribution is uncertainty-aware decision-making: the system can choose between detailed prediction, coarse fallback, and manual review.
+

@@ -2,77 +2,93 @@
 
 ## Purpose
 
-This protocol defines how OpenWaste-HR collects and records local unknown or difficult waste images.
+This protocol defines the corrected local unknown dataset for OpenWaste-HR.
 
-The aim is to create a small local evaluation dataset that tests whether the system can send uncertain, ambiguous, shifted, or locally unusual waste items to manual review instead of forcing a wrong known label.
+The local unknown dataset must contain images that should not be confidently classified into the current closed-set baseline labels.
 
-## Why This Dataset Is Needed
+The current TrashNet baseline model is trained only on:
 
-The first TrashNet baseline only evaluates known classes.
+1. paper_cardboard
+2. plastic
+3. glass
+4. metal
+5. residual
 
-However, the OpenWaste-HR research problem is about open-world reliability. Real waste streams may include objects that are:
+Therefore, the local unknown dataset should contain items that are outside these trained labels, visually ambiguous, mixed-material, or unsafe to classify confidently from an image.
 
-- unknown to the training label space
-- mixed-material
-- damaged or deformed
-- contaminated
-- locally specific
-- visually ambiguous
-- photographed under different lighting or backgrounds
+## What Should Be Captured
 
-Therefore, a local unknown dataset is required before claiming unknown/manual-review performance.
+Capture safe household or local objects that are not clear examples of the trained classes.
+
+Good examples:
+
+| Example | Reason |
+|---|---|
+| textile / cloth waste | outside current trained labels |
+| wood pieces | outside current trained labels |
+| ceramic item | outside current trained labels |
+| rubber item | outside current trained labels |
+| sponge / foam item | outside current trained labels |
+| shoe/slipper piece | outside current trained labels |
+| mixed-material laminated packet | difficult/ambiguous |
+| dirty mixed-material item | difficult to classify safely |
+| crushed or deformed object | visual distribution shift |
+| unclear local packaging | manual-review candidate |
+
+## What Should Not Be Used in This Dataset
+
+Do not include clear examples of the current trained classes.
+
+Avoid using:
+
+| Avoid | Reason |
+|---|---|
+| clear plastic bottle | belongs to plastic |
+| clear metal can | belongs to metal |
+| clear glass bottle or jar | belongs to glass |
+| clear paper/cardboard | belongs to paper_cardboard |
+| normal TrashNet-like trash wrapper | may belong to residual |
+
+These images can be used later for a separate local known challenge dataset, but not for the pure unknown/manual-review evaluation.
+
+## Ambiguous Items
+
+Some items may contain plastic, metal, or paper but still be difficult because they are mixed, dirty, reflective, damaged, or unclear.
+
+These can be included only if the intended behaviour is manual review.
+
+Example:
+
+| Item | Include? | Reason |
+|---|---|---|
+| shiny mixed snack packet | yes | mixed/reflective/manual-review |
+| dirty food packaging | yes | contamination makes class uncertain |
+| clear clean plastic bottle | no | known plastic class |
+| clean aluminium can | no | known metal class |
 
 ## Safety Rule
 
-Only photograph safe household or public waste items.
+Only photograph safe items.
 
-Do not handle dangerous waste directly. Do not break glass, open batteries, touch sharp objects, open medicine containers, or handle chemical containers. If an item looks unsafe, skip it.
+Do not handle broken glass, sharp objects, leaking batteries, chemicals, medicine waste, or anything unsafe. If an item looks unsafe, skip it.
 
 ## Collection Target
 
-Initial target:
+Minimum for first corrected evaluation:
 
-| Type | Target Count |
+| Dataset | Target |
 |---|---:|
-| local unknown / difficult images | 30 to 50 |
-| minimum for first test | 20 |
+| corrected local unknown images | 30 to 50 |
 
-Later target:
+Recommended first target:
 
-| Type | Target Count |
+| Dataset | Target |
 |---|---:|
-| stronger local unknown dataset | 100+ |
+| corrected local unknown images | 40 |
 
-## Image Capture Rules
+## Manifest Rule
 
-For each image:
-
-1. Use a phone camera.
-2. Capture one main waste item if possible.
-3. Include some difficult cases, but keep them safe.
-4. Use different backgrounds.
-5. Use different lighting conditions.
-6. Avoid showing faces, people, addresses, or private information.
-7. Do not edit images heavily.
-
-## Good Unknown/Difficult Examples
-
-| Example | Why useful |
-|---|---|
-| shiny food wrapper | reflective mixed-material packaging |
-| dirty plastic container | plastic vs residual ambiguity |
-| crushed packaging | deformation |
-| local Sri Lankan packaging | local domain shift |
-| multi-layer snack packet | mixed-material uncertainty |
-| stained paper packaging | paper/cardboard vs residual ambiguity |
-| unusual cable/charger | possible e-waste-like item |
-| unclear object under poor lighting | low-confidence/manual-review case |
-
-## Labels
-
-For the first unknown evaluation, these images are not treated as known training classes.
-
-They use:
+Every image in this corrected dataset should use:
 
 | Field | Value |
 |---|---|
@@ -81,20 +97,10 @@ They use:
 | fine_label | unknown |
 | coarse_label | unknown |
 | is_known | false |
+| usage | unknown_test |
 
-## Usage Values
+## Research Note
 
-Allowed usage values:
+This corrected dataset is used only for unknown/manual-review evaluation.
 
-| Usage | Meaning |
-|---|---|
-| unknown_test | used for unknown/manual-review evaluation |
-| local_unknown | local unknown dataset storage |
-| active_learning_candidate | later human-correction/adaptation candidate |
-
-## Manifest Output
-
-The manifest builder creates:
-
-```text
-ml/data/splits/local_unknown_manifest_v1.csv
+It must not be used to train the first closed-set baseline.

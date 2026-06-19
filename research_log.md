@@ -294,32 +294,36 @@ Research note:
 
 The first local unknown dataset contains 42 phone-captured difficult or locally shifted waste/object images. These images are not used for closed-set training. They are reserved for unknown/manual-review evaluation, where the system should ideally reject uncertain or out-of-distribution inputs instead of forcing a known fine label.
 
-## Local Unknown Evaluation v1 Summary
+## Local Unknown Dataset 
 
-This stage evaluates the first local unknown dataset.
+The first local image collection included some items that were too close to known TrashNet-trained categories. Therefore, those local unknown evaluation results are not treated as final unknown-detection evidence.
 
-The local unknown dataset contains 42 phone-captured images.
+The local unknown dataset was recreated using a corrected 40-image phone-captured dataset. The corrected dataset contains unknown, ambiguous, mixed-material, damaged, contaminated, e-waste-like, textile, rubber, foam, wood, ceramic-like, and manual-review-style local items.
 
-For this evaluation, rejection/manual review is treated as desirable behaviour. Acceptance as a known fine label is treated as a false acceptance.
+The corrected collection sheet was also checked so that each row matches the same image number, for example local_000001 describes local_000001.jpg.
 
-Evaluated methods:
+The corrected dataset is reserved only for unknown/manual-review evaluation and is not used for closed-set training.
 
-| Method | Score | Accept Rule |
-|---|---|---|
-| Confidence | max softmax confidence | accept if score >= selected threshold |
-| Maximum Logit Score | max(logits) | accept if score >= selected threshold |
-| Energy Score | -T * logsumexp(logits / T) | accept if score <= selected threshold |
+# Local Unknown Dataset v1 Summary
+
+| Item | Value |
+|---|---:|
+| Local unknown images | 40 |
+| Usage | unknown_test |
+| Fine label | unknown |
+| Coarse label | unknown |
+| Source dataset | local_phone_images |
 
 Generated files:
 
-- docs/results/local_unknown_evaluation_v1_report.md
-- docs/results/figures/local_unknown_rejection_rates_v1.png
-- docs/results/figures/local_unknown_accepted_label_distribution_v1.png
-- ml/outputs/metrics/local_unknown_predictions_v1.csv
-- ml/outputs/metrics/local_unknown_method_decisions_v1.csv
-- ml/outputs/metrics/local_unknown_evaluation_metrics_v1.json
-- ml/outputs/metrics/local_unknown_accepted_label_distribution_v1.csv
+- ml/data/local_unknown/images/local_000001.jpg to local_000040.jpg
+- ml/data/splits/local_unknown_collection_sheet_v1.csv
+- ml/data/splits/local_unknown_manifest_v1.csv
+- ml/data/splits/local_unknown_image_renaming_map_v1.csv
 
+Research note:
+
+This corrected local unknown dataset is used to test whether OpenWaste-HR can route unknown or ambiguous local phone-captured images to manual review instead of forcing them into known TrashNet-derived fine labels.
 Research note:
 
 This is the first true unknown/manual-review evaluation in the project. It tests the main OpenWaste-HR motivation more directly than closed-set accuracy because the system is evaluated on local unknown images not used in training.

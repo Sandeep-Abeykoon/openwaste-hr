@@ -549,3 +549,51 @@ Research conclusion:
 
 OpenWaste-HR should not be evaluated only as a normal waste classifier. The important contribution is uncertainty-aware decision-making: the system can choose between detailed prediction, coarse fallback, and manual review.
 
+## Active Learning Candidate Selection v1 Summary
+
+This stage selects local unknown dataset images for human labelling.
+
+The candidate selector uses the safe hierarchical policy decisions and ranks samples using:
+
+| Factor                    | Purpose                                                   |
+| ------------------------- | --------------------------------------------------------- |
+| decision priority         | prioritises manual-review and suspicious accepted samples |
+| prediction entropy        | prioritises uncertain probability distributions           |
+| confidence uncertainty    | prioritises lower-confidence predictions                  |
+| coarse margin uncertainty | prioritises unstable coarse decisions                     |
+
+Selection configuration:
+
+| Setting                     | Value |
+| --------------------------- | ----: |
+| Total local unknown samples |    40 |
+| Selected candidates         |    20 |
+| Manual-review quota         |    12 |
+| Coarse-label quota          |     4 |
+| Fine-label quota            |     4 |
+
+Actual candidate summary:
+
+| Metric                     |    Value |
+| -------------------------- | -------: |
+| Selected candidate count   |       20 |
+| Manual-review candidates   |       12 |
+| Coarse-label candidates    |        4 |
+| Fine-label candidates      |        4 |
+| Mean active learning score | 0.616382 |
+| Max active learning score  | 0.846766 |
+| Min active learning score  | 0.306373 |
+
+Generated files:
+
+* docs/results/active_learning_candidate_selection_v1_report.md
+* docs/results/figures/active_learning_candidate_scores_v1.png
+* ml/outputs/metrics/active_learning_candidates_v1.csv
+* ml/outputs/metrics/active_learning_candidate_summary_v1.json
+* ml/outputs/metrics/active_learning_candidate_distribution_v1.csv
+
+Research note:
+
+This stage creates the first local active learning loop. The system identifies which local unknown images should be labelled by a human next, instead of treating all unlabelled images equally.
+
+The selected batch contains 20 candidates: 12 manual-review cases, 4 coarse-label cases, and 4 fine-label cases. This gives a balanced human-labelling batch that includes uncertain samples, broad fallback cases, and suspicious accepted predictions.

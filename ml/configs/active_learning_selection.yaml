@@ -1,0 +1,38 @@
+project:
+  name: OpenWaste-HR
+  evaluation_stage: active_learning_candidate_selection
+  version: v1
+
+paths:
+  local_unknown_decisions_csv: ml/outputs/metrics/safe_hierarchical_local_unknown_decisions_v1.csv
+  local_unknown_collection_sheet_csv: ml/data/splits/local_unknown_collection_sheet_v1.csv
+  output_metrics_dir: ml/outputs/metrics
+  output_figures_dir: ml/outputs/figures
+  docs_results_dir: docs/results
+  docs_figures_dir: docs/results/figures
+
+selection:
+  total_candidates: 20
+
+  quota_by_decision_type:
+    manual_review: 12
+    coarse_label: 4
+    fine_label: 4
+
+  decision_priority_weights:
+    manual_review: 1.00
+    coarse_label: 0.75
+    fine_label: 0.60
+
+  score_weights:
+    decision_priority: 0.45
+    entropy: 0.25
+    confidence_uncertainty: 0.20
+    coarse_margin_uncertainty: 0.10
+
+outputs:
+  candidates_csv: active_learning_candidates_v1.csv
+  summary_json: active_learning_candidate_summary_v1.json
+  decision_distribution_csv: active_learning_candidate_distribution_v1.csv
+  candidate_score_plot: active_learning_candidate_scores_v1.png
+  markdown_report: active_learning_candidate_selection_v1_report.md

@@ -597,3 +597,35 @@ Research note:
 This stage creates the first local active learning loop. The system identifies which local unknown images should be labelled by a human next, instead of treating all unlabelled images equally.
 
 The selected batch contains 20 candidates: 12 manual-review cases, 4 coarse-label cases, and 4 fine-label cases. This gives a balanced human-labelling batch that includes uncertain samples, broad fallback cases, and suspicious accepted predictions.
+
+
+## Human Labelling Sheet v1 Summary
+
+This stage creates a human labelling sheet for the selected active learning candidates.
+
+Input:
+
+* ml/outputs/metrics/active_learning_candidates_v1.csv
+
+Output:
+
+* ml/outputs/metrics/human_labelling_sheet_v1.csv
+* ml/outputs/metrics/human_labelling_instructions_v1.md
+* docs/results/human_labelling_sheet_v1_report.md
+
+The sheet contains 20 active learning candidates and includes empty human annotation columns:
+
+| Human Annotation Column | Purpose                                                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------- |
+| human_decision          | reviewer decision such as known label, new class, mixed waste, unclear image, or remove sample |
+| human_fine_label        | existing fine label if applicable                                                              |
+| human_coarse_label      | broader category if applicable                                                                 |
+| proposed_new_label      | new local label suggestion                                                                     |
+| human_confidence        | reviewer confidence                                                                            |
+| human_notes             | reviewer explanation                                                                           |
+| reviewed_by             | reviewer identifier                                                                            |
+| review_date             | annotation date                                                                                |
+
+Research note:
+
+This stage prepares the selected active learning candidates for human review. It creates a practical annotation workflow for converting model-identified uncertain and risky local samples into labelled feedback.

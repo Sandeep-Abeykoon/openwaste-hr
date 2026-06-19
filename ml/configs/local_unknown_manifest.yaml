@@ -1,0 +1,23 @@
+project:
+  name: OpenWaste-HR
+  dataset_stage: local_unknown_manifest
+  version: v1
+
+paths:
+  collection_csv: ml/data/splits/local_unknown_collection_sheet_v1.csv
+  output_manifest: ml/data/splits/local_unknown_manifest_v1.csv
+  taxonomy: ml/configs/taxonomy.yaml
+
+rules:
+  source_dataset: local_phone_images
+  source_split: unknown_test
+  original_label: unknown
+  fine_label: unknown
+  coarse_label: unknown
+  is_known: false
+  license_notes: Own local phone image
+  allowed_usage:
+    - unknown_test
+    - local_unknown
+    - active_learning_candidate
+  require_image_files_exist: true

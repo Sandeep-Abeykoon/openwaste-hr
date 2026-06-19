@@ -38,6 +38,7 @@ Most existing waste classification systems are evaluated as closed-set classifie
 | 2026-06-18 | Added baseline training pipeline | Created PyTorch dataset, label encoder, MobileNetV3 baseline model, and closed-set training script |
 | 2026-06-19 | Added confidence-threshold reject baseline | Added first reject-option baseline using validation-selected softmax confidence threshold |
 | 2026-06-19 | Added max-logit and energy-score reject baselines | Added logit-based reject-option baselines to compare against softmax confidence thresholding |
+| 2026-06-19 | Added local unknown dataset protocol | Created local unknown collection protocol, metadata template, and manifest builder for future unknown/manual-review evaluation |
 
 ## Taxonomy v1 Summary
 
@@ -246,3 +247,48 @@ This is a stronger reject-option baseline than softmax confidence because it use
 | ------------------- | -----------------: | ------------: | ------------------: | ----------------------: | ----------------------: |
 | Maximum Logit Score |           2.185518 |      0.716146 |            0.283854 |                0.760000 |                0.723257 |
 | Energy Score        |          -2.614076 |      0.744792 |            0.255208 |                0.741259 |                0.705525 |
+
+
+## Local Unknown Dataset Protocol v1 Summary
+
+This stage prepares the first local unknown dataset pipeline.
+
+The local unknown dataset will contain safe phone-camera images of difficult, ambiguous, mixed-material, damaged, contaminated, reflective, or locally specific waste items.
+
+These images are not used as normal known-class training data.
+
+They are assigned:
+
+| Field | Value |
+|---|---|
+| source_dataset | local_phone_images |
+| original_label | unknown |
+| fine_label | unknown |
+| coarse_label | unknown |
+| is_known | false |
+
+Allowed usage values:
+
+| Usage | Purpose |
+|---|---|
+| unknown_test | unknown/manual-review evaluation |
+| local_unknown | local difficult sample storage |
+| active_learning_candidate | later human-correction/adaptation experiment |
+
+Research note:
+
+This prepares the project for true unknown-item evaluation. The next stage will use the current softmax confidence, maximum logit, and energy-score baselines to test whether local unknown images are correctly routed to manual review.
+
+### Actual Local Unknown Dataset v1
+
+| Item | Value |
+|---|---:|
+| Local captured images | 42 |
+| Usage | unknown_test |
+| Fine label | unknown |
+| Coarse label | unknown |
+| Source dataset | local_phone_images |
+
+Research note:
+
+The first local unknown dataset contains 42 phone-captured difficult or locally shifted waste/object images. These images are not used for closed-set training. They are reserved for unknown/manual-review evaluation, where the system should ideally reject uncertain or out-of-distribution inputs instead of forcing a known fine label.

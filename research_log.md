@@ -756,6 +756,33 @@ The inference pipeline uses the selected safe hierarchical policy thresholds:
 | coarse_margin_threshold       | 0.650000 |
 | minimum_confidence_for_coarse | 0.650000 |
 
+Actual single-image inference result:
+
+| Field                         | Value                                         |
+| ----------------------------- | --------------------------------------------- |
+| sample_id                     | local_000001                                  |
+| image_path                    | ml/data/local_unknown/images/local_000001.jpg |
+| device                        | cuda                                          |
+| pred_label                    | plastic                                       |
+| max_softmax_confidence        | 0.962933                                      |
+| top_coarse_label              | recyclable                                    |
+| top_coarse_confidence         | 0.999999                                      |
+| coarse_margin                 | 0.999999                                      |
+| hierarchical_decision_type    | fine_label                                    |
+| hierarchical_final_label      | plastic                                       |
+| hierarchical_final_confidence | 0.962933                                      |
+| hierarchical_decision_reason  | fine_confidence_high                          |
+
+Fine-label probability output:
+
+| Fine Label      | Probability |
+| --------------- | ----------: |
+| paper_cardboard |    0.002948 |
+| plastic         |    0.962933 |
+| glass           |    0.026874 |
+| metal           |    0.007244 |
+| residual        |    0.000000 |
+
 Generated files:
 
 * ml/src/openwaste_hr/inference/single_image_inference.py
@@ -768,19 +795,6 @@ Research note:
 
 This stage turns the experimental OpenWaste-HR pipeline into a usable single-image inference component. It demonstrates how a new image can be processed into a final fine-label, coarse-label, or manual-review decision.
 
-### Actual Single Image Inference v1 Result
-
-| Field | Value |
-|---|---|
-| sample_id | local_000001 |
-| image_path | ml/data/local_unknown/images/local_000001.jpg |
-| pred_label | plastic |
-| max_softmax_confidence | 0.962933 |
-| top_coarse_label | recyclable |
-| top_coarse_confidence | 0.999999 |
-| coarse_margin | 0.999999 |
-| hierarchical_decision_type | fine_label |
-| hierarchical_final_label | plastic |
-| hierarchical_decision_reason | fine_confidence_high |
+The first inference run predicted `plastic` for `local_000001` with high confidence, so the safe hierarchical policy returned a fine-label decision.
 
 

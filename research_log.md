@@ -730,3 +730,57 @@ Research note:
 
 At this stage the human labelling sheet has been created but not filled. Therefore, all 20 rows are expected to remain pending review. After human annotation is added, the same processing script can be rerun to identify rows that are ready for the next dataset version.
 
+## Inference Pipeline v1 Summary
+
+This stage creates the first single-image inference pipeline for OpenWaste-HR.
+
+The pipeline accepts one image path and returns:
+
+| Output                       | Meaning                                        |
+| ---------------------------- | ---------------------------------------------- |
+| pred_label                   | model’s top fine-label prediction              |
+| max_softmax_confidence       | confidence of the top fine prediction          |
+| top_coarse_label             | aggregated coarse-label prediction             |
+| top_coarse_confidence        | confidence of the top coarse group             |
+| coarse_margin                | separation between top and second coarse group |
+| hierarchical_decision_type   | fine_label, coarse_label, or manual_review     |
+| hierarchical_final_label     | final OpenWaste-HR output                      |
+| hierarchical_decision_reason | explanation of the final decision              |
+
+The inference pipeline uses the selected safe hierarchical policy thresholds:
+
+| Threshold                     |    Value |
+| ----------------------------- | -------: |
+| fine_confidence_threshold     | 0.900000 |
+| coarse_confidence_threshold   | 0.800000 |
+| coarse_margin_threshold       | 0.650000 |
+| minimum_confidence_for_coarse | 0.650000 |
+
+Generated files:
+
+* ml/src/openwaste_hr/inference/single_image_inference.py
+* ml/configs/inference_pipeline.yaml
+* docs/methodology/inference_pipeline_v1.md
+* ml/outputs/metrics/single_image_inference_result_v1.json
+* ml/outputs/metrics/single_image_inference_result_v1.md
+
+Research note:
+
+This stage turns the experimental OpenWaste-HR pipeline into a usable single-image inference component. It demonstrates how a new image can be processed into a final fine-label, coarse-label, or manual-review decision.
+
+### Actual Single Image Inference v1 Result
+
+| Field | Value |
+|---|---|
+| sample_id | local_000001 |
+| image_path | ml/data/local_unknown/images/local_000001.jpg |
+| pred_label | plastic |
+| max_softmax_confidence | 0.962933 |
+| top_coarse_label | recyclable |
+| top_coarse_confidence | 0.999999 |
+| coarse_margin | 0.999999 |
+| hierarchical_decision_type | fine_label |
+| hierarchical_final_label | plastic |
+| hierarchical_decision_reason | fine_confidence_high |
+
+

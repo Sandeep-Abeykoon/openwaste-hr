@@ -397,26 +397,49 @@ This is the first implementation of the main OpenWaste-HR decision logic. The sy
 
 Known-test performance:
 
-| Metric | Value |
-|---|---:|
-| Known total samples | 384.0 |
-| Fine decision count | 262.0 |
-| Coarse fallback count | 96.0 |
-| Manual review count | 26.0 |
-| Known decision coverage | 0.932292 |
-| Known manual review rate | 0.067708 |
-| Hierarchical success rate over all | 0.768229 |
+| Metric                                  |    Value |
+| --------------------------------------- | -------: |
+| Known total samples                     |      384 |
+| Fine decision count                     |      262 |
+| Coarse fallback count                   |       96 |
+| Manual review count                     |       26 |
+| Known decision coverage                 | 0.932292 |
+| Known manual review rate                | 0.067708 |
+| Fine correct count                      |      202 |
+| Coarse correct count                    |       93 |
+| Hierarchical success count              |      295 |
+| Fine accuracy on fine decisions         | 0.770992 |
+| Coarse accuracy on coarse decisions     | 0.968750 |
+| Hierarchical success rate over all      | 0.768229 |
 | Hierarchical success rate over accepted | 0.824022 |
 
 Local unknown performance:
 
-| Metric | Value |
-|---|---:|
-| Unknown total samples | 40.0 |
-| Unknown manual review count | 3.0 |
-| Unknown fine accept count | 26.0 |
-| Unknown coarse accept count | 11.0 |
-| Unknown accepted count | 37.0 |
-| Unknown manual review rate | 0.075 |
-| Unknown acceptance rate | 0.925 |
+| Metric                      |    Value |
+| --------------------------- | -------: |
+| Unknown total samples       |       40 |
+| Unknown manual review count |        3 |
+| Unknown fine accept count   |       26 |
+| Unknown coarse accept count |       11 |
+| Unknown accepted count      |       37 |
+| Unknown manual review rate  | 0.075000 |
+| Unknown acceptance rate     | 0.925000 |
 
+Decision distribution:
+
+| Dataset       | Fine Label | Coarse Label | Manual Review |
+| ------------- | ---------: | -----------: | ------------: |
+| Known test    |        262 |           96 |            26 |
+| Local unknown |         26 |           11 |             3 |
+
+Interpretation:
+
+Hierarchical Decision Policy v1 improved known-test usefulness because it accepted 358 out of 384 known-test images through either fine-label or coarse-label output. This gave a known decision coverage of 0.932292 and a hierarchical success rate of 0.824022 over accepted known-test decisions.
+
+The coarse fallback was highly reliable on known-test samples, with 93 correct coarse decisions out of 96 coarse fallback decisions. This produced a coarse accuracy of 0.968750 on coarse decisions.
+
+However, the local unknown result shows that Policy v1 is still too permissive for open-world use. Only 3 out of 40 local unknown images were routed to manual review, while 37 were still accepted as either fine or coarse outputs. This means the unknown manual review rate was only 0.075000 and the unknown acceptance rate was 0.925000.
+
+Research conclusion:
+
+Policy v1 successfully proves that the system can produce fine-label, coarse-label, and manual-review outputs. However, it is not safe enough for unknown handling because the coarse fallback accepts too many unknown images. The next stage should tune the hierarchical policy so that coarse fallback is allowed for known-class uncertainty but restricted for local unknown or unsafe inputs.

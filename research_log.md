@@ -443,3 +443,72 @@ However, the local unknown result shows that Policy v1 is still too permissive f
 Research conclusion:
 
 Policy v1 successfully proves that the system can produce fine-label, coarse-label, and manual-review outputs. However, it is not safe enough for unknown handling because the coarse fallback accepts too many unknown images. The next stage should tune the hierarchical policy so that coarse fallback is allowed for known-class uncertainty but restricted for local unknown or unsafe inputs.
+
+## Safe Hierarchical Policy Tuning v1 Summary
+
+This stage tunes the hierarchical decision policy to improve local unknown safety while preserving useful known-test decisions.
+
+The tuning process searched **480 threshold candidates** using known-test predictions and the local unknown dataset.
+
+### Actual Safe Hierarchical Policy Tuning v1 Metrics
+
+Selected thresholds:
+
+| Threshold                     |    Value |
+| ----------------------------- | -------: |
+| fine_confidence_threshold     | 0.900000 |
+| coarse_confidence_threshold   | 0.800000 |
+| coarse_margin_threshold       | 0.650000 |
+| minimum_confidence_for_coarse | 0.650000 |
+
+Known-test performance:
+
+| Metric                                  |    Value |
+| --------------------------------------- | -------: |
+| Known total samples                     |      384 |
+| Fine decision count                     |      145 |
+| Coarse fallback count                   |      108 |
+| Manual review count                     |      131 |
+| Known decision coverage                 | 0.658854 |
+| Known manual review rate                | 0.341146 |
+| Fine correct count                      |      122 |
+| Coarse correct count                    |      103 |
+| Hierarchical success count              |      225 |
+| Fine accuracy on fine decisions         | 0.841379 |
+| Hierarchical success rate over all      | 0.585938 |
+| Hierarchical success rate over accepted | 0.889328 |
+
+Local unknown performance:
+
+| Metric                      |    Value |
+| --------------------------- | -------: |
+| Unknown total samples       |       40 |
+| Unknown manual review count |       15 |
+| Unknown fine accept count   |       16 |
+| Unknown coarse accept count |        9 |
+| Unknown accepted count      |       25 |
+| Unknown manual review rate  | 0.375000 |
+| Unknown acceptance rate     | 0.625000 |
+
+Decision distribution:
+
+| Dataset       | Fine Label | Coarse Label | Manual Review |
+| ------------- | ---------: | -----------: | ------------: |
+| Known test    |        145 |          108 |           131 |
+| Local unknown |         16 |            9 |            15 |
+
+Interpretation:
+
+The tuned policy selected stricter thresholds than the first hierarchical policy. The fine confidence threshold increased to 0.900000 and the coarse margin threshold increased to 0.650000.
+
+Compared with the first hierarchical policy, the local unknown manual-review count improved from 3 out of 40 to 15 out of 40. This means the local unknown manual-review rate increased from 0.075000 to 0.375000.
+
+The trade-off is that known-test decision coverage decreased to 0.658854. However, the accepted known-test decisions became more reliable, with a hierarchical success rate over accepted decisions of 0.889328.
+
+Research conclusion:
+
+Safe hierarchical tuning improves local unknown safety but introduces a clear coverage-safety trade-off. The tuned policy is more conservative: it sends more uncertain images to manual review while keeping higher reliability among accepted known-test decisions.
+
+This supports the OpenWaste-HR argument that open-world waste classification should not only optimise accuracy. It must also manage uncertainty, reject unsafe inputs, and use manual review for ambiguous local cases.
+
+

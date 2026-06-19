@@ -1,0 +1,67 @@
+project:
+  name: OpenWaste-HR
+  evaluation_stage: safe_hierarchical_policy_tuning
+  version: v1
+
+paths:
+  known_predictions_csv: ml/outputs/metrics/baseline_trashnet_test_predictions_v1.csv
+  local_unknown_predictions_csv: ml/outputs/metrics/local_unknown_predictions_v1.csv
+  output_metrics_dir: ml/outputs/metrics
+  output_figures_dir: ml/outputs/figures
+  docs_results_dir: docs/results
+  docs_figures_dir: docs/results/figures
+
+labels:
+  fine_to_coarse:
+    paper_cardboard: recyclable
+    plastic: recyclable
+    glass: recyclable
+    metal: recyclable
+    residual: residual
+
+search_space:
+  fine_confidence_thresholds:
+    - 0.64
+    - 0.70
+    - 0.75
+    - 0.80
+    - 0.85
+    - 0.90
+
+  coarse_confidence_thresholds:
+    - 0.80
+    - 0.85
+    - 0.90
+    - 0.95
+
+  coarse_margin_thresholds:
+    - 0.15
+    - 0.25
+    - 0.35
+    - 0.50
+    - 0.65
+
+  minimum_confidence_for_coarse_values:
+    - 0.35
+    - 0.45
+    - 0.55
+    - 0.65
+
+selection:
+  minimum_known_decision_coverage: 0.65
+  minimum_known_success_rate_over_accepted: 0.75
+
+  objective_weights:
+    unknown_manual_review_rate: 0.50
+    known_success_rate_over_accepted: 0.30
+    known_decision_coverage: 0.20
+
+outputs:
+  threshold_sweep_csv: safe_hierarchical_threshold_sweep_v1.csv
+  selected_policy_json: safe_hierarchical_selected_policy_v1.json
+  known_decisions_csv: safe_hierarchical_known_test_decisions_v1.csv
+  local_unknown_decisions_csv: safe_hierarchical_local_unknown_decisions_v1.csv
+  metrics_json: safe_hierarchical_policy_metrics_v1.json
+  decision_distribution_csv: safe_hierarchical_decision_distribution_v1.csv
+  tuning_plot: safe_hierarchical_policy_tuning_v1.png
+  markdown_report: safe_hierarchical_policy_tuning_v1_report.md

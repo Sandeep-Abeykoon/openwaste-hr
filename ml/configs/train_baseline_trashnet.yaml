@@ -25,11 +25,14 @@ data:
 training:
   seed: 42
   device: auto
-  epochs: 5
-  batch_size: 16
+  epochs: 50
+  batch_size: 32
   learning_rate: 0.0003
   weight_decay: 0.01
   use_class_weights: true
+  early_stopping_patience: 7
+  early_stopping_min_delta: 0.001
+  monitor_metric: val_macro_f1
 
 outputs:
   best_checkpoint: baseline_trashnet_best.pt

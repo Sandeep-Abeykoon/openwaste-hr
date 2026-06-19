@@ -198,8 +198,8 @@ def train_one_epoch(
         raise ValueError("No batches were processed during training.")
 
     return {
-        "loss": running_loss / total_seen,
-        "accuracy": accuracy_score(all_targets, all_predictions),
+        "loss": float(running_loss / total_seen),
+        "accuracy": float(accuracy_score(all_targets, all_predictions)),
     }
 
 
@@ -245,21 +245,25 @@ def evaluate(
     labels = list(range(num_classes))
 
     return {
-        "loss": running_loss / total_seen,
-        "accuracy": accuracy_score(all_targets, all_predictions),
-        "macro_f1": f1_score(
-            all_targets,
-            all_predictions,
-            labels=labels,
-            average="macro",
-            zero_division=0,
+        "loss": float(running_loss / total_seen),
+        "accuracy": float(accuracy_score(all_targets, all_predictions)),
+        "macro_f1": float(
+            f1_score(
+                all_targets,
+                all_predictions,
+                labels=labels,
+                average="macro",
+                zero_division=0,
+            )
         ),
-        "weighted_f1": f1_score(
-            all_targets,
-            all_predictions,
-            labels=labels,
-            average="weighted",
-            zero_division=0,
+        "weighted_f1": float(
+            f1_score(
+                all_targets,
+                all_predictions,
+                labels=labels,
+                average="weighted",
+                zero_division=0,
+            )
         ),
     }
 
@@ -289,6 +293,30 @@ def save_checkpoint(
     torch.save(payload, output_path)
 
 
+def load_checkpoint_weights(
+    model: nn.Module,
+    checkpoint_path: str | Path,
+    device: torch.device,
+) -> dict[str, Any]:
+    """
+    Load saved checkpoint weights into a model.
+    """
+    checkpoint_path = Path(checkpoint_path)
+
+    if not checkpoint_path.exists():
+        raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
+
+    checkpoint = torch.load(
+        checkpoint_path,
+        map_location=device,
+        weights_only=False,
+    )
+
+    model.load_state_dict(checkpoint["model_state_dict"])
+
+    return checkpoint
+
+
 def train_baseline(
     config_path: str | Path,
     project_root: str | Path,
@@ -297,6 +325,9 @@ def train_baseline(
 ) -> dict[str, Any]:
     """
     Train the first closed-set baseline classifier.
+
+    Best checkpoint selection is based on validation macro-F1 because the
+    TrashNet baseline is class-imbalanced.
     """
     project_root = Path(project_root)
     config = load_yaml(config_path)
@@ -378,14 +409,30 @@ def train_baseline(
     class_mapping_path = checkpoint_dir / output_config["class_mapping_json"]
     save_label_mapping(label_names, class_mapping_path)
 
+    best_checkpoint_path = checkpoint_dir / output_config["best_checkpoint"]
+    final_checkpoint_path = checkpoint_dir / output_config["final_checkpoint"]
+
     best_val_macro_f1 = -1.0
+    best_epoch = 0
+    epochs_without_improvement = 0
     history: list[dict[str, Any]] = []
 
     epochs = int(training_config["epochs"])
+    early_stopping_patience = int(training_config.get("early_stopping_patience", 7))
+    early_stopping_min_delta = float(training_config.get("early_stopping_min_delta", 0.001))
+    monitor_metric = str(training_config.get("monitor_metric", "val_macro_f1"))
+
+    if monitor_metric != "val_macro_f1":
+        raise ValueError(
+            "Only monitor_metric='val_macro_f1' is currently supported for baseline training."
+        )
 
     print(f"Device: {device}")
     print(f"Classes: {label_names}")
     print(f"Epochs: {epochs}")
+    print(f"Early stopping patience: {early_stopping_patience}")
+    print(f"Early stopping min delta: {early_stopping_min_delta}")
+    print(f"Monitoring: {monitor_metric}")
 
     for epoch in range(1, epochs + 1):
         train_metrics = train_one_epoch(
@@ -414,6 +461,8 @@ def train_baseline(
             "val_accuracy": val_metrics["accuracy"],
             "val_macro_f1": val_metrics["macro_f1"],
             "val_weighted_f1": val_metrics["weighted_f1"],
+            "best_epoch_so_far": best_epoch,
+            "epochs_without_improvement": epochs_without_improvement,
         }
         history.append(row)
 
@@ -426,28 +475,64 @@ def train_baseline(
             f"val_macro_f1={row['val_macro_f1']:.4f}"
         )
 
-        if val_metrics["macro_f1"] > best_val_macro_f1:
+        improvement = val_metrics["macro_f1"] - best_val_macro_f1
+
+        if improvement > early_stopping_min_delta:
             best_val_macro_f1 = val_metrics["macro_f1"]
+            best_epoch = epoch
+            epochs_without_improvement = 0
+
             save_checkpoint(
                 model=model,
                 label_names=label_names,
                 config=config,
-                output_path=checkpoint_dir / output_config["best_checkpoint"],
+                output_path=best_checkpoint_path,
                 epoch=epoch,
                 metrics=val_metrics,
             )
+
+            print(
+                f"New best checkpoint saved at epoch {epoch} "
+                f"with val_macro_f1={best_val_macro_f1:.4f}"
+            )
+        else:
+            epochs_without_improvement += 1
+            print(
+                f"No significant improvement. "
+                f"Patience counter: {epochs_without_improvement}/{early_stopping_patience}"
+            )
+
+        history[-1]["best_epoch_so_far"] = best_epoch
+        history[-1]["epochs_without_improvement"] = epochs_without_improvement
+
+        if epochs_without_improvement >= early_stopping_patience:
+            print(
+                f"Early stopping triggered at epoch {epoch}. "
+                f"Best epoch: {best_epoch}, "
+                f"best val_macro_f1={best_val_macro_f1:.4f}"
+            )
+            break
+
+    final_epoch = int(history[-1]["epoch"])
 
     save_checkpoint(
         model=model,
         label_names=label_names,
         config=config,
-        output_path=checkpoint_dir / output_config["final_checkpoint"],
-        epoch=epochs,
+        output_path=final_checkpoint_path,
+        epoch=final_epoch,
         metrics=history[-1],
     )
 
     metrics_csv_path = metrics_dir / output_config["metrics_csv"]
     pd.DataFrame(history).to_csv(metrics_csv_path, index=False)
+
+    # Test evaluation must use the best validation checkpoint, not the last epoch model.
+    best_checkpoint = load_checkpoint_weights(
+        model=model,
+        checkpoint_path=best_checkpoint_path,
+        device=device,
+    )
 
     test_metrics = evaluate(
         model=model,
@@ -460,6 +545,8 @@ def train_baseline(
 
     test_metrics_payload = {
         "label_names": label_names,
+        "best_epoch": int(best_checkpoint["epoch"]),
+        "best_validation_metrics": best_checkpoint["metrics"],
         "test_metrics": test_metrics,
     }
 
@@ -470,17 +557,25 @@ def train_baseline(
     )
 
     print("\nTraining completed.")
+    print(f"Best epoch: {best_epoch}")
     print(f"Best validation macro-F1: {best_val_macro_f1:.4f}")
-    print(f"Test accuracy: {test_metrics['accuracy']:.4f}")
-    print(f"Test macro-F1: {test_metrics['macro_f1']:.4f}")
+    print(f"Test accuracy using best checkpoint: {test_metrics['accuracy']:.4f}")
+    print(f"Test macro-F1 using best checkpoint: {test_metrics['macro_f1']:.4f}")
+    print(f"Training metrics CSV: {metrics_csv_path}")
+    print(f"Test metrics JSON: {test_metrics_path}")
+    print(f"Best checkpoint: {best_checkpoint_path}")
+    print(f"Final checkpoint: {final_checkpoint_path}")
 
     return {
         "label_names": label_names,
+        "best_epoch": best_epoch,
         "best_val_macro_f1": best_val_macro_f1,
         "test_metrics": test_metrics,
         "metrics_csv": str(metrics_csv_path),
         "test_metrics_json": str(test_metrics_path),
         "checkpoint_dir": str(checkpoint_dir),
+        "best_checkpoint": str(best_checkpoint_path),
+        "final_checkpoint": str(final_checkpoint_path),
     }
 
 

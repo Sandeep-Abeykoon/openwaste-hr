@@ -158,3 +158,16 @@ The baseline does not yet include:
 5. active learning
 
 This is intentional. The closed-set baseline is needed so that the later OpenWaste-HR method can be compared against a normal forced-classification model.
+
+### Actual Baseline v1 Metrics
+
+| Metric | Value |
+|---|---:|
+| Accuracy | 0.6927 |
+| Balanced accuracy | 0.6545 |
+| Macro-F1 | 0.6456 |
+| Weighted-F1 | 0.7009 |
+
+Training note:
+
+The first official closed-set baseline used MobileNetV3 trained from scratch with class weights and early stopping based on validation macro-F1. The best checkpoint was selected at epoch 34. This baseline is retained as Baseline A. A stronger pretrained baseline may be added later, but the next research step is to evaluate reject-option behaviour.

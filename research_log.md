@@ -797,4 +797,86 @@ This stage turns the experimental OpenWaste-HR pipeline into a usable single-ima
 
 The first inference run predicted `plastic` for `local_000001` with high confidence, so the safe hierarchical policy returned a fine-label decision.
 
+## Batch Inference Pipeline v1 Summary
+
+This stage creates the first batch inference pipeline for OpenWaste-HR.
+
+The pipeline processes a folder of images and returns one row per image with:
+
+| Output                       | Meaning                                        |
+| ---------------------------- | ---------------------------------------------- |
+| pred_label                   | model’s top fine-label prediction              |
+| max_softmax_confidence       | confidence of the top fine prediction          |
+| top_coarse_label             | aggregated coarse-label prediction             |
+| top_coarse_confidence        | confidence of the top coarse group             |
+| coarse_margin                | separation between top and second coarse group |
+| hierarchical_decision_type   | fine_label, coarse_label, or manual_review     |
+| hierarchical_final_label     | final OpenWaste-HR output                      |
+| hierarchical_decision_reason | reason for the final decision                  |
+
+Input folder:
+
+* ml/data/local_unknown/images
+
+Generated files:
+
+* ml/src/openwaste_hr/inference/batch_inference.py
+* ml/configs/batch_inference_pipeline.yaml
+* docs/methodology/batch_inference_pipeline_v1.md
+* ml/outputs/metrics/batch_inference_results_v1.csv
+* ml/outputs/metrics/batch_inference_summary_v1.json
+* ml/outputs/metrics/batch_inference_report_v1.md
+
+Research note:
+
+This stage demonstrates that OpenWaste-HR can process a folder of local images and export structured fine-label, coarse-label, or manual-review decisions. This is useful for later backend integration, manual review, and active learning workflows.
+
+
+### Actual Batch Inference Pipeline v1 Result
+
+Batch inference was run on the local unknown image folder.
+
+| Metric                  |    Value |
+| ----------------------- | -------: |
+| Tests passed            |       94 |
+| Images processed        |       42 |
+| Fine-label decisions    |       16 |
+| Coarse-label decisions  |       10 |
+| Manual-review decisions |       16 |
+| Accepted decisions      |       26 |
+| Fine-label rate         | 0.380952 |
+| Coarse-label rate       | 0.238095 |
+| Manual-review rate      | 0.380952 |
+| Accepted rate           | 0.619048 |
+
+Decision distribution:
+
+| Decision Type | Count | Percentage |
+| ------------- | ----: | ---------: |
+| fine_label    |    16 |      38.10 |
+| coarse_label  |    10 |      23.81 |
+| manual_review |    16 |      38.10 |
+
+Final label distribution:
+
+| Final Label     | Count | Percentage |
+| --------------- | ----: | ---------: |
+| manual_review   |    16 |      38.10 |
+| recyclable      |    10 |      23.81 |
+| plastic         |     6 |      14.29 |
+| metal           |     6 |      14.29 |
+| paper_cardboard |     4 |       9.52 |
+
+Generated files:
+
+* ml/src/openwaste_hr/inference/batch_inference.py
+* ml/configs/batch_inference_pipeline.yaml
+* docs/methodology/batch_inference_pipeline_v1.md
+* ml/outputs/metrics/batch_inference_results_v1.csv
+* ml/outputs/metrics/batch_inference_summary_v1.json
+* ml/outputs/metrics/batch_inference_report_v1.md
+
+Research note:
+
+This stage demonstrates that OpenWaste-HR can process a folder of images and export structured fine-label, coarse-label, or manual-review decisions. The batch inference run is a prototype inference workflow and should be reported separately from the earlier 40-sample local unknown evaluation.
 

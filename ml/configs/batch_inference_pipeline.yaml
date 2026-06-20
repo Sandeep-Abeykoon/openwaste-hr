@@ -1,0 +1,45 @@
+project:
+  name: OpenWaste-HR
+  inference_stage: batch_inference
+  version: v1
+
+model:
+  checkpoint_path: ml/outputs/checkpoints/baseline_trashnet_v1/baseline_trashnet_best.pt
+  model_name: mobilenetv3_small_100
+  pretrained: false
+  num_classes: 5
+  image_size: 224
+  class_names:
+    - paper_cardboard
+    - plastic
+    - glass
+    - metal
+    - residual
+
+labels:
+  fine_to_coarse:
+    paper_cardboard: recyclable
+    plastic: recyclable
+    glass: recyclable
+    metal: recyclable
+    residual: residual
+
+policy:
+  fine_confidence_threshold: 0.90
+  coarse_confidence_threshold: 0.80
+  coarse_margin_threshold: 0.65
+  minimum_confidence_for_coarse: 0.65
+
+input:
+  image_dir: ml/data/local_unknown/images
+  image_globs:
+    - "*.jpg"
+    - "*.jpeg"
+    - "*.png"
+  max_images: null
+
+outputs:
+  output_metrics_dir: ml/outputs/metrics
+  output_results_csv: batch_inference_results_v1.csv
+  output_summary_json: batch_inference_summary_v1.json
+  output_markdown_report: batch_inference_report_v1.md

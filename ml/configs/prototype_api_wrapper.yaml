@@ -1,0 +1,20 @@
+project:
+  name: OpenWaste-HR
+  api_stage: prototype_api_wrapper
+  version: v1
+
+inference:
+  single_image_config_path: ml/configs/inference_pipeline.yaml
+
+api:
+  allowed_image_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+
+  max_image_path_length: 500
+
+outputs:
+  output_metrics_dir: ml/outputs/metrics
+  output_response_json: prototype_api_response_v1.json
+  output_response_markdown: prototype_api_response_v1.md

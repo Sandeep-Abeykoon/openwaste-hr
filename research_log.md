@@ -880,3 +880,69 @@ Research note:
 
 This stage demonstrates that OpenWaste-HR can process a folder of images and export structured fine-label, coarse-label, or manual-review decisions. The batch inference run is a prototype inference workflow and should be reported separately from the earlier 40-sample local unknown evaluation.
 
+## Prototype API Wrapper v1 Summary
+
+This stage creates a lightweight API-style wrapper around the OpenWaste-HR single-image inference pipeline.
+
+The wrapper accepts a request with:
+
+| Field      | Required | Meaning                            |
+| ---------- | -------- | ---------------------------------- |
+| image_path | yes      | project-relative path to the image |
+| sample_id  | no       | optional image/sample identifier   |
+
+The wrapper returns a structured response containing:
+
+| Section             | Meaning                                |
+| ------------------- | -------------------------------------- |
+| status              | success or error                       |
+| request             | sample ID and image path               |
+| prediction          | model prediction and confidence values |
+| decision            | final OpenWaste-HR decision            |
+| class_probabilities | known fine-label probabilities         |
+| policy              | safe hierarchical thresholds           |
+| metadata            | device and pipeline version            |
+
+Actual prototype API wrapper result:
+
+| Field                  | Value                                         |
+| ---------------------- | --------------------------------------------- |
+| Tests passed           | 101                                           |
+| status                 | success                                       |
+| request_id             | demo_request_001                              |
+| sample_id              | local_000001                                  |
+| image_path             | ml/data/local_unknown/images/local_000001.jpg |
+| pred_label             | plastic                                       |
+| max_softmax_confidence | 0.962933                                      |
+| top_coarse_label       | recyclable                                    |
+| top_coarse_confidence  | 0.999999                                      |
+| coarse_margin          | 0.999999                                      |
+| decision_type          | fine_label                                    |
+| final_label            | plastic                                       |
+| final_confidence       | 0.962933                                      |
+| reason                 | fine_confidence_high                          |
+| device                 | cuda                                          |
+| pipeline_version       | prototype_api_wrapper_v1                      |
+
+Class probability output:
+
+| Fine Label      | Probability |
+| --------------- | ----------: |
+| paper_cardboard |    0.002948 |
+| plastic         |    0.962933 |
+| glass           |    0.026874 |
+| metal           |    0.007244 |
+| residual        |    0.000000 |
+
+Generated files:
+
+* docs/methodology/prototype_api_wrapper_v1.md
+* ml/configs/prototype_api_wrapper.yaml
+* ml/src/openwaste_hr/inference/api_wrapper.py
+* tests/test_api_wrapper.py
+* ml/outputs/metrics/prototype_api_response_v1.json
+* ml/outputs/metrics/prototype_api_response_v1.md
+
+Research note:
+
+This stage prepares OpenWaste-HR for backend integration by wrapping the model output in a stable request/response structure. The backend can later call this wrapper instead of directly handling model internals.

@@ -1773,6 +1773,68 @@ Research note:
 
 The pretrained checkpoint substantially improves reject-option behaviour on the known test set. Compared with the scratch-trained baseline, the pretrained model achieves higher coverage and much higher accepted-decision reliability. The next stage is to evaluate whether this improvement also helps on the local unknown dataset, where the main concern is unknown false acceptance.
 
+## Pretrained Local Unknown Evaluation v1 Summary
+
+This stage evaluated the full pretrained transfer-learning checkpoint on the local unknown dataset.
+
+Created files:
+
+* ml/configs/pretrained_local_unknown_evaluation.yaml
+* docs/methodology/pretrained_local_unknown_evaluation_v1.md
+* docs/supervisor_updates/pretrained_local_unknown_evaluation_summary_v1.md
+* tests/test_pretrained_local_unknown_evaluation_docs.py
+* docs/results/pretrained_local_unknown_evaluation_v1_report.md
+
+Test result before evaluation:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   174 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+Checkpoint used:
+
+| Field                 | Value                                                                        |
+| --------------------- | ---------------------------------------------------------------------------- |
+| Model                 | Baseline B: pretrained transfer-learning model                               |
+| Checkpoint            | ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_best.pt |
+| Best checkpoint epoch | 19                                                                           |
+| Device                | cuda                                                                         |
+
+Pretrained local unknown evaluation result:
+
+| Method               | Total Unknown Samples | Rejected Unknown Count | Accepted Unknown as Known Count | Unknown Rejection Rate | Unknown False Acceptance Rate |
+| -------------------- | --------------------: | ---------------------: | ------------------------------: | ---------------------: | ----------------------------: |
+| Confidence threshold |                    40 |                     20 |                              20 |               0.500000 |                      0.500000 |
+| Max-logit score      |                    40 |                     10 |                              30 |               0.250000 |                      0.750000 |
+| Energy score         |                    40 |                     10 |                              30 |               0.250000 |                      0.750000 |
+
+Generated outputs:
+
+| Output                          | Path                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------ |
+| Predictions CSV                 | ml/outputs/metrics/pretrained_local_unknown_predictions_v1.csv                 |
+| Method decisions CSV            | ml/outputs/metrics/pretrained_local_unknown_method_decisions_v1.csv            |
+| Metrics JSON                    | ml/outputs/metrics/pretrained_local_unknown_evaluation_metrics_v1.json         |
+| Accepted label distribution CSV | ml/outputs/metrics/pretrained_local_unknown_accepted_label_distribution_v1.csv |
+| Rejection-rate plot             | ml/outputs/figures/pretrained_local_unknown_rejection_rates_v1.png             |
+| Accepted-label plot             | ml/outputs/figures/pretrained_local_unknown_accepted_label_distribution_v1.png |
+| Thesis report                   | docs/results/pretrained_local_unknown_evaluation_v1_report.md                  |
+
+Comparison with scratch-trained local unknown evaluation:
+
+| Method               | Scratch Unknown Rejection Rate | Pretrained Unknown Rejection Rate | Scratch False Acceptance Rate | Pretrained False Acceptance Rate |
+| -------------------- | -----------------------------: | --------------------------------: | ----------------------------: | -------------------------------: |
+| Confidence threshold |                       0.350000 |                          0.500000 |                      0.650000 |                         0.500000 |
+| Max-logit score      |                       0.275000 |                          0.250000 |                      0.725000 |                         0.750000 |
+| Energy score         |                       0.200000 |                          0.250000 |                      0.800000 |                         0.750000 |
+
+Research note:
+
+The pretrained model substantially improves known-class classification and reject-option reliability on the known test set. For local unknown handling, the confidence threshold improves meaningfully from 0.350000 to 0.500000 unknown rejection rate. However, max-logit and energy do not show the same level of improvement. This confirms that stronger closed-set performance does not automatically solve unknown handling. The next stage should evaluate the pretrained checkpoint using hierarchical decision policy and safe policy tuning.
+
+
 
 
 

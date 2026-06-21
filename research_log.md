@@ -1482,6 +1482,65 @@ Research note:
 
 The smoke test confirms that the pretrained transfer-learning setup can run successfully with `pretrained: true`, load pretrained weights, train for one epoch, evaluate on the test set, and save outputs separately from the original scratch-trained baseline. This result is not used as the final pretrained comparison because it was only a one-epoch smoke test. The next stage is full pretrained training.
 
+## Full Pretrained Model Training v1 Summary
+
+This stage trained the full pretrained transfer-learning model for OpenWaste-HR.
+
+Created files:
+
+* docs/methodology/pretrained_training_v1.md
+* docs/supervisor_updates/pretrained_training_summary_v1.md
+* tests/test_pretrained_training_docs.py
+
+Test result before training:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   159 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+The full pretrained training used:
+
+| Setting                 | Value                                            |
+| ----------------------- | ------------------------------------------------ |
+| Config                  | ml/configs/train_pretrained_trashnet.yaml        |
+| Device                  | cuda                                             |
+| Classes                 | paper_cardboard, plastic, glass, metal, residual |
+| Epoch limit             | 50                                               |
+| Early stopping patience | 7                                                |
+| Early stopping monitor  | val_macro_f1                                     |
+
+Training result:
+
+| Metric                              |  Value |
+| ----------------------------------- | -----: |
+| Best epoch                          |     19 |
+| Best validation macro-F1            | 0.8577 |
+| Early stopping epoch                |     26 |
+| Test accuracy using best checkpoint | 0.8880 |
+| Test macro-F1 using best checkpoint | 0.8510 |
+
+Generated pretrained outputs:
+
+| Output               | Path                                                                          |
+| -------------------- | ----------------------------------------------------------------------------- |
+| Training metrics CSV | ml/outputs/metrics/pretrained_trashnet_v1_training_metrics.csv                |
+| Test metrics JSON    | ml/outputs/metrics/pretrained_trashnet_v1_test_metrics.json                   |
+| Best checkpoint      | ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_best.pt  |
+| Final checkpoint     | ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_final.pt |
+
+Initial comparison with the scratch-trained baseline:
+
+| Model                                            | Test Accuracy | Test Macro-F1 |
+| ------------------------------------------------ | ------------: | ------------: |
+| Baseline A: scratch-trained TrashNet-style model |        0.6927 |        0.6456 |
+| Baseline B: pretrained transfer-learning model   |        0.8880 |        0.8510 |
+| Improvement                                      |       +0.1953 |       +0.2054 |
+
+Research note:
+
+The pretrained transfer-learning model substantially improves known-class classification performance compared with the scratch-trained baseline. This confirms that pretrained visual features are valuable for the OpenWaste-HR pipeline. The next stage is to evaluate this pretrained checkpoint through the same downstream workflow: closed-set evaluation, reject-option evaluation, local unknown evaluation, hierarchical decision policy, and safe policy tuning.
 
 
 

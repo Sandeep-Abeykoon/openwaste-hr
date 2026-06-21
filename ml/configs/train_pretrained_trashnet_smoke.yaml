@@ -1,0 +1,42 @@
+project:
+  name: OpenWaste-HR
+  training_stage: baseline_closed_set_trashnet
+  version: v1
+
+paths:
+  train_manifest: ml/data/splits/known_train.csv
+  val_manifest: ml/data/splits/known_val.csv
+  test_manifest: ml/data/splits/known_test.csv
+  taxonomy: ml/configs/taxonomy.yaml
+  output_checkpoint_dir: ml/outputs/checkpoints/pretrained_trashnet_smoke_v1
+  output_metrics_dir: ml/outputs/metrics
+
+model:
+  name: mobilenetv3_small_100
+  pretrained: true
+  num_classes: auto
+  drop_rate: 0.1
+
+data:
+  label_column: fine_label
+  image_size: 224
+  num_workers: 0
+
+training:
+  seed: 42
+  device: auto
+  epochs: 1
+  batch_size: 32
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  use_class_weights: true
+  early_stopping_patience: 1
+  early_stopping_min_delta: 0.001
+  monitor_metric: val_macro_f1
+
+outputs:
+  best_checkpoint: pretrained_trashnet_smoke_v1_best.pt
+  final_checkpoint: pretrained_trashnet_smoke_v1_final.pt
+  class_mapping_json: pretrained_trashnet_smoke_v1_class_mapping.json
+  metrics_csv: pretrained_trashnet_smoke_v1_training_metrics.csv
+  test_metrics_json: pretrained_trashnet_smoke_v1_test_metrics.json

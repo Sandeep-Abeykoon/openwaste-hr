@@ -1433,6 +1433,54 @@ Research note:
 
 This stage prepares the next model-improvement phase. The pretrained model will not replace the OpenWaste-HR contribution; it will test whether stronger image features improve the hierarchical open-set decision workflow.
 
+## Pretrained Training Smoke Test v1 Summary
+
+This stage ran a smoke test for the pretrained transfer-learning training setup.
+
+Created files:
+
+* ml/configs/train_pretrained_trashnet_smoke.yaml
+* docs/methodology/pretrained_training_smoke_test_v1.md
+* docs/supervisor_updates/pretrained_training_smoke_test_summary_v1.md
+* tests/test_pretrained_training_smoke_test_docs.py
+
+Test result:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   154 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+The pretrained smoke training successfully downloaded and loaded pretrained model weights.
+
+Smoke training result:
+
+| Metric                              |  Value |
+| ----------------------------------- | -----: |
+| Device                              |   cuda |
+| Epochs                              |      1 |
+| Best epoch                          |      1 |
+| Training loss                       | 2.0271 |
+| Training accuracy                   | 0.5674 |
+| Validation loss                     | 1.2653 |
+| Validation accuracy                 | 0.6817 |
+| Validation macro-F1                 | 0.6300 |
+| Test accuracy using best checkpoint | 0.7083 |
+| Test macro-F1 using best checkpoint | 0.6077 |
+
+Generated smoke-test outputs:
+
+| Output               | Path                                                                                      |
+| -------------------- | ----------------------------------------------------------------------------------------- |
+| Training metrics CSV | ml/outputs/metrics/pretrained_trashnet_smoke_v1_training_metrics.csv                      |
+| Test metrics JSON    | ml/outputs/metrics/pretrained_trashnet_smoke_v1_test_metrics.json                         |
+| Best checkpoint      | ml/outputs/checkpoints/pretrained_trashnet_smoke_v1/pretrained_trashnet_smoke_v1_best.pt  |
+| Final checkpoint     | ml/outputs/checkpoints/pretrained_trashnet_smoke_v1/pretrained_trashnet_smoke_v1_final.pt |
+
+Research note:
+
+The smoke test confirms that the pretrained transfer-learning setup can run successfully with `pretrained: true`, load pretrained weights, train for one epoch, evaluate on the test set, and save outputs separately from the original scratch-trained baseline. This result is not used as the final pretrained comparison because it was only a one-epoch smoke test. The next stage is full pretrained training.
 
 
 

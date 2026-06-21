@@ -1834,6 +1834,83 @@ Research note:
 
 The pretrained model substantially improves known-class classification and reject-option reliability on the known test set. For local unknown handling, the confidence threshold improves meaningfully from 0.350000 to 0.500000 unknown rejection rate. However, max-logit and energy do not show the same level of improvement. This confirms that stronger closed-set performance does not automatically solve unknown handling. The next stage should evaluate the pretrained checkpoint using hierarchical decision policy and safe policy tuning.
 
+## Pretrained Hierarchical Policy Evaluation v1 Summary
+
+This stage evaluated the hierarchical decision policy using the full pretrained transfer-learning checkpoint.
+
+Created files:
+
+* ml/configs/pretrained_hierarchical_decision_policy.yaml
+* docs/methodology/pretrained_hierarchical_policy_evaluation_v1.md
+* docs/supervisor_updates/pretrained_hierarchical_policy_evaluation_summary_v1.md
+* tests/test_pretrained_hierarchical_policy_evaluation_docs.py
+* docs/results/pretrained_hierarchical_decision_policy_v1_report.md
+
+Test result before evaluation:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   179 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+Policy used:
+
+| Threshold                     |    Value |
+| ----------------------------- | -------: |
+| fine_confidence_threshold     | 0.990000 |
+| coarse_confidence_threshold   | 0.800000 |
+| coarse_margin_threshold       | 0.150000 |
+| minimum_confidence_for_coarse | 0.350000 |
+
+Known-test result:
+
+| Metric                                  |    Value |
+| --------------------------------------- | -------: |
+| Known total samples                     |      384 |
+| Fine decisions                          |      277 |
+| Coarse fallback decisions               |       98 |
+| Manual-review decisions                 |        9 |
+| Known decision coverage                 | 0.976562 |
+| Known manual-review rate                | 0.023438 |
+| Fine correct count                      |      264 |
+| Coarse correct count                    |       95 |
+| Hierarchical success count              |      359 |
+| Fine accuracy on fine decisions         | 0.953069 |
+| Coarse accuracy on coarse decisions     | 0.969388 |
+| Hierarchical success rate over all      | 0.934896 |
+| Hierarchical success rate over accepted | 0.957333 |
+
+Local unknown result:
+
+| Metric                      |    Value |
+| --------------------------- | -------: |
+| Unknown total samples       |       40 |
+| Unknown manual-review count |        3 |
+| Unknown fine accept count   |        6 |
+| Unknown coarse accept count |       31 |
+| Unknown accepted count      |       37 |
+| Unknown manual-review rate  | 0.075000 |
+| Unknown acceptance rate     | 0.925000 |
+
+Generated outputs:
+
+| Output                      | Path                                                                       |
+| --------------------------- | -------------------------------------------------------------------------- |
+| Known decisions CSV         | ml/outputs/metrics/pretrained_hierarchical_known_test_decisions_v1.csv     |
+| Local unknown decisions CSV | ml/outputs/metrics/pretrained_hierarchical_local_unknown_decisions_v1.csv  |
+| Metrics JSON                | ml/outputs/metrics/pretrained_hierarchical_decision_policy_metrics_v1.json |
+| Decision distribution CSV   | ml/outputs/metrics/pretrained_hierarchical_decision_distribution_v1.csv    |
+| Decision plot               | ml/outputs/figures/pretrained_hierarchical_decision_distribution_v1.png    |
+| Thesis report               | docs/results/pretrained_hierarchical_decision_policy_v1_report.md          |
+
+Comparison note:
+
+The pretrained hierarchical policy greatly improves known-test decision quality compared with the scratch-trained hierarchical policy. Known-test coverage increased to 0.976562 and accepted hierarchical reliability increased to 0.957333. However, local unknown manual-review rate remained low at 0.075000 because many local unknown images were accepted as coarse fallback decisions.
+
+Research note:
+
+This confirms that pretrained features improve known-class and hierarchical known-test performance, but a strong classifier can still accept local unknown images too easily. The next stage should tune a safer pretrained hierarchical policy to improve the local unknown manual-review rate while preserving useful known-test coverage.
 
 
 

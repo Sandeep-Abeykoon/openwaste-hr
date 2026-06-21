@@ -1,0 +1,36 @@
+project:
+  name: OpenWaste-HR
+  evaluation_stage: pretrained_hierarchical_decision_policy
+  version: v1
+
+paths:
+  class_mapping: ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_class_mapping.json
+  checkpoint: ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_best.pt
+  known_predictions_csv: ml/outputs/metrics/pretrained_trashnet_test_predictions_v1.csv
+  local_unknown_predictions_csv: ml/outputs/metrics/local_unknown_predictions_v1.csv
+  output_metrics_dir: ml/outputs/metrics
+  output_figures_dir: ml/outputs/figures
+  docs_results_dir: docs/results
+  docs_figures_dir: docs/results/figures
+
+labels:
+  fine_to_coarse:
+    paper_cardboard: recyclable
+    plastic: recyclable
+    glass: recyclable
+    metal: recyclable
+    residual: residual
+
+policy:
+  fine_confidence_threshold: 0.99
+  coarse_confidence_threshold: 0.80
+  coarse_margin_threshold: 0.15
+  minimum_confidence_for_coarse: 0.35
+
+outputs:
+  known_decisions_csv: pretrained_hierarchical_known_test_decisions_v1.csv
+  unknown_decisions_csv: pretrained_hierarchical_local_unknown_decisions_v1.csv
+  metrics_json: pretrained_hierarchical_decision_policy_metrics_v1.json
+  decision_distribution_csv: pretrained_hierarchical_decision_distribution_v1.csv
+  decision_distribution_plot: pretrained_hierarchical_decision_distribution_v1.png
+  markdown_report: pretrained_hierarchical_decision_policy_v1_report.md

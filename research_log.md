@@ -1384,6 +1384,54 @@ Research note:
 
 This stage converts the separate methodology documents into a thesis-ready methodology chapter draft. It clearly presents OpenWaste-HR as a hierarchical open-set waste classification methodology rather than only a normal CNN classification workflow.
 
+## Pretrained Training Preparation v1 Summary
+
+This stage prepares the pretrained transfer-learning model configuration and documentation.
+
+Created files:
+
+* ml/configs/train_pretrained_trashnet.yaml
+* docs/methodology/pretrained_training_plan_v1.md
+* docs/supervisor_updates/pretrained_training_plan_summary_v1.md
+* tests/test_pretrained_training_preparation.py
+
+The current model is treated as:
+
+| Model      | Description                             |
+| ---------- | --------------------------------------- |
+| Baseline A | scratch-trained TrashNet-style baseline |
+
+The next model is prepared as:
+
+| Model      | Description                           |
+| ---------- | ------------------------------------- |
+| Baseline B | pretrained transfer-learning baseline |
+
+The pretrained config enables:
+
+```yaml id="o1pbqe"
+pretrained: true
+```
+
+The output naming is separated using:
+
+```text id="28ir21"
+pretrained_trashnet_v1
+```
+
+Planned comparison:
+
+| Comparison                  | Purpose                                                                   |
+| --------------------------- | ------------------------------------------------------------------------- |
+| Baseline A vs Baseline B    | compare scratch training with pretrained transfer learning                |
+| Closed-set metrics          | compare known-test accuracy, balanced accuracy, macro-F1, and weighted-F1 |
+| Reject-option metrics       | compare selective accuracy and rejection behaviour                        |
+| Local unknown metrics       | compare manual-review/rejection rate and false acceptance                 |
+| Hierarchical policy metrics | compare fine_label, coarse_label, and manual_review decisions             |
+
+Research note:
+
+This stage prepares the next model-improvement phase. The pretrained model will not replace the OpenWaste-HR contribution; it will test whether stronger image features improve the hierarchical open-set decision workflow.
 
 
 

@@ -1234,5 +1234,47 @@ Research note:
 
 This stage consolidates the project into a thesis-ready implementation summary. It clearly presents OpenWaste-HR as a hierarchical open-set waste classification prototype with reject/manual-review decisions and local active learning support.
 
+## Thesis Implementation Chapter Draft v1 Summary
+
+This stage creates a thesis-ready implementation chapter draft and a supervisor summary.
+
+Created files:
+
+* docs/thesis/implementation_chapter_draft_v1.md
+* docs/supervisor_updates/implementation_chapter_summary_v1.md
+* tests/test_implementation_chapter_docs.py
+
+The implementation chapter draft covers:
+
+| Section                      | Purpose                                                               |
+| ---------------------------- | --------------------------------------------------------------------- |
+| Introduction                 | explains OpenWaste-HR as a hierarchical open-set prototype            |
+| System overview              | summarises the full project workflow                                  |
+| Taxonomy design              | explains fine labels, coarse labels, unknown, and manual_review       |
+| Dataset preparation          | describes manifest building, splits, and inspection                   |
+| Baseline model               | describes the MobileNetV3-style classifier                            |
+| Reject-option baselines      | explains confidence, max-logit, and energy scoring                    |
+| Hierarchical decision policy | explains fine_label, coarse_label, and manual_review outputs          |
+| Safe policy tuning           | explains stricter thresholds and the safety-coverage trade-off        |
+| Active learning workflow     | explains candidate selection and human labelling                      |
+| Inference pipeline           | explains single-image and batch inference                             |
+| API wrapper                  | explains the backend-friendly response format                         |
+| Backend                      | explains the FastAPI `/health` and `/api/inference/predict` endpoints |
+| Frontend                     | explains the simple browser demo                                      |
+| Testing                      | summarises automated test coverage                                    |
+| Limitations                  | identifies current prototype limitations                              |
+| Conclusion                   | summarises the implemented contribution                               |
+
+Key thesis message:
+
+```text
+OpenWaste-HR should be presented as hierarchical open-set waste classification with reject/manual-review decisions and local active learning support, not only as a normal CNN classifier.
+```
+
+Research note:
+
+This stage converts the implemented prototype into thesis-ready writing. It will be used as the base for the final implementation chapter, with diagrams and screenshots added later.
+
+
 
 

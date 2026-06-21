@@ -2281,6 +2281,60 @@ Research note:
 
 This stage confirms that local_000001 should not be forced into the current known fine-label taxonomy. It should be treated as a local unknown sample and future class candidate. This supports the OpenWaste-HR human-in-the-loop active learning argument, where real local objects can be reviewed and used to improve the dataset or future taxonomy.
 
+## Active Learning v2 Dataset Plan v1 Summary
+
+This stage created the first active learning v2 dataset plan from the reviewed local-label seed.
+
+Created files:
+
+* docs/methodology/active_learning_v2_dataset_plan_v1.md
+* docs/supervisor_updates/active_learning_v2_dataset_plan_summary_v1.md
+* ml/src/openwaste_hr/evaluation/build_active_learning_v2_dataset_plan.py
+* ml/data/splits/active_learning_v2_dataset_plan_v1.csv
+* docs/results/active_learning_v2_dataset_plan_v1_report.md
+* tests/test_active_learning_v2_dataset_plan.py
+
+Generated local output files:
+
+* ml/outputs/metrics/active_learning_v2_dataset_plan_v1.csv
+* ml/outputs/metrics/active_learning_v2_dataset_plan_summary_v1.json
+
+Processing result:
+
+| Metric                    | Value |
+| ------------------------- | ----: |
+| Total reviewed seed rows  |     1 |
+| Known training candidates |     0 |
+| Unknown test candidates   |     1 |
+| Future class candidates   |     1 |
+| Recollection candidates   |     0 |
+| Excluded candidates       |     0 |
+
+Dataset decision for reviewed seed:
+
+| Field                             | Value                                   |
+| --------------------------------- | --------------------------------------- |
+| Sample ID                         | local_000001                            |
+| Human observed object             | rubber slipper / flip-flop              |
+| Taxonomy status                   | outside_current_known_taxonomy          |
+| Recommended action                | keep_as_unknown_test                    |
+| Include in known training v2      | false                                   |
+| Include in unknown test v2        | true                                    |
+| Include as future class candidate | true                                    |
+| Active learning v2 role           | unknown_test_and_future_class_candidate |
+
+Test result:
+
+| Test Run                                 |                Result |
+| ---------------------------------------- | --------------------: |
+| New active learning v2 dataset plan test |              7 passed |
+| Full test suite                          | 222 passed, 1 warning |
+
+Research note:
+
+This stage prevents the reviewed local unknown object from being incorrectly added to the current known training classes. The rubber slipper / flip-flop sample is kept as an unknown-test sample and future class candidate. This supports the OpenWaste-HR active learning workflow by separating human-reviewed samples into correct dataset roles instead of forcing all reviewed images into existing labels.
+
+
 
 
 

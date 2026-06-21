@@ -2043,6 +2043,86 @@ Research note:
 
 The pretrained safe hierarchical policy is the best current OpenWaste-HR system. It improves known-test performance, accepted-decision reliability, and local unknown manual-review rate compared with the scratch-trained safe policy. This result supports the project argument that OpenWaste-HR should be presented as hierarchical open-set waste classification with reject/manual-review decisions and local active learning support, not only as a normal waste classifier.
 
+## Best Pretrained Safe Policy Integration v1 Summary
+
+This stage updated the active OpenWaste-HR prototype to use the best current model and decision policy.
+
+Active system:
+
+| Component       | Selected Version                                                             |
+| --------------- | ---------------------------------------------------------------------------- |
+| Model           | Baseline B: pretrained transfer-learning model                               |
+| Checkpoint      | ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_best.pt |
+| Decision policy | pretrained safe hierarchical policy                                          |
+
+Active thresholds:
+
+| Threshold                     |    Value |
+| ----------------------------- | -------: |
+| fine_confidence_threshold     | 0.995000 |
+| coarse_confidence_threshold   | 0.800000 |
+| coarse_margin_threshold       | 0.150000 |
+| minimum_confidence_for_coarse | 0.900000 |
+
+Files created or updated:
+
+* docs/methodology/best_pretrained_safe_policy_integration_v1.md
+* docs/supervisor_updates/best_pretrained_safe_policy_integration_summary_v1.md
+* tests/test_best_pretrained_safe_policy_integration.py
+* ml/configs/inference_pipeline.yaml
+* ml/configs/batch_inference_pipeline.yaml
+* ml/configs/prototype_api_wrapper.yaml
+* frontend/index.html
+
+Test result:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   196 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+Single-image inference test:
+
+| Field                  | Value                                         |
+| ---------------------- | --------------------------------------------- |
+| Sample ID              | local_000001                                  |
+| Image                  | ml/data/local_unknown/images/local_000001.jpg |
+| Device                 | cuda                                          |
+| Predicted fine label   | paper_cardboard                               |
+| Max softmax confidence | 0.993654                                      |
+| Top coarse label       | recyclable                                    |
+| Top coarse confidence  | 0.999999                                      |
+| Decision type          | coarse_label                                  |
+| Final label            | recyclable                                    |
+| Final confidence       | 0.999999                                      |
+| Decision reason        | coarse_fallback_stable                        |
+
+API wrapper test:
+
+| Field                | Value                |
+| -------------------- | -------------------- |
+| Request ID           | best_policy_demo_001 |
+| Status               | success              |
+| Predicted fine label | paper_cardboard      |
+| Final decision type  | coarse_label         |
+| Final label          | recyclable           |
+| Final confidence     | 0.999999             |
+
+Generated outputs:
+
+| Output                       | Path                                                                          |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| Single-image JSON result     | ml/outputs/metrics/best_pretrained_safe_single_image_inference_result_v1.json |
+| Single-image Markdown result | ml/outputs/metrics/best_pretrained_safe_single_image_inference_result_v1.md   |
+| API JSON response            | ml/outputs/metrics/best_pretrained_safe_prototype_api_response_v1.json        |
+| API Markdown response        | ml/outputs/metrics/best_pretrained_safe_prototype_api_response_v1.md          |
+
+Research note:
+
+The local_000001 image is actually a rubber slipper / flip-flop, which is not part of the known TrashNet-style training labels. The model predicted paper_cardboard with high softmax confidence and returned a coarse recyclable decision. This shows that even a strong pretrained model can produce high confidence for an unknown object when forced to choose among known labels. This supports the OpenWaste-HR research argument that local unknown evaluation, safe hierarchical policies, and manual-review routing are necessary for real-world waste classification.
+
+
 
 
 

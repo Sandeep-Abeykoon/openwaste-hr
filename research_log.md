@@ -1146,4 +1146,48 @@ Research note:
 
 This stage successfully creates a visible OpenWaste-HR prototype demo. The frontend sends an image path to the backend, the backend calls the inference pipeline, and the browser displays the final hierarchical decision, model confidence, class probabilities, and raw JSON response.
 
+## Prototype Run Guide and Demo Checklist v1 Summary
+
+This stage creates the project run guide and supervisor demo checklist.
+
+Created files:
+
+* docs/methodology/prototype_run_guide_v1.md
+* docs/supervisor_updates/prototype_demo_checklist_v1.md
+* tests/test_prototype_run_guide_docs.py
+
+The prototype run guide explains how to:
+
+| Task                       | Purpose                                       |
+| -------------------------- | --------------------------------------------- |
+| activate the environment   | prepare the project runtime                   |
+| run the test suite         | confirm the prototype is stable               |
+| check the checkpoint       | confirm trained model weights are available   |
+| run single-image inference | test direct inference                         |
+| run batch inference        | process a folder of images                    |
+| run the API wrapper        | test the backend-friendly response format     |
+| start the FastAPI backend  | expose the inference endpoint                 |
+| test the backend endpoint  | verify `/health` and `/api/inference/predict` |
+| open the frontend demo     | show the browser-based prototype              |
+
+The supervisor checklist explains the demo flow:
+
+```text
+frontend → FastAPI backend → API wrapper → inference pipeline → hierarchical decision → frontend result
+```
+
+Expected demo result for `local_000001`:
+
+| Field                  | Value                |
+| ---------------------- | -------------------- |
+| pred_label             | plastic              |
+| max_softmax_confidence | 0.962933             |
+| decision_type          | fine_label           |
+| final_label            | plastic              |
+| reason                 | fine_confidence_high |
+
+Research note:
+
+This stage improves project presentation and reproducibility. It gives a clear guide for running the prototype and a structured checklist for explaining the project novelty during a supervisor meeting or final viva.
+
 

@@ -1190,4 +1190,49 @@ Research note:
 
 This stage improves project presentation and reproducibility. It gives a clear guide for running the prototype and a structured checklist for explaining the project novelty during a supervisor meeting or final viva.
 
+## Final Prototype Summary Report v1 Summary
+
+This stage creates the final prototype summary documents for the current OpenWaste-HR implementation.
+
+Created files:
+
+* docs/results/final_prototype_summary_v1.md
+* docs/supervisor_updates/final_prototype_summary_v1.md
+* tests/test_final_prototype_summary_docs.py
+
+The final prototype summary documents the full workflow:
+
+```text
+dataset preparation → baseline training → reject option → hierarchical decision policy → safe policy tuning → local unknown evaluation → active learning → inference → backend → frontend demo
+```
+
+Key current results:
+
+| Area                                               | Result     |
+| -------------------------------------------------- | ---------- |
+| Closed-set baseline test accuracy                  | 0.692708   |
+| Confidence reject local unknown rejection rate     | 0.350000   |
+| Safe hierarchical local unknown manual-review rate | 0.375000   |
+| Active learning candidates selected                | 20         |
+| Human labelling sheet rows                         | 20         |
+| Reviewed rows currently ready for dataset          | 0          |
+| Single-image demo final label                      | plastic    |
+| Single-image demo decision type                    | fine_label |
+| Frontend/backend demo status                       | working    |
+
+Current implemented prototype interfaces:
+
+| Interface                           | Status  |
+| ----------------------------------- | ------- |
+| command-line single-image inference | working |
+| command-line batch inference        | working |
+| prototype API wrapper               | working |
+| FastAPI backend endpoint            | working |
+| simple frontend demo                | working |
+
+Research note:
+
+This stage consolidates the project into a thesis-ready implementation summary. It clearly presents OpenWaste-HR as a hierarchical open-set waste classification prototype with reject/manual-review decisions and local active learning support.
+
+
 

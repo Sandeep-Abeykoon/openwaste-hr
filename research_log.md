@@ -1052,4 +1052,98 @@ Research note:
 
 This stage successfully exposes the OpenWaste-HR inference workflow through a backend endpoint. The backend can receive an image path, call the inference wrapper, and return a structured prediction and final hierarchical decision. This prepares the project for frontend integration and prototype demonstration.
 
+## Simple Frontend Demo Page v1 Summary
+
+This stage creates a lightweight frontend demo page for OpenWaste-HR.
+
+Created files:
+
+* docs/methodology/frontend_demo_v1.md
+* frontend/index.html
+* frontend/styles.css
+* frontend/app.js
+* tests/test_frontend_demo_files.py
+
+Backend update:
+
+* backend/app/main.py was updated with CORS middleware so the browser demo can call the FastAPI endpoint.
+
+The frontend allows a user to enter:
+
+| Field       | Meaning                     |
+| ----------- | --------------------------- |
+| image_path  | project-relative image path |
+| sample_id   | optional sample identifier  |
+| backend URL | FastAPI backend URL         |
+
+The frontend displays:
+
+| Output              | Meaning                                    |
+| ------------------- | ------------------------------------------ |
+| final label         | final OpenWaste-HR label                   |
+| decision type       | fine_label, coarse_label, or manual_review |
+| decision reason     | explanation for the final decision         |
+| predicted label     | model top fine-label prediction            |
+| confidence          | model confidence value                     |
+| coarse label        | top coarse-level prediction                |
+| class probabilities | probability for each known fine label      |
+| raw response        | full backend JSON response                 |
+
+Research note:
+
+This stage creates the first visible OpenWaste-HR prototype demo. The user can run the backend, open the frontend page, send an image path, and view the final hierarchical decision in the browser.
+
+### Actual Simple Frontend Demo Page v1 Result
+
+The frontend demo page was tested successfully with the FastAPI backend.
+
+Test result:
+
+| Metric                  |                  Value |
+| ----------------------- | ---------------------: |
+| Tests passed            |                    110 |
+| Warnings                |                      1 |
+| Frontend request status |                success |
+| Backend endpoint called | /api/inference/predict |
+
+Frontend input:
+
+| Field       | Value                                         |
+| ----------- | --------------------------------------------- |
+| image_path  | ml/data/local_unknown/images/local_000001.jpg |
+| sample_id   | local_000001                                  |
+| backend URL | http://127.0.0.1:8000                         |
+
+Frontend output:
+
+| Field                  | Value                       |
+| ---------------------- | --------------------------- |
+| status                 | success                     |
+| request_id             | frontend_demo_1782022315233 |
+| pred_label             | plastic                     |
+| max_softmax_confidence | 0.962933                    |
+| top_coarse_label       | recyclable                  |
+| top_coarse_confidence  | 0.999999                    |
+| coarse_margin          | 0.999999                    |
+| decision_type          | fine_label                  |
+| final_label            | plastic                     |
+| final_confidence       | 0.962933                    |
+| reason                 | fine_confidence_high        |
+| device                 | cuda                        |
+| pipeline_version       | prototype_api_wrapper_v1    |
+
+Class probability output:
+
+| Fine Label      | Probability |
+| --------------- | ----------: |
+| paper_cardboard |    0.002948 |
+| plastic         |    0.962933 |
+| glass           |    0.026874 |
+| metal           |    0.007244 |
+| residual        |    0.000000 |
+
+Research note:
+
+This stage successfully creates a visible OpenWaste-HR prototype demo. The frontend sends an image path to the backend, the backend calls the inference pipeline, and the browser displays the final hierarchical decision, model confidence, class probabilities, and raw JSON response.
+
 

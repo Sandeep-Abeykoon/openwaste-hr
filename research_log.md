@@ -2704,6 +2704,54 @@ Test result:
 | Full project tests               | 269 passed, 1 warning |
 
 
+## RealWaste Inspection Report v1 Summary
+
+This stage inspected the actual RealWaste manifest after dataset intake.
+
+Created files:
+
+* docs/methodology/realwaste_inspection_v1.md
+* docs/supervisor_updates/realwaste_inspection_summary_v1.md
+* ml/src/openwaste_hr/data/inspect_realwaste_manifest.py
+* tests/test_realwaste_inspection.py
+* docs/results/realwaste_inspection_v1_report.md
+* ml/outputs/metrics/realwaste_usage_counts_v1.csv
+* ml/outputs/metrics/realwaste_fine_label_counts_v1.csv
+* ml/outputs/metrics/realwaste_coarse_label_counts_v1.csv
+* ml/outputs/metrics/realwaste_mapping_role_counts_v1.csv
+* ml/outputs/metrics/realwaste_original_label_counts_v1.csv
+* ml/outputs/metrics/realwaste_label_mapping_counts_v1.csv
+* ml/outputs/metrics/realwaste_inspection_summary_v1.json
+
+Inspection summary:
+
+| Metric                       | Value |
+| ---------------------------- | ----: |
+| Total samples                |  4752 |
+| Known samples                |  4434 |
+| Unknown/future-class samples |   318 |
+| Missing image paths          |     0 |
+| Unreadable checked images    |     0 |
+
+Unknown/future-class explanation:
+
+The 318 unknown/future-class samples come from the RealWaste `Textile Trash` class. This class is intentionally kept outside the current known taxonomy and treated as `unknown_test` with the mapping role `future_class_candidate`.
+
+Implementation note:
+
+The first inspection run failed because `pandas.DataFrame.to_markdown()` requires the optional `tabulate` package. Instead of adding a new dependency, the inspection script was updated to generate markdown tables manually. This keeps the project dependency list simpler and avoids requiring an extra package.
+
+Test result:
+
+| Test Run                   |                Result |
+| -------------------------- | --------------------: |
+| RealWaste inspection tests |              6 passed |
+| Full project tests         | 275 passed, 1 warning |
+
+Research note:
+
+The RealWaste inspection confirms that the dataset was placed correctly, all manifest image paths are valid, and the sample readability check passed. RealWaste is now ready to be combined with the existing TrashNet-style dataset for the expanded public dataset training phase.
+
 
 
 

@@ -2752,6 +2752,92 @@ Research note:
 
 The RealWaste inspection confirms that the dataset was placed correctly, all manifest image paths are valid, and the sample readability check passed. RealWaste is now ready to be combined with the existing TrashNet-style dataset for the expanded public dataset training phase.
 
+## Combined TrashNet + RealWaste Training Manifests v1 Summary
+
+This stage created the expanded public dataset manifests for OpenWaste-HR Baseline C.
+
+Created files:
+
+* docs/methodology/combined_public_training_manifests_v1.md
+* docs/supervisor_updates/combined_public_training_manifests_summary_v1.md
+* ml/configs/combined_public_training_manifests.yaml
+* ml/src/openwaste_hr/data/build_combined_public_manifests.py
+* tests/test_combined_public_manifests.py
+* ml/data/splits/expanded_public_manifest_v1.csv
+* ml/data/splits/expanded_public_known_train_v1.csv
+* ml/data/splits/expanded_public_known_val_v1.csv
+* ml/data/splits/expanded_public_known_test_v1.csv
+* ml/data/splits/expanded_public_unknown_test_v1.csv
+* ml/data/splits/expanded_public_manifest_summary_v1.json
+
+Purpose:
+
+This stage combines the existing TrashNet-style dataset with the RealWaste dataset to prepare Baseline C.
+
+Baseline C is defined as:
+
+| Baseline   | Description                              |
+| ---------- | ---------------------------------------- |
+| Baseline C | pretrained expanded public dataset model |
+
+Combined manifest summary:
+
+| Metric                       | Value |
+| ---------------------------- | ----: |
+| Total combined samples       |  7279 |
+| Known samples                |  6961 |
+| Unknown/future-class samples |   318 |
+| Known train samples          |  4869 |
+| Known validation samples     |  1042 |
+| Known test samples           |  1050 |
+
+Source dataset counts:
+
+| Dataset                | Count |
+| ---------------------- | ----: |
+| RealWaste              |  4752 |
+| TrashNet-style dataset |  2527 |
+
+Fine-label counts:
+
+| Fine Label      | Count |
+| --------------- | ----: |
+| paper_cardboard |  1958 |
+| plastic         |  1403 |
+| metal           |  1200 |
+| glass           |   921 |
+| organic         |   847 |
+| residual        |   632 |
+| unknown         |   318 |
+
+Coarse-label counts:
+
+| Coarse Label | Count |
+| ------------ | ----: |
+| recyclable   |  5482 |
+| organic      |   847 |
+| residual     |   632 |
+| unknown      |   318 |
+
+Mapping-role counts:
+
+| Mapping Role           | Count |
+| ---------------------- | ----: |
+| known_train_candidate  |  6961 |
+| future_class_candidate |   318 |
+
+Research note:
+
+This stage expands OpenWaste-HR beyond TrashNet-only training. The combined public dataset now supports training a stronger pretrained model using both TrashNet-style and RealWaste known samples. RealWaste `Textile Trash` remains separate as a public unknown/future-class split, preserving the open-set design.
+
+Test result:
+
+| Test Run                       |                Result |
+| ------------------------------ | --------------------: |
+| Combined public manifest tests |              7 passed |
+| Full project tests             | 282 passed, 1 warning |
+
+
 
 
 

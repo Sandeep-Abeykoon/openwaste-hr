@@ -2418,6 +2418,44 @@ Research note:
 This stage strengthens the final evaluation story. The project result is not only a pretrained classifier with improved accuracy. The best current OpenWaste-HR system combines pretrained image recognition, hierarchical open-set decision-making, local unknown evaluation, safe policy tuning, backend/frontend prototype integration, and human-in-the-loop active learning.
 
 
+## Thesis Assembly Checklist v1 Summary
+
+This stage created a checklist for assembling the OpenWaste-HR dissertation from the generated methodology, implementation, evaluation, prototype, and active learning materials.
+
+Created files:
+
+* docs/thesis/thesis_assembly_checklist_v1.md
+* docs/supervisor_updates/thesis_assembly_checklist_summary_v1.md
+* tests/test_thesis_assembly_checklist_docs.py
+
+Current best thesis message:
+
+OpenWaste-HR improves waste classification by combining pretrained image recognition with hierarchical open-set decision-making, safe reject/manual-review behaviour, local unknown evaluation, and human-in-the-loop active learning.
+
+Best current system:
+
+| Item                             | Value                               |
+| -------------------------------- | ----------------------------------- |
+| Model                            | pretrained transfer-learning model  |
+| Policy                           | pretrained safe hierarchical policy |
+| Known-test coverage              | 0.864583                            |
+| Accepted reliability             | 0.960843                            |
+| Local unknown manual-review rate | 0.600000                            |
+| Local unknown acceptance rate    | 0.400000                            |
+
+Key local unknown example:
+
+| Field                   | Value                                   |
+| ----------------------- | --------------------------------------- |
+| Sample ID               | local_000001                            |
+| Human observation       | rubber slipper / flip-flop              |
+| Model prediction        | paper_cardboard                         |
+| Human status            | outside_current_known_taxonomy          |
+| Active learning v2 role | unknown_test_and_future_class_candidate |
+
+Research note:
+
+The checklist maps the completed OpenWaste-HR outputs into the final dissertation structure. It identifies which generated files should support the introduction, methodology, implementation, evaluation, discussion, conclusion, figures, tables, and future work sections.
 
 
 

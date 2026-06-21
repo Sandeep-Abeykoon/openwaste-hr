@@ -1595,6 +1595,184 @@ Research note:
 
 The formal pretrained evaluation confirms that Baseline B substantially improves known-class classification compared with Baseline A. The next stage is to test whether this stronger checkpoint also improves reject-option behaviour, local unknown handling, and hierarchical decision safety.
 
+## Pretrained Reject-Option Evaluation v1 Summary
+
+This stage evaluated reject-option methods using the full pretrained transfer-learning checkpoint.
+
+Created files:
+
+* ml/configs/confidence_reject_pretrained_trashnet.yaml
+* ml/configs/open_set_score_pretrained_trashnet.yaml
+* docs/methodology/pretrained_reject_option_evaluation_v1.md
+* docs/supervisor_updates/pretrained_reject_option_evaluation_summary_v1.md
+* tests/test_pretrained_reject_option_evaluation_docs.py
+* docs/results/pretrained_confidence_reject_baseline_v1_report.md
+* docs/results/pretrained_open_set_score_baseline_v1_report.md
+
+Test result before evaluation:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   169 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+Checkpoint used:
+
+| Field                 | Value                                                                        |
+| --------------------- | ---------------------------------------------------------------------------- |
+| Model                 | Baseline B: pretrained transfer-learning model                               |
+| Checkpoint            | ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_best.pt |
+| Best checkpoint epoch | 19                                                                           |
+| Device                | cuda                                                                         |
+
+### Confidence-Threshold Reject Result
+
+Selected threshold:
+
+| Metric    |  Value |
+| --------- | -----: |
+| Threshold | 0.9900 |
+
+Validation result:
+
+| Metric                |    Value |
+| --------------------- | -------: |
+| Total samples         |      377 |
+| Accepted count        |      269 |
+| Rejected count        |      108 |
+| Coverage              | 0.713528 |
+| Rejection rate        | 0.286472 |
+| Forced accuracy       | 0.883289 |
+| Selective accuracy    | 0.973978 |
+| Selective error rate  | 0.026022 |
+| Selective macro-F1    | 0.958167 |
+| Selective weighted-F1 | 0.974375 |
+
+Test result:
+
+| Metric                     |    Value |
+| -------------------------- | -------: |
+| Total samples              |      384 |
+| Accepted count             |      277 |
+| Rejected count             |      107 |
+| Coverage                   | 0.721354 |
+| Rejection rate             | 0.278646 |
+| Selective error rate       | 0.046931 |
+| Derived selective accuracy | 0.953069 |
+| Selective macro-F1         | 0.923975 |
+| Selective weighted-F1      | 0.952995 |
+
+Generated confidence-reject outputs:
+
+| Output                 | Path                                                                        |
+| ---------------------- | --------------------------------------------------------------------------- |
+| Validation predictions | ml/outputs/metrics/pretrained_confidence_reject_val_predictions_v1.csv      |
+| Test predictions       | ml/outputs/metrics/pretrained_confidence_reject_test_predictions_v1.csv     |
+| Threshold sweep        | ml/outputs/metrics/pretrained_confidence_reject_threshold_sweep_v1.csv      |
+| Selected threshold     | ml/outputs/metrics/pretrained_confidence_reject_selected_threshold_v1.json  |
+| Test metrics           | ml/outputs/metrics/pretrained_confidence_reject_test_metrics_v1.json        |
+| Coverage-risk plot     | ml/outputs/figures/pretrained_confidence_reject_coverage_risk_v1.png        |
+| Confidence histogram   | ml/outputs/figures/pretrained_confidence_reject_confidence_histogram_v1.png |
+| Thesis report          | docs/results/pretrained_confidence_reject_baseline_v1_report.md             |
+
+### Max-Logit and Energy Reject Result
+
+Selected thresholds:
+
+| Method    | Threshold | Accept Direction |
+| --------- | --------: | ---------------- |
+| Max-logit |  8.021357 | greater_equal    |
+| Energy    | -7.885723 | less_equal       |
+
+Max-logit validation result:
+
+| Metric                |    Value |
+| --------------------- | -------: |
+| Total samples         |      377 |
+| Accepted count        |      265 |
+| Rejected count        |      112 |
+| Coverage              | 0.702918 |
+| Rejection rate        | 0.297082 |
+| Forced accuracy       | 0.883289 |
+| Selective accuracy    | 0.958491 |
+| Selective error rate  | 0.041509 |
+| Selective macro-F1    | 0.948101 |
+| Selective weighted-F1 | 0.958383 |
+
+Energy validation result:
+
+| Metric                |    Value |
+| --------------------- | -------: |
+| Total samples         |      377 |
+| Accepted count        |      272 |
+| Rejected count        |      105 |
+| Coverage              | 0.721485 |
+| Rejection rate        | 0.278515 |
+| Forced accuracy       | 0.883289 |
+| Selective accuracy    | 0.952206 |
+| Selective error rate  | 0.047794 |
+| Selective macro-F1    | 0.941689 |
+| Selective weighted-F1 | 0.951976 |
+
+Max-logit test result:
+
+| Metric                |    Value |
+| --------------------- | -------: |
+| Total samples         |      384 |
+| Accepted count        |      282 |
+| Rejected count        |      102 |
+| Coverage              | 0.734375 |
+| Rejection rate        | 0.265625 |
+| Forced accuracy       | 0.888021 |
+| Selective accuracy    | 0.957447 |
+| Selective error rate  | 0.042553 |
+| Selective macro-F1    | 0.942696 |
+| Selective weighted-F1 | 0.957535 |
+
+Energy test result:
+
+| Metric                |    Value |
+| --------------------- | -------: |
+| Total samples         |      384 |
+| Accepted count        |      286 |
+| Rejected count        |       98 |
+| Coverage              | 0.744792 |
+| Rejection rate        | 0.255208 |
+| Forced accuracy       | 0.888021 |
+| Selective accuracy    | 0.958042 |
+| Selective error rate  | 0.041958 |
+| Selective macro-F1    | 0.943450 |
+| Selective weighted-F1 | 0.958130 |
+
+Generated open-set score outputs:
+
+| Output              | Path                                                                     |
+| ------------------- | ------------------------------------------------------------------------ |
+| Validation scores   | ml/outputs/metrics/pretrained_open_set_score_val_predictions_v1.csv      |
+| Test scores         | ml/outputs/metrics/pretrained_open_set_score_test_predictions_v1.csv     |
+| Threshold sweep     | ml/outputs/metrics/pretrained_open_set_score_threshold_sweep_v1.csv      |
+| Selected thresholds | ml/outputs/metrics/pretrained_open_set_score_selected_thresholds_v1.json |
+| Test metrics        | ml/outputs/metrics/pretrained_open_set_score_test_metrics_v1.json        |
+| Coverage-risk plot  | ml/outputs/figures/pretrained_open_set_score_coverage_risk_v1.png        |
+| Score histogram     | ml/outputs/figures/pretrained_open_set_score_histogram_v1.png            |
+| Thesis report       | docs/results/pretrained_open_set_score_baseline_v1_report.md             |
+
+### Comparison with Scratch-Trained Reject Baselines
+
+| Method               | Model               | Coverage | Selective Accuracy | Selective Macro-F1 |
+| -------------------- | ------------------- | -------: | -----------------: | -----------------: |
+| Confidence threshold | Scratch baseline    | 0.682292 |           0.770992 |           0.715164 |
+| Confidence threshold | Pretrained baseline | 0.721354 |   0.953069 derived |           0.923975 |
+| Max-logit            | Scratch baseline    | 0.716146 |           0.760000 |           0.723257 |
+| Max-logit            | Pretrained baseline | 0.734375 |           0.957447 |           0.942696 |
+| Energy               | Scratch baseline    | 0.744792 |           0.741259 |           0.705525 |
+| Energy               | Pretrained baseline | 0.744792 |           0.958042 |           0.943450 |
+
+Research note:
+
+The pretrained checkpoint substantially improves reject-option behaviour on the known test set. Compared with the scratch-trained baseline, the pretrained model achieves higher coverage and much higher accepted-decision reliability. The next stage is to evaluate whether this improvement also helps on the local unknown dataset, where the main concern is unknown false acceptance.
+
 
 
 

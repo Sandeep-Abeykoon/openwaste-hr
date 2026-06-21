@@ -1,0 +1,37 @@
+project:
+  name: OpenWaste-HR
+  evaluation_stage: confidence_threshold_reject_baseline
+  version: v1
+
+paths:
+  checkpoint: ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_best.pt
+  val_manifest: ml/data/splits/known_val.csv
+  test_manifest: ml/data/splits/known_test.csv
+  output_metrics_dir: ml/outputs/metrics
+  output_figures_dir: ml/outputs/figures
+  docs_results_dir: docs/results
+  docs_figures_dir: docs/results/figures
+
+data:
+  label_column: fine_label
+  image_size: 224
+  batch_size: 32
+  num_workers: 0
+  device: auto
+
+threshold_selection:
+  threshold_start: 0.0
+  threshold_end: 1.0
+  threshold_step: 0.01
+  min_coverage: 0.70
+  selection_metric: selective_macro_f1
+
+outputs:
+  val_predictions_csv: pretrained_confidence_reject_val_predictions_v1.csv
+  test_predictions_csv: pretrained_confidence_reject_test_predictions_v1.csv
+  threshold_sweep_csv: pretrained_confidence_reject_threshold_sweep_v1.csv
+  selected_threshold_json: pretrained_confidence_reject_selected_threshold_v1.json
+  test_metrics_json: pretrained_confidence_reject_test_metrics_v1.json
+  coverage_risk_plot: pretrained_confidence_reject_coverage_risk_v1.png
+  confidence_histogram_plot: pretrained_confidence_reject_confidence_histogram_v1.png
+  markdown_report: pretrained_confidence_reject_baseline_v1_report.md

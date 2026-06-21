@@ -2002,6 +2002,48 @@ Research note:
 
 The safe pretrained hierarchical policy is the best current OpenWaste-HR decision policy. Compared with the scratch safe hierarchical policy, it improves known-test coverage, accepted-decision reliability, and local unknown manual-review rate. Compared with the first pretrained hierarchical policy, it greatly improves local unknown handling while preserving strong known-test reliability. This policy should currently be treated as the best candidate for the final OpenWaste-HR prototype.
 
+## Final Model and Policy Comparison Table v1 Summary
+
+This stage creates the first complete model and policy comparison table after pretrained training and safe pretrained hierarchical tuning.
+
+Created files:
+
+* docs/results/final_model_policy_comparison_v1.md
+* docs/supervisor_updates/final_model_policy_comparison_summary_v1.md
+* tests/test_final_model_policy_comparison_docs.py
+
+Main closed-set comparison:
+
+| Model                             |  Accuracy | Balanced Accuracy |  Macro-F1 | Weighted-F1 |
+| --------------------------------- | --------: | ----------------: | --------: | ----------: |
+| Baseline A: scratch-trained model |  0.692708 |          0.654500 |  0.645600 |    0.700900 |
+| Baseline B: pretrained model      |  0.888000 |          0.843100 |  0.851000 |    0.887300 |
+| Improvement                       | +0.195292 |         +0.188600 | +0.205400 |   +0.186400 |
+
+Current best OpenWaste-HR policy:
+
+| Item                              | Value                               |
+| --------------------------------- | ----------------------------------- |
+| Best current policy               | Pretrained Safe Hierarchical Policy |
+| Known-test coverage               | 0.864583                            |
+| Accepted hierarchical reliability | 0.960843                            |
+| Local unknown manual-review rate  | 0.600000                            |
+| Local unknown acceptance rate     | 0.400000                            |
+
+Comparison with earlier safe policy:
+
+| Metric                           | Scratch Safe Hierarchical | Pretrained Safe Hierarchical |
+| -------------------------------- | ------------------------: | ---------------------------: |
+| Known coverage                   |                  0.658854 |                     0.864583 |
+| Accepted reliability             |                  0.889328 |                     0.960843 |
+| Local unknown manual-review rate |                  0.375000 |                     0.600000 |
+| Local unknown acceptance rate    |                  0.625000 |                     0.400000 |
+
+Research note:
+
+The pretrained safe hierarchical policy is the best current OpenWaste-HR system. It improves known-test performance, accepted-decision reliability, and local unknown manual-review rate compared with the scratch-trained safe policy. This result supports the project argument that OpenWaste-HR should be presented as hierarchical open-set waste classification with reject/manual-review decisions and local active learning support, not only as a normal waste classifier.
+
+
 
 
 

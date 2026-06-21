@@ -2122,6 +2122,82 @@ Research note:
 
 The local_000001 image is actually a rubber slipper / flip-flop, which is not part of the known TrashNet-style training labels. The model predicted paper_cardboard with high softmax confidence and returned a coarse recyclable decision. This shows that even a strong pretrained model can produce high confidence for an unknown object when forced to choose among known labels. This supports the OpenWaste-HR research argument that local unknown evaluation, safe hierarchical policies, and manual-review routing are necessary for real-world waste classification.
 
+## Backend and Frontend Best Policy Demo Test v1 Summary
+
+This stage tested the live OpenWaste-HR prototype after integrating the current best pretrained safe hierarchical policy.
+
+Created files:
+
+* docs/methodology/backend_frontend_best_policy_demo_test_v1.md
+* docs/supervisor_updates/backend_frontend_best_policy_demo_test_summary_v1.md
+* tests/test_backend_frontend_best_policy_demo_docs.py
+
+Test result:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   202 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+Backend server result:
+
+| Field           | Value                                             |
+| --------------- | ------------------------------------------------- |
+| Server          | uvicorn backend.app.main:app --reload --port 8000 |
+| Backend URL     | http://127.0.0.1:8000                             |
+| Startup result  | Application startup complete                      |
+| Health endpoint | success                                           |
+| Health status   | ok                                                |
+| Service         | openwaste-hr-backend                              |
+| Version         | backend_inference_endpoint_v1                     |
+
+Backend prediction endpoint result:
+
+| Field                  | Value                                         |
+| ---------------------- | --------------------------------------------- |
+| Request ID             | backend_best_policy_demo_001                  |
+| Sample ID              | local_000001                                  |
+| Image path             | ml/data/local_unknown/images/local_000001.jpg |
+| Status                 | success                                       |
+| Device                 | cuda                                          |
+| Predicted fine label   | paper_cardboard                               |
+| Max softmax confidence | 0.993654                                      |
+| Top coarse label       | recyclable                                    |
+| Top coarse confidence  | 0.999999                                      |
+| Coarse margin          | 0.999999                                      |
+| Decision type          | coarse_label                                  |
+| Final label            | recyclable                                    |
+| Final confidence       | 0.999999                                      |
+| Decision reason        | coarse_fallback_stable                        |
+
+Active policy thresholds:
+
+| Threshold                     |    Value |
+| ----------------------------- | -------: |
+| fine_confidence_threshold     | 0.995000 |
+| coarse_confidence_threshold   | 0.800000 |
+| coarse_margin_threshold       | 0.150000 |
+| minimum_confidence_for_coarse | 0.900000 |
+
+Frontend demo result:
+
+| Field                      | Value                             |
+| -------------------------- | --------------------------------- |
+| Frontend server            | python -m http.server 5500        |
+| Frontend URL               | http://127.0.0.1:5500             |
+| Browser demo status        | displayed successful raw response |
+| Frontend request ID        | frontend_demo_1782032776455       |
+| Frontend decision type     | coarse_label                      |
+| Frontend final label       | recyclable                        |
+| Frontend final confidence  | 0.999999                          |
+| Frontend policy thresholds | 0.995 / 0.8 / 0.15 / 0.9          |
+
+Research note:
+
+The live backend and frontend demo are now connected to the best current OpenWaste-HR policy. The demo image local_000001 is a rubber slipper / flip-flop, which is outside the known TrashNet-style training classes. The model still predicted a known fine label with high confidence and returned a coarse recyclable decision. This live demo therefore gives a useful thesis example showing why real-world waste classification needs local unknown evaluation, hierarchical fallback decisions, manual-review routing, and future active-learning correction.
+
+
 
 
 

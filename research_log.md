@@ -1275,6 +1275,32 @@ Research note:
 
 This stage converts the implemented prototype into thesis-ready writing. It will be used as the base for the final implementation chapter, with diagrams and screenshots added later.
 
+## Architecture Diagram Source File v1 Summary
+
+This stage creates a Mermaid architecture diagram source file and explanation notes for the current OpenWaste-HR prototype.
+
+Created files:
+
+* docs/architecture/openwaste_hr_architecture_v1.mmd
+* docs/architecture/openwaste_hr_architecture_notes_v1.md
+* tests/test_architecture_diagram_docs.py
+
+The architecture diagram covers the following layers:
+
+| Layer                         | Purpose                                                                                  |
+| ----------------------------- | ---------------------------------------------------------------------------------------- |
+| Dataset and Data Management   | known data, local unknown data, manifests, splits, inspection                            |
+| Model Training and Evaluation | baseline training, closed-set evaluation, reject baselines, local unknown evaluation     |
+| Hierarchical Decision Layer   | taxonomy, fine_label, coarse_label, manual_review, safe policy tuning                    |
+| Local Active Learning Loop    | candidate selection, human labelling sheet, reviewed label processing, future dataset v2 |
+| Inference Layer               | single-image inference, batch inference, prototype API wrapper                           |
+| Backend Layer                 | FastAPI backend, `/health`, `/api/inference/predict`                                     |
+| Frontend Demo                 | browser UI, image path input, final decision display                                     |
+
+Research note:
+
+This stage prepares a thesis-ready architecture diagram source. The Mermaid file can later be exported as PNG or SVG and included in the implementation chapter.
+
 
 
 

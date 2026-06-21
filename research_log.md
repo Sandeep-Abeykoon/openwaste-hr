@@ -2232,6 +2232,56 @@ ml/outputs/metrics/human_labelling_sheet_v1_working_review.csv
 
 This file should be used for manual review instead of editing the original generated human labelling sheet.
 
+## Reviewed Local Label Seed v1 Summary
+
+This stage created the first reviewed local-label seed for OpenWaste-HR active learning v2.
+
+Created files:
+
+* docs/methodology/reviewed_local_label_seed_v1.md
+* docs/supervisor_updates/reviewed_local_label_seed_summary_v1.md
+* ml/src/openwaste_hr/evaluation/process_reviewed_local_label_seed.py
+* ml/data/splits/reviewed_local_labels_seed_v1.csv
+* docs/results/reviewed_local_labels_seed_v1_report.md
+* tests/test_reviewed_local_label_seed.py
+
+Generated local output files:
+
+* ml/outputs/metrics/human_labelling_sheet_v1_seeded_review.csv
+* ml/outputs/metrics/reviewed_local_labels_seed_v1.csv
+* ml/outputs/metrics/reviewed_local_labels_seed_summary_v1.json
+
+Processing result:
+
+| Metric                            | Value |
+| --------------------------------- | ----: |
+| Total sheet rows                  |    20 |
+| Seeded reviewed rows              |     1 |
+| Pending review rows               |    19 |
+| Ready for active learning v2 rows |     1 |
+
+Confirmed reviewed seed:
+
+| Field                   | Value                                   |
+| ----------------------- | --------------------------------------- |
+| Sample ID               | local_000001                            |
+| Human observed object   | rubber slipper / flip-flop              |
+| Human taxonomy status   | outside_current_known_taxonomy          |
+| Recommended action      | keep_as_unknown_test                    |
+| Active learning v2 role | unknown_test_and_future_class_candidate |
+
+Test result:
+
+| Test Run               |                Result |
+| ---------------------- | --------------------: |
+| New reviewed seed test |              7 passed |
+| Full test suite        | 215 passed, 1 warning |
+
+Research note:
+
+This stage confirms that local_000001 should not be forced into the current known fine-label taxonomy. It should be treated as a local unknown sample and future class candidate. This supports the OpenWaste-HR human-in-the-loop active learning argument, where real local objects can be reviewed and used to improve the dataset or future taxonomy.
+
+
 
 
 

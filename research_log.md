@@ -2197,6 +2197,42 @@ Research note:
 
 The live backend and frontend demo are now connected to the best current OpenWaste-HR policy. The demo image local_000001 is a rubber slipper / flip-flop, which is outside the known TrashNet-style training classes. The model still predicted a known fine label with high confidence and returned a coarse recyclable decision. This live demo therefore gives a useful thesis example showing why real-world waste classification needs local unknown evaluation, hierarchical fallback decisions, manual-review routing, and future active-learning correction.
 
+## Human Correction Label Preparation v1 Summary
+
+This stage prepared OpenWaste-HR for human correction labels and active learning v2.
+
+Created files:
+
+* docs/annotation/local_unknown_human_label_guide_v1.md
+* docs/methodology/human_correction_label_preparation_v1.md
+* docs/supervisor_updates/human_correction_label_preparation_summary_v1.md
+* ml/data/splits/local_unknown_human_observation_notes_v1.csv
+* ml/outputs/metrics/human_labelling_sheet_v1_working_review.csv
+* tests/test_human_correction_label_preparation_docs.py
+
+Purpose:
+
+This stage documents how local unknown images should be reviewed by a human before being used for active learning v2.
+
+Confirmed local unknown example:
+
+| Sample ID    | Human Observation          | Taxonomy Status                | Recommended Action   |
+| ------------ | -------------------------- | ------------------------------ | -------------------- |
+| local_000001 | rubber slipper / flip-flop | outside_current_known_taxonomy | keep_as_unknown_test |
+
+Research note:
+
+The local_000001 image is a rubber slipper / flip-flop and is outside the current known fine-label taxonomy. However, the best pretrained safe policy predicted a known fine label with high confidence and returned a coarse recyclable decision. This supports the OpenWaste-HR argument that real-world waste classification requires local unknown evaluation, human correction labels, manual-review routing, and active learning support.
+
+The working human review file is:
+
+```text
+ml/outputs/metrics/human_labelling_sheet_v1_working_review.csv
+```
+
+This file should be used for manual review instead of editing the original generated human labelling sheet.
+
+
 
 
 

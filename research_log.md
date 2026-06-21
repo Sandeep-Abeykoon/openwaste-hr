@@ -2542,6 +2542,46 @@ Research note:
 
 The README now functions as a project entry point for a supervisor, marker, or future reviewer. It summarises the complete OpenWaste-HR v1 research pipeline, prototype usage, best evaluation result, and active learning workflow.
 
+## Public Dataset Expansion Plan v1 Summary
+
+This stage created the next research phase plan for expanding OpenWaste-HR beyond the TrashNet-style dataset.
+
+Created files:
+
+* docs/methodology/public_dataset_expansion_plan_v1.md
+* docs/supervisor_updates/public_dataset_expansion_plan_summary_v1.md
+* ml/configs/public_dataset_expansion_plan.yaml
+* tests/test_public_dataset_expansion_plan_docs.py
+
+Purpose:
+
+The current OpenWaste-HR v1 pipeline is complete, but it was trained mainly using the TrashNet-style dataset. The next research phase should add more public waste datasets and compare expanded-data training against the current best pretrained safe hierarchical policy.
+
+Recommended next dataset:
+
+| Dataset   | Reason                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------- |
+| RealWaste | closer to the current image-classification workflow and suitable for the next expanded training stage         |
+| TACO      | useful later for in-the-wild waste and hierarchical/open-set analysis, but likely requires more preprocessing |
+
+Planned model comparison:
+
+| Model      | Training Data                                              | Status   |
+| ---------- | ---------------------------------------------------------- | -------- |
+| Baseline A | TrashNet-style dataset, scratch training                   | complete |
+| Baseline B | TrashNet-style dataset, pretrained transfer learning       | complete |
+| Baseline C | expanded public dataset, pretrained transfer learning      | planned  |
+| Baseline D | expanded public dataset plus reviewed active-learning data | planned  |
+
+Mapping rule:
+
+Do not force unclear or outside-taxonomy dataset labels into known classes. Labels should be mapped as known_train_candidate, known_eval_candidate, unknown_eval_candidate, future_class_candidate, or exclude_or_review.
+
+Research note:
+
+This stage corrects the project direction after completing the v1 prototype. The project should not stop at TrashNet-only training. The next meaningful research improvement is to add public dataset expansion, retrain the pretrained model, retune the safe hierarchical policy, and compare the expanded model against the current best OpenWaste-HR policy.
+
+
 
 
 

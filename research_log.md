@@ -1301,6 +1301,53 @@ Research note:
 
 This stage prepares a thesis-ready architecture diagram source. The Mermaid file can later be exported as PNG or SVG and included in the implementation chapter.
 
+## Thesis Evaluation Chapter Draft v1 Summary
+
+This stage creates the first thesis-ready evaluation chapter draft and supervisor evaluation summary.
+
+Created files:
+
+* docs/thesis/evaluation_chapter_draft_v1.md
+* docs/supervisor_updates/evaluation_chapter_summary_v1.md
+* tests/test_evaluation_chapter_docs.py
+
+The evaluation chapter draft covers:
+
+| Section                        | Purpose                                                                  |
+| ------------------------------ | ------------------------------------------------------------------------ |
+| Evaluation objectives          | explains what the current prototype evaluation measures                  |
+| Experimental setup             | describes the prototype evaluation workflow                              |
+| Dataset and splits             | summarises known data and local unknown evaluation data                  |
+| Evaluation metrics             | explains closed-set, reject-option, unknown, and hierarchical metrics    |
+| Closed-set baseline            | reports forced-classification baseline performance                       |
+| Reject-option baselines        | reports confidence, max-logit, and energy behaviour                      |
+| Local unknown evaluation       | evaluates unknown rejection and false acceptance                         |
+| Hierarchical policy evaluation | compares fine_label, coarse_label, and manual_review behaviour           |
+| Safe policy tuning             | explains the safety-coverage trade-off                                   |
+| Policy comparison              | compares closed-set, reject, hierarchical, and safe hierarchical systems |
+| Active learning evaluation     | summarises candidate selection and pending human review                  |
+| Inference/prototype validation | confirms command-line, backend, and frontend workflows                   |
+| Limitations                    | explains current limitations                                             |
+| Future evaluation plan         | records pretrained, extra dataset, and active-learning v2 plans          |
+
+Key current results:
+
+| Result                                             |      Value |
+| -------------------------------------------------- | ---------: |
+| Closed-set baseline accuracy                       |   0.692708 |
+| Confidence reject selective accuracy               |   0.770992 |
+| Confidence reject local unknown rejection rate     |   0.350000 |
+| Safe hierarchical accepted reliability             |   0.889328 |
+| Safe hierarchical local unknown manual-review rate |   0.375000 |
+| Active learning candidates selected                |         20 |
+| Current demo prediction                            |    plastic |
+| Current demo decision type                         | fine_label |
+
+Research note:
+
+This chapter is a v1 evaluation draft for the current working prototype. It is not the final model-comparison chapter. Later, after pretrained training, additional datasets, human label correction, and retraining, the evaluation chapter will be updated with final comparison results.
+
+
 
 
 

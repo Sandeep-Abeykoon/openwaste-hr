@@ -2616,6 +2616,92 @@ Research note:
 
 Textile Trash is intentionally not forced into a current known class. It is kept as unknown/future-class data to preserve the open-set design of OpenWaste-HR. This prepares the next phase: building a RealWaste manifest, inspecting the expanded dataset, training a pretrained expanded model, and comparing it against the current best pretrained safe hierarchical policy.
 
+## RealWaste Actual Manifest Build v1 Summary
+
+This stage downloaded/placed the RealWaste dataset locally and built the actual RealWaste manifest for OpenWaste-HR.
+
+Dataset source used:
+
+* UCI RealWaste dataset page
+* Local path: ml/data/raw/realwaste
+
+Detected RealWaste class folders:
+
+* Cardboard
+* Food Organics
+* Glass
+* Metal
+* Miscellaneous Trash
+* Paper
+* Plastic
+* Textile Trash
+* Vegetation
+
+Created files:
+
+* ml/data/splits/realwaste_manifest_v1.csv
+* ml/data/splits/realwaste_known_train_v1.csv
+* ml/data/splits/realwaste_known_val_v1.csv
+* ml/data/splits/realwaste_known_test_v1.csv
+* ml/data/splits/realwaste_unknown_test_v1.csv
+* ml/data/splits/realwaste_manifest_summary_v1.json
+
+Manifest summary:
+
+| Metric                       | Value |
+| ---------------------------- | ----: |
+| Total samples                |  4752 |
+| Known samples                |  4434 |
+| Unknown/future-class samples |   318 |
+| Known train                  |  3103 |
+| Known validation             |   665 |
+| Known test                   |   666 |
+| Unknown test                 |   318 |
+
+Fine-label counts:
+
+| Fine Label      | Count |
+| --------------- | ----: |
+| paper_cardboard |   961 |
+| plastic         |   921 |
+| organic         |   847 |
+| metal           |   790 |
+| residual        |   495 |
+| glass           |   420 |
+| unknown         |   318 |
+
+Coarse-label counts:
+
+| Coarse Label | Count |
+| ------------ | ----: |
+| recyclable   |  3092 |
+| organic      |   847 |
+| residual     |   495 |
+| unknown      |   318 |
+
+Unknown/future-class explanation:
+
+The 318 unknown samples come from the RealWaste `Textile Trash` folder. This label was intentionally mapped as:
+
+| Field          | Value                  |
+| -------------- | ---------------------- |
+| original_label | Textile Trash          |
+| fine_label     | unknown                |
+| coarse_label   | unknown                |
+| is_known       | false                  |
+| usage          | unknown_test           |
+| mapping_role   | future_class_candidate |
+
+Research note:
+
+Textile Trash was not forced into residual or any other current known class. It was kept as unknown/future-class data to preserve the open-set design of OpenWaste-HR. This strengthens the project because RealWaste now contributes both expanded known-class training data and a public-dataset unknown/future-class evaluation split.
+
+Test result:
+
+| Test Run                         |                Result |
+| -------------------------------- | --------------------: |
+| RealWaste manifest builder tests |              6 passed |
+| Full project tests               | 269 passed, 1 warning |
 
 
 

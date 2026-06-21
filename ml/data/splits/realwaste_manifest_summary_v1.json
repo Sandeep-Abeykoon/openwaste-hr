@@ -1,0 +1,39 @@
+{
+  "total_samples": 4752,
+  "known_samples": 4434,
+  "unknown_samples": 318,
+  "usage_counts": {
+    "known_train": 3103,
+    "known_test": 666,
+    "known_val": 665,
+    "unknown_test": 318
+  },
+  "fine_label_counts": {
+    "paper_cardboard": 961,
+    "plastic": 921,
+    "organic": 847,
+    "metal": 790,
+    "residual": 495,
+    "glass": 420,
+    "unknown": 318
+  },
+  "coarse_label_counts": {
+    "recyclable": 3092,
+    "organic": 847,
+    "residual": 495,
+    "unknown": 318
+  },
+  "mapping_role_counts": {
+    "known_train_candidate": 4434,
+    "future_class_candidate": 318
+  },
+  "skipped_counts": {},
+  "outputs": {
+    "manifest_csv": "ml\\data\\splits\\realwaste_manifest_v1.csv",
+    "known_train_csv": "ml\\data\\splits\\realwaste_known_train_v1.csv",
+    "known_val_csv": "ml\\data\\splits\\realwaste_known_val_v1.csv",
+    "known_test_csv": "ml\\data\\splits\\realwaste_known_test_v1.csv",
+    "unknown_test_csv": "ml\\data\\splits\\realwaste_unknown_test_v1.csv",
+    "summary_json": "ml\\data\\splits\\realwaste_manifest_summary_v1.json"
+  }
+}

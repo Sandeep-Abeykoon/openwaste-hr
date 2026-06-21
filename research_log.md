@@ -1347,6 +1347,44 @@ Research note:
 
 This chapter is a v1 evaluation draft for the current working prototype. It is not the final model-comparison chapter. Later, after pretrained training, additional datasets, human label correction, and retraining, the evaluation chapter will be updated with final comparison results.
 
+## Thesis Methodology Chapter Consolidation v1 Summary
+
+This stage creates a consolidated thesis methodology chapter draft and supervisor methodology summary.
+
+Created files:
+
+* docs/thesis/methodology_chapter_consolidated_v1.md
+* docs/supervisor_updates/methodology_chapter_summary_v1.md
+* tests/test_methodology_chapter_docs.py
+
+The methodology chapter consolidates the project workflow:
+
+```text id="ip9qn5"
+taxonomy design → dataset preparation → baseline model training → closed-set evaluation → reject-option evaluation → local unknown evaluation → hierarchical decision policy → safe policy tuning → active learning workflow → inference pipeline → backend/frontend prototype
+```
+
+Key methodology areas covered:
+
+| Area                              | Purpose                                                            |
+| --------------------------------- | ------------------------------------------------------------------ |
+| Taxonomy methodology              | defines fine labels, coarse labels, unknown, and manual_review     |
+| Dataset methodology               | uses manifest-based dataset preparation                            |
+| Dataset inspection                | checks image validity, labels, sizes, and imbalance                |
+| Baseline training                 | trains the first closed-set classifier                             |
+| Reject-option methodology         | evaluates confidence, max-logit, and energy rejection              |
+| Local unknown evaluation          | measures unknown rejection and false acceptance                    |
+| Hierarchical decision methodology | supports fine_label, coarse_label, and manual_review               |
+| Safe policy tuning                | selects stricter thresholds for safer decisions                    |
+| Active learning methodology       | selects local candidates for human review                          |
+| Human labelling methodology       | prepares reviewed local data for future dataset updates            |
+| Inference methodology             | supports single-image, batch, API, backend, and frontend workflows |
+| Testing methodology               | supports reproducibility and implementation confidence             |
+
+Research note:
+
+This stage converts the separate methodology documents into a thesis-ready methodology chapter draft. It clearly presents OpenWaste-HR as a hierarchical open-set waste classification methodology rather than only a normal CNN classification workflow.
+
+
 
 
 

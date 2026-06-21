@@ -2370,6 +2370,54 @@ Research note:
 
 The active learning v2 thesis section strengthens the project story by showing that OpenWaste-HR is not only a model-training project. It is a workflow for hierarchical open-set classification, local unknown evaluation, manual-review routing, and future dataset improvement through human-in-the-loop active learning.
 
+## Final Evaluation Best Policy Update v1 Summary
+
+This stage created a final evaluation update that combines the best pretrained safe policy, live prototype result, and active learning v2 dataset decision.
+
+Created files:
+
+* docs/thesis/evaluation_best_policy_active_learning_update_v1.md
+* docs/results/final_evaluation_summary_best_policy_v1.md
+* docs/supervisor_updates/final_evaluation_best_policy_summary_v1.md
+* tests/test_final_evaluation_best_policy_docs.py
+
+Best current system:
+
+| Item                              | Value                               |
+| --------------------------------- | ----------------------------------- |
+| Model                             | pretrained transfer-learning model  |
+| Decision policy                   | pretrained safe hierarchical policy |
+| Known-test coverage               | 0.864583                            |
+| Accepted hierarchical reliability | 0.960843                            |
+| Local unknown manual-review rate  | 0.600000                            |
+| Local unknown acceptance rate     | 0.400000                            |
+
+Live demo example:
+
+| Field                      | Value                      |
+| -------------------------- | -------------------------- |
+| Sample ID                  | local_000001               |
+| Human observation          | rubber slipper / flip-flop |
+| Model predicted fine label | paper_cardboard            |
+| Final decision type        | coarse_label               |
+| Final label                | recyclable                 |
+
+Active learning v2 decision:
+
+| Field                             | Value                                   |
+| --------------------------------- | --------------------------------------- |
+| Taxonomy status                   | outside_current_known_taxonomy          |
+| Recommended action                | keep_as_unknown_test                    |
+| Include in known training v2      | false                                   |
+| Include in unknown test v2        | true                                    |
+| Include as future class candidate | true                                    |
+| Active learning v2 role           | unknown_test_and_future_class_candidate |
+
+Research note:
+
+This stage strengthens the final evaluation story. The project result is not only a pretrained classifier with improved accuracy. The best current OpenWaste-HR system combines pretrained image recognition, hierarchical open-set decision-making, local unknown evaluation, safe policy tuning, backend/frontend prototype integration, and human-in-the-loop active learning.
+
+
 
 
 

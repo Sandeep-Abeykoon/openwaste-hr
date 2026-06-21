@@ -1542,5 +1542,59 @@ Research note:
 
 The pretrained transfer-learning model substantially improves known-class classification performance compared with the scratch-trained baseline. This confirms that pretrained visual features are valuable for the OpenWaste-HR pipeline. The next stage is to evaluate this pretrained checkpoint through the same downstream workflow: closed-set evaluation, reject-option evaluation, local unknown evaluation, hierarchical decision policy, and safe policy tuning.
 
+## Pretrained Baseline Evaluation v1 Summary
+
+This stage evaluated the full pretrained transfer-learning model using the formal closed-set evaluation pipeline.
+
+Created files:
+
+* ml/configs/evaluate_pretrained_trashnet.yaml
+* docs/methodology/pretrained_baseline_evaluation_v1.md
+* docs/supervisor_updates/pretrained_baseline_evaluation_summary_v1.md
+* tests/test_pretrained_baseline_evaluation_docs.py
+* docs/results/pretrained_trashnet_v1_report.md
+
+Test result before evaluation:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   164 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+Pretrained baseline evaluation result:
+
+| Metric            |  Value |
+| ----------------- | -----: |
+| Test samples      |    384 |
+| Accuracy          | 0.8880 |
+| Balanced accuracy | 0.8431 |
+| Macro-F1          | 0.8510 |
+| Weighted-F1       | 0.8873 |
+
+Generated evaluation outputs:
+
+| Output                | Path                                                                |
+| --------------------- | ------------------------------------------------------------------- |
+| Predictions CSV       | ml/outputs/metrics/pretrained_trashnet_test_predictions_v1.csv      |
+| Metrics JSON          | ml/outputs/metrics/pretrained_trashnet_eval_metrics_v1.json         |
+| Confusion matrix CSV  | ml/outputs/metrics/pretrained_trashnet_confusion_matrix_v1.csv      |
+| Classification report | ml/outputs/metrics/pretrained_trashnet_classification_report_v1.csv |
+| Confusion matrix plot | ml/outputs/figures/pretrained_trashnet_confusion_matrix_v1.png      |
+| Thesis report         | docs/results/pretrained_trashnet_v1_report.md                       |
+
+Comparison with scratch-trained baseline:
+
+| Model                                            | Accuracy | Balanced Accuracy | Macro-F1 | Weighted-F1 |
+| ------------------------------------------------ | -------: | ----------------: | -------: | ----------: |
+| Baseline A: scratch-trained TrashNet-style model |   0.6927 |            0.6545 |   0.6456 |      0.7009 |
+| Baseline B: pretrained transfer-learning model   |   0.8880 |            0.8431 |   0.8510 |      0.8873 |
+| Improvement                                      |  +0.1953 |           +0.1886 |  +0.2054 |     +0.1864 |
+
+Research note:
+
+The formal pretrained evaluation confirms that Baseline B substantially improves known-class classification compared with Baseline A. The next stage is to test whether this stronger checkpoint also improves reject-option behaviour, local unknown handling, and hierarchical decision safety.
+
+
 
 

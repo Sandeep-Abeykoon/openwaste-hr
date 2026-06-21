@@ -2498,6 +2498,51 @@ Research note:
 
 The supervisor handover pack presents OpenWaste-HR as a complete v1 research and prototype pipeline. It explains that the contribution is not only classification accuracy, but the combination of pretrained image recognition, hierarchical open-set decision-making, safe manual-review behaviour, local unknown evaluation, backend/frontend integration, and human-in-the-loop active learning.
 
+## Final Project README Update v1 Summary
+
+This stage updated the main README so the repository clearly presents OpenWaste-HR as a final-year research project and working prototype.
+
+Created files:
+
+* README.md
+* docs/supervisor_updates/final_readme_update_summary_v1.md
+* tests/test_final_project_readme_docs.py
+
+README content now includes:
+
+* project title
+* project summary
+* current best system
+* best policy metrics
+* closed-set model improvement
+* policy comparison
+* local unknown example
+* active learning v2 result
+* repository structure
+* setup commands
+* inference commands
+* backend/frontend demo commands
+* thesis file references
+* completed pipeline status
+* remaining work
+* terminology guidance
+
+Best current system:
+
+| Item                             | Value                               |
+| -------------------------------- | ----------------------------------- |
+| Model                            | pretrained transfer-learning model  |
+| Policy                           | pretrained safe hierarchical policy |
+| Known-test coverage              | 0.864583                            |
+| Accepted reliability             | 0.960843                            |
+| Local unknown manual-review rate | 0.600000                            |
+| Local unknown acceptance rate    | 0.400000                            |
+
+Research note:
+
+The README now functions as a project entry point for a supervisor, marker, or future reviewer. It summarises the complete OpenWaste-HR v1 research pipeline, prototype usage, best evaluation result, and active learning workflow.
+
+
 
 
 

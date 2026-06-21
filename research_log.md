@@ -2334,6 +2334,42 @@ Research note:
 
 This stage prevents the reviewed local unknown object from being incorrectly added to the current known training classes. The rubber slipper / flip-flop sample is kept as an unknown-test sample and future class candidate. This supports the OpenWaste-HR active learning workflow by separating human-reviewed samples into correct dataset roles instead of forcing all reviewed images into existing labels.
 
+## Active Learning v2 Thesis Section v1 Summary
+
+This stage created a thesis-ready section explaining the active learning v2 workflow.
+
+Created files:
+
+* docs/thesis/active_learning_v2_section_v1.md
+* docs/supervisor_updates/active_learning_v2_thesis_section_summary_v1.md
+* tests/test_active_learning_v2_thesis_section_docs.py
+
+Purpose:
+
+This section explains how OpenWaste-HR uses human-in-the-loop active learning to review uncertain or unfamiliar local waste images and assign them correct future dataset roles.
+
+Reviewed example:
+
+| Field              | Value                                   |
+| ------------------ | --------------------------------------- |
+| Sample ID          | local_000001                            |
+| Human observation  | rubber slipper / flip-flop              |
+| Taxonomy status    | outside_current_known_taxonomy          |
+| Recommended action | keep_as_unknown_test                    |
+| Future role        | unknown_test_and_future_class_candidate |
+
+Dataset decision:
+
+| Role                   | Decision |
+| ---------------------- | -------- |
+| Known training sample  | no       |
+| Unknown-test sample    | yes      |
+| Future class candidate | yes      |
+
+Research note:
+
+The active learning v2 thesis section strengthens the project story by showing that OpenWaste-HR is not only a model-training project. It is a workflow for hierarchical open-set classification, local unknown evaluation, manual-review routing, and future dataset improvement through human-in-the-loop active learning.
+
 
 
 

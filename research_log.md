@@ -2581,6 +2581,41 @@ Research note:
 
 This stage corrects the project direction after completing the v1 prototype. The project should not stop at TrashNet-only training. The next meaningful research improvement is to add public dataset expansion, retrain the pretrained model, retune the safe hierarchical policy, and compare the expanded model against the current best OpenWaste-HR policy.
 
+## RealWaste Intake and Manifest Builder v1 Summary
+
+This stage created the RealWaste intake configuration, label mapping, manifest builder, and tests.
+
+Created files:
+
+* docs/methodology/realwaste_intake_v1.md
+* docs/supervisor_updates/realwaste_intake_summary_v1.md
+* ml/configs/realwaste.yaml
+* ml/configs/realwaste_label_mapping_v1.csv
+* ml/src/openwaste_hr/data/build_realwaste_manifest.py
+* tests/test_realwaste_manifest_builder.py
+
+Purpose:
+
+This stage prepares OpenWaste-HR for public dataset expansion beyond the TrashNet-style dataset. RealWaste is selected as the next dataset because it is closer to the current image-classification workflow and provides more realistic landfill-style waste images.
+
+Mapping summary:
+
+| RealWaste Label     | OpenWaste-HR Mapping             |
+| ------------------- | -------------------------------- |
+| Cardboard           | paper_cardboard                  |
+| Food Organics       | organic                          |
+| Glass               | glass                            |
+| Metal               | metal                            |
+| Miscellaneous Trash | residual                         |
+| Paper               | paper_cardboard                  |
+| Plastic             | plastic                          |
+| Textile Trash       | unknown / future_class_candidate |
+| Vegetation          | organic                          |
+
+Research note:
+
+Textile Trash is intentionally not forced into a current known class. It is kept as unknown/future-class data to preserve the open-set design of OpenWaste-HR. This prepares the next phase: building a RealWaste manifest, inspecting the expanded dataset, training a pretrained expanded model, and comparing it against the current best pretrained safe hierarchical policy.
+
 
 
 

@@ -2457,6 +2457,46 @@ Research note:
 
 The checklist maps the completed OpenWaste-HR outputs into the final dissertation structure. It identifies which generated files should support the introduction, methodology, implementation, evaluation, discussion, conclusion, figures, tables, and future work sections.
 
+## Supervisor Handover Pack v1 Summary
+
+This stage created a supervisor-friendly handover pack for OpenWaste-HR.
+
+Created files:
+
+* docs/supervisor_updates/supervisor_handover_pack_v1.md
+* docs/supervisor_updates/supervisor_demo_script_v1.md
+* docs/supervisor_updates/supervisor_final_status_summary_v1.md
+* tests/test_supervisor_handover_pack_docs.py
+
+Purpose:
+
+The handover pack summarises the current project message, best model/policy result, live prototype demo steps, active learning v2 result, thesis files, completed pipeline stages, and remaining work.
+
+Best current system:
+
+| Item                             | Value                               |
+| -------------------------------- | ----------------------------------- |
+| Model                            | pretrained transfer-learning model  |
+| Policy                           | pretrained safe hierarchical policy |
+| Known-test coverage              | 0.864583                            |
+| Accepted reliability             | 0.960843                            |
+| Local unknown manual-review rate | 0.600000                            |
+| Local unknown acceptance rate    | 0.400000                            |
+
+Key demo example:
+
+| Field                   | Value                                   |
+| ----------------------- | --------------------------------------- |
+| Sample ID               | local_000001                            |
+| Human observation       | rubber slipper / flip-flop              |
+| Model prediction        | paper_cardboard                         |
+| Final decision          | coarse_label recyclable                 |
+| Human status            | outside_current_known_taxonomy          |
+| Active learning v2 role | unknown_test_and_future_class_candidate |
+
+Research note:
+
+The supervisor handover pack presents OpenWaste-HR as a complete v1 research and prototype pipeline. It explains that the contribution is not only classification accuracy, but the combination of pretrained image recognition, hierarchical open-set decision-making, safe manual-review behaviour, local unknown evaluation, backend/frontend integration, and human-in-the-loop active learning.
 
 
 

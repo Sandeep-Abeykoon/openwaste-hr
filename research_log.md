@@ -1912,6 +1912,97 @@ Research note:
 
 This confirms that pretrained features improve known-class and hierarchical known-test performance, but a strong classifier can still accept local unknown images too easily. The next stage should tune a safer pretrained hierarchical policy to improve the local unknown manual-review rate while preserving useful known-test coverage.
 
+## Safe Pretrained Hierarchical Policy Tuning v1 Summary
+
+This stage tuned a safer hierarchical decision policy for the full pretrained transfer-learning checkpoint.
+
+Created files:
+
+* ml/configs/pretrained_safe_hierarchical_policy_tuning.yaml
+* docs/methodology/pretrained_safe_hierarchical_policy_tuning_v1.md
+* docs/supervisor_updates/pretrained_safe_hierarchical_policy_tuning_summary_v1.md
+* tests/test_pretrained_safe_hierarchical_policy_tuning_docs.py
+* docs/results/pretrained_safe_hierarchical_policy_tuning_v1_report.md
+
+Test result before tuning:
+
+| Metric            | Value |
+| ----------------- | ----: |
+| Tests passed      |   184 |
+| Warnings          |     1 |
+| Blocking failures |     0 |
+
+Tuning result:
+
+| Metric                         | Value |
+| ------------------------------ | ----: |
+| Threshold candidates evaluated |   750 |
+
+Selected policy:
+
+| Threshold                     |    Value |
+| ----------------------------- | -------: |
+| fine_confidence_threshold     | 0.995000 |
+| coarse_confidence_threshold   | 0.800000 |
+| coarse_margin_threshold       | 0.150000 |
+| minimum_confidence_for_coarse | 0.900000 |
+
+Known-test result:
+
+| Metric                                  |    Value |
+| --------------------------------------- | -------: |
+| Known total samples                     |      384 |
+| Fine decisions                          |      262 |
+| Coarse fallback decisions               |       70 |
+| Manual-review decisions                 |       52 |
+| Known decision coverage                 | 0.864583 |
+| Known manual-review rate                | 0.135417 |
+| Fine correct count                      |      251 |
+| Coarse correct count                    |       68 |
+| Hierarchical success count              |      319 |
+| Fine accuracy on fine decisions         | 0.958015 |
+| Coarse accuracy on coarse decisions     | 0.971429 |
+| Hierarchical success rate over all      | 0.830729 |
+| Hierarchical success rate over accepted | 0.960843 |
+
+Local unknown result:
+
+| Metric                      |    Value |
+| --------------------------- | -------: |
+| Unknown total samples       |       40 |
+| Unknown manual-review count |       24 |
+| Unknown fine accept count   |        6 |
+| Unknown coarse accept count |       10 |
+| Unknown accepted count      |       16 |
+| Unknown manual-review rate  | 0.600000 |
+| Unknown acceptance rate     | 0.400000 |
+
+Generated outputs:
+
+| Output                      | Path                                                                           |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| Threshold sweep             | ml/outputs/metrics/pretrained_safe_hierarchical_threshold_sweep_v1.csv         |
+| Selected policy             | ml/outputs/metrics/pretrained_safe_hierarchical_selected_policy_v1.json        |
+| Known decisions CSV         | ml/outputs/metrics/pretrained_safe_hierarchical_known_test_decisions_v1.csv    |
+| Local unknown decisions CSV | ml/outputs/metrics/pretrained_safe_hierarchical_local_unknown_decisions_v1.csv |
+| Metrics JSON                | ml/outputs/metrics/pretrained_safe_hierarchical_policy_metrics_v1.json         |
+| Decision distribution CSV   | ml/outputs/metrics/pretrained_safe_hierarchical_decision_distribution_v1.csv   |
+| Tuning plot                 | ml/outputs/figures/pretrained_safe_hierarchical_policy_tuning_v1.png           |
+| Thesis report               | docs/results/pretrained_safe_hierarchical_policy_tuning_v1_report.md           |
+
+Comparison with earlier policies:
+
+| Policy                              | Known Coverage | Accepted Reliability | Local Unknown Manual Review Rate | Local Unknown Acceptance Rate |
+| ----------------------------------- | -------------: | -------------------: | -------------------------------: | ----------------------------: |
+| Scratch safe hierarchical policy    |       0.658854 |             0.889328 |                         0.375000 |                      0.625000 |
+| Pretrained hierarchical policy v1   |       0.976562 |             0.957333 |                         0.075000 |                      0.925000 |
+| Pretrained safe hierarchical policy |       0.864583 |             0.960843 |                         0.600000 |                      0.400000 |
+
+Research note:
+
+The safe pretrained hierarchical policy is the best current OpenWaste-HR decision policy. Compared with the scratch safe hierarchical policy, it improves known-test coverage, accepted-decision reliability, and local unknown manual-review rate. Compared with the first pretrained hierarchical policy, it greatly improves local unknown handling while preserving strong known-test reliability. This policy should currently be treated as the best candidate for the final OpenWaste-HR prototype.
+
+
 
 
 

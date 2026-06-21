@@ -21,3 +21,6 @@ pydantic
 python-multipart
 
 pytest
+fastapi
+uvicorn
+httpx

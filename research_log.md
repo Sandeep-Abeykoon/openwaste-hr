@@ -946,3 +946,110 @@ Generated files:
 Research note:
 
 This stage prepares OpenWaste-HR for backend integration by wrapping the model output in a stable request/response structure. The backend can later call this wrapper instead of directly handling model internals.
+
+## Backend Inference Endpoint Skeleton v1 Summary
+
+This stage creates a lightweight FastAPI backend endpoint for OpenWaste-HR inference.
+
+Created endpoints:
+
+| Method | Endpoint               | Purpose                                 |
+| ------ | ---------------------- | --------------------------------------- |
+| GET    | /health                | backend health check                    |
+| POST   | /api/inference/predict | run OpenWaste-HR inference on one image |
+
+The prediction endpoint accepts:
+
+| Field      | Required | Meaning                     |
+| ---------- | -------- | --------------------------- |
+| image_path | yes      | project-relative image path |
+| sample_id  | no       | optional sample identifier  |
+| request_id | no       | optional request identifier |
+
+The endpoint returns the same structured OpenWaste-HR response used by the prototype API wrapper:
+
+| Section             | Meaning                                                   |
+| ------------------- | --------------------------------------------------------- |
+| status              | success or error                                          |
+| request             | sample ID and image path                                  |
+| prediction          | model prediction values                                   |
+| decision            | final fine-label, coarse-label, or manual-review decision |
+| class_probabilities | known fine-label probabilities                            |
+| policy              | safe hierarchical thresholds                              |
+| metadata            | device and pipeline version                               |
+
+Generated files:
+
+* docs/methodology/backend_inference_endpoint_v1.md
+* backend/app/main.py
+* backend/app/api/inference_routes.py
+* backend/app/schemas/inference_schema.py
+* backend/app/services/inference_service.py
+* tests/test_backend_inference_endpoint.py
+
+Research note:
+
+This stage moves OpenWaste-HR closer to a usable prototype by exposing the inference workflow through a backend-style endpoint. It prepares the system for later frontend integration and demonstration.
+
+### Actual Backend Inference Endpoint v1 Result
+
+The backend endpoint was tested successfully using FastAPI and Uvicorn.
+
+Test result:
+
+| Metric                     |   Value |
+| -------------------------- | ------: |
+| Tests passed               |     105 |
+| Warnings                   |       1 |
+| Health endpoint status     | success |
+| Prediction endpoint status | success |
+
+Health endpoint result:
+
+| Field   | Value                         |
+| ------- | ----------------------------- |
+| status  | ok                            |
+| service | openwaste-hr-backend          |
+| version | backend_inference_endpoint_v1 |
+
+Prediction endpoint input:
+
+| Field      | Value                                         |
+| ---------- | --------------------------------------------- |
+| image_path | ml/data/local_unknown/images/local_000001.jpg |
+| sample_id  | local_000001                                  |
+| request_id | backend_demo_001                              |
+
+Prediction endpoint output:
+
+| Field                  | Value                    |
+| ---------------------- | ------------------------ |
+| status                 | success                  |
+| request_id             | backend_demo_001         |
+| pred_label             | plastic                  |
+| max_softmax_confidence | 0.962933                 |
+| top_coarse_label       | recyclable               |
+| top_coarse_confidence  | 0.999999                 |
+| coarse_margin          | 0.999999                 |
+| decision_type          | fine_label               |
+| final_label            | plastic                  |
+| final_confidence       | 0.962933                 |
+| reason                 | fine_confidence_high     |
+| device                 | cuda                     |
+| pipeline_version       | prototype_api_wrapper_v1 |
+
+Class probability output:
+
+| Fine Label      | Probability |
+| --------------- | ----------: |
+| paper_cardboard |    0.002948 |
+| plastic         |    0.962933 |
+| glass           |    0.026874 |
+| metal           |    0.007244 |
+| residual        |    0.000000 |
+
+Research note:
+
+This stage successfully exposes the OpenWaste-HR inference workflow through a backend endpoint. The backend can receive an image path, call the inference wrapper, and return a structured prediction and final hierarchical decision. This prepares the project for frontend integration and prototype demonstration.
+
+

@@ -2908,6 +2908,92 @@ Test result:
 | Full project tests                           | 288 passed, 1 warning |
 
 
+## Full Expanded Public Pretrained Training v1 Summary
+
+This stage completed full Baseline C training.
+
+Baseline C is defined as:
+
+| Baseline   | Description                              |
+| ---------- | ---------------------------------------- |
+| Baseline C | pretrained expanded public dataset model |
+
+Created files:
+
+* docs/methodology/expanded_public_pretrained_training_v1.md
+* docs/supervisor_updates/expanded_public_pretrained_training_summary_v1.md
+* tests/test_expanded_public_pretrained_training_docs.py
+
+Training config:
+
+* ml/configs/train_expanded_public_pretrained.yaml
+
+Input manifests:
+
+| Split      | File                                              |
+| ---------- | ------------------------------------------------- |
+| train      | ml/data/splits/expanded_public_known_train_v1.csv |
+| validation | ml/data/splits/expanded_public_known_val_v1.csv   |
+| test       | ml/data/splits/expanded_public_known_test_v1.csv  |
+
+Expanded known split sizes:
+
+| Split      | Count |
+| ---------- | ----: |
+| train      |  4869 |
+| validation |  1042 |
+| test       |  1050 |
+
+Known training classes:
+
+* paper_cardboard
+* plastic
+* glass
+* metal
+* organic
+* residual
+
+The `unknown` class was not included in training. RealWaste `Textile Trash` remains separate as public unknown/future-class data.
+
+Training result:
+
+| Metric                      |  Value |
+| --------------------------- | -----: |
+| Device                      |   cuda |
+| Epochs configured           |     50 |
+| Early stopping patience     |      7 |
+| Best epoch                  |     18 |
+| Best validation loss        | 0.4361 |
+| Best validation accuracy    | 0.8944 |
+| Best validation macro-F1    | 0.8927 |
+| Best validation weighted-F1 | 0.8945 |
+| Test loss                   | 0.3983 |
+| Test accuracy               | 0.8876 |
+| Test macro-F1               | 0.8819 |
+| Test weighted-F1            | 0.8870 |
+
+Created training outputs:
+
+* ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_best.pt
+* ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_final.pt
+* ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_class_mapping.json
+* ml/outputs/metrics/expanded_public_pretrained_v1_training_metrics.csv
+* ml/outputs/metrics/expanded_public_pretrained_v1_test_metrics.json
+
+Comparison note:
+
+The earlier TrashNet-only pretrained model achieved approximately 0.8880 accuracy and 0.8510 macro-F1. The expanded public pretrained model achieved 0.8876 accuracy and 0.8819 macro-F1. Although the accuracy is almost unchanged, the macro-F1 improved, which is useful because the expanded public model is trained and tested on a broader six-class dataset that includes organic waste.
+
+Research note:
+
+This result supports the dataset expansion phase. The expanded public dataset did not simply increase the dataset size; it also introduced a more balanced and broader known-class evaluation setting. The improvement in macro-F1 suggests that adding RealWaste helps the classifier perform more evenly across known classes, which is important for the final OpenWaste-HR comparison.
+
+Test result:
+
+| Test Run                                       |                Result |
+| ---------------------------------------------- | --------------------: |
+| Expanded public pretrained training docs tests |              6 passed |
+| Full project tests                             | 294 passed, 1 warning |
 
 
 

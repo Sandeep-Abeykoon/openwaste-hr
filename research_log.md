@@ -3058,6 +3058,96 @@ Test result:
 | Expanded public closed-set evaluation docs tests |              6 passed |
 | Full project tests                               | 300 passed, 1 warning |
 
+## Expanded Public Reject-Option Evaluation v1 Summary
+
+This stage evaluated reject-option behaviour for Baseline C.
+
+Baseline C is defined as:
+
+| Baseline   | Description                              |
+| ---------- | ---------------------------------------- |
+| Baseline C | pretrained expanded public dataset model |
+
+Created files:
+
+* docs/methodology/expanded_public_reject_option_evaluation_v1.md
+* docs/supervisor_updates/expanded_public_reject_option_evaluation_summary_v1.md
+* ml/configs/confidence_reject_expanded_public_pretrained.yaml
+* ml/configs/open_set_score_expanded_public_pretrained.yaml
+* tests/test_expanded_public_reject_option_evaluation_docs.py
+* docs/results/expanded_public_confidence_reject_baseline_v1_report.md
+* docs/results/expanded_public_open_set_score_baseline_v1_report.md
+
+Confidence-threshold reject result:
+
+| Metric                |    Value |
+| --------------------- | -------: |
+| selected threshold    |   0.9900 |
+| test samples          |     1050 |
+| accepted count        |      759 |
+| rejected count        |      291 |
+| coverage              | 0.722857 |
+| rejection rate        | 0.277143 |
+| forced accuracy       | 0.887619 |
+| selective accuracy    | 0.978920 |
+| selective error rate  | 0.021080 |
+| selective macro-F1    | 0.973239 |
+| selective weighted-F1 | 0.978761 |
+
+Max-logit reject result:
+
+| Metric                |    Value |
+| --------------------- | -------: |
+| selected threshold    | 9.593050 |
+| test samples          |     1050 |
+| accepted count        |      773 |
+| rejected count        |      277 |
+| coverage              | 0.736190 |
+| rejection rate        | 0.263810 |
+| forced accuracy       | 0.887619 |
+| selective accuracy    | 0.967658 |
+| selective error rate  | 0.032342 |
+| selective macro-F1    | 0.962688 |
+| selective weighted-F1 | 0.967578 |
+
+Energy-score reject result:
+
+| Metric                |     Value |
+| --------------------- | --------: |
+| selected threshold    | -9.870391 |
+| test samples          |      1050 |
+| accepted count        |       754 |
+| rejected count        |       296 |
+| coverage              |  0.718095 |
+| rejection rate        |  0.281905 |
+| forced accuracy       |  0.887619 |
+| selective accuracy    |  0.966844 |
+| selective error rate  |  0.033156 |
+| selective macro-F1    |  0.961199 |
+| selective weighted-F1 |  0.966760 |
+
+Best reject-option method for Baseline C:
+
+| Method               | Reason                                               |
+| -------------------- | ---------------------------------------------------- |
+| confidence threshold | highest selective macro-F1 and selective weighted-F1 |
+
+Research note:
+
+The expanded public pretrained model achieved 0.887619 forced closed-set accuracy. With confidence-threshold rejection, selective accuracy increased to 0.978920 and selective macro-F1 increased to 0.973239 at 0.722857 coverage. This shows that reject-option decision-making remains valuable even after dataset expansion, because the system can trade coverage for substantially safer accepted predictions.
+
+Implementation note:
+
+The reject-option configs initially missed the `class_mapping_json` path because the patch command removed the line. This was fixed by inserting the correct class mapping path under the checkpoint entry in both configs:
+
+ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_class_mapping.json
+
+Test result:
+
+| Test Run                                 |                Result |
+| ---------------------------------------- | --------------------: |
+| Expanded public reject-option docs tests |              6 passed |
+| Full project tests                       | 306 passed, 1 warning |
 
 
 

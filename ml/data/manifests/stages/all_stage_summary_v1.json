@@ -1,0 +1,318 @@
+{
+  "stage_01_trashnet": {
+    "description": "TrashNet-only 5-class baseline.",
+    "known_datasets": [
+      "trashnet"
+    ],
+    "unknown_datasets": [
+      "garbage_v2",
+      "realwaste"
+    ],
+    "splits": {
+      "known_train": {
+        "total": 1686,
+        "by_label": {
+          "cardboard": 281,
+          "glass": 356,
+          "metal": 301,
+          "paper": 403,
+          "plastic": 345
+        },
+        "by_dataset": {
+          "trashnet": 1686
+        }
+      },
+      "known_val": {
+        "total": 349,
+        "by_label": {
+          "cardboard": 56,
+          "glass": 69,
+          "metal": 54,
+          "paper": 106,
+          "plastic": 64
+        },
+        "by_dataset": {
+          "trashnet": 349
+        }
+      },
+      "known_test": {
+        "total": 355,
+        "by_label": {
+          "cardboard": 66,
+          "glass": 76,
+          "metal": 55,
+          "paper": 85,
+          "plastic": 73
+        },
+        "by_dataset": {
+          "trashnet": 355
+        }
+      },
+      "unknown_val": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1299,
+          "realwaste": 361
+        }
+      },
+      "unknown_test": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1292,
+          "realwaste": 368
+        }
+      }
+    }
+  },
+  "stage_02_trashnet_realwaste": {
+    "description": "TrashNet plus RealWaste known-class expansion.",
+    "known_datasets": [
+      "realwaste",
+      "trashnet"
+    ],
+    "unknown_datasets": [
+      "garbage_v2",
+      "realwaste"
+    ],
+    "splits": {
+      "known_train": {
+        "total": 3860,
+        "by_label": {
+          "cardboard": 613,
+          "glass": 656,
+          "metal": 862,
+          "paper": 765,
+          "plastic": 964
+        },
+        "by_dataset": {
+          "realwaste": 2174,
+          "trashnet": 1686
+        }
+      },
+      "known_val": {
+        "total": 795,
+        "by_label": {
+          "cardboard": 113,
+          "glass": 130,
+          "metal": 168,
+          "paper": 159,
+          "plastic": 225
+        },
+        "by_dataset": {
+          "realwaste": 446,
+          "trashnet": 349
+        }
+      },
+      "known_test": {
+        "total": 827,
+        "by_label": {
+          "cardboard": 138,
+          "glass": 135,
+          "metal": 170,
+          "paper": 170,
+          "plastic": 214
+        },
+        "by_dataset": {
+          "realwaste": 472,
+          "trashnet": 355
+        }
+      },
+      "unknown_val": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1299,
+          "realwaste": 361
+        }
+      },
+      "unknown_test": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1292,
+          "realwaste": 368
+        }
+      }
+    }
+  },
+  "stage_03_add_garbage_v2": {
+    "description": "TrashNet, RealWaste, and Garbage Classification V2 expansion.",
+    "known_datasets": [
+      "garbage_v2",
+      "realwaste",
+      "trashnet"
+    ],
+    "unknown_datasets": [
+      "garbage_v2",
+      "realwaste"
+    ],
+    "splits": {
+      "known_train": {
+        "total": 8740,
+        "by_label": {
+          "cardboard": 1584,
+          "glass": 1872,
+          "metal": 1494,
+          "paper": 1698,
+          "plastic": 2092
+        },
+        "by_dataset": {
+          "garbage_v2": 4880,
+          "realwaste": 2174,
+          "trashnet": 1686
+        }
+      },
+      "known_val": {
+        "total": 1843,
+        "by_label": {
+          "cardboard": 340,
+          "glass": 381,
+          "metal": 320,
+          "paper": 355,
+          "plastic": 447
+        },
+        "by_dataset": {
+          "garbage_v2": 1048,
+          "realwaste": 446,
+          "trashnet": 349
+        }
+      },
+      "known_test": {
+        "total": 1909,
+        "by_label": {
+          "cardboard": 351,
+          "glass": 404,
+          "metal": 316,
+          "paper": 377,
+          "plastic": 461
+        },
+        "by_dataset": {
+          "garbage_v2": 1082,
+          "realwaste": 472,
+          "trashnet": 355
+        }
+      },
+      "unknown_val": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1299,
+          "realwaste": 361
+        }
+      },
+      "unknown_test": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1292,
+          "realwaste": 368
+        }
+      }
+    }
+  },
+  "stage_04_add_trashbox": {
+    "description": "Final combined public known dataset with TrashBox added.",
+    "known_datasets": [
+      "garbage_v2",
+      "realwaste",
+      "trashbox",
+      "trashnet"
+    ],
+    "unknown_datasets": [
+      "garbage_v2",
+      "realwaste"
+    ],
+    "splits": {
+      "known_train": {
+        "total": 15960,
+        "by_label": {
+          "cardboard": 2943,
+          "glass": 3275,
+          "metal": 2938,
+          "paper": 3210,
+          "plastic": 3594
+        },
+        "by_dataset": {
+          "garbage_v2": 4880,
+          "realwaste": 2174,
+          "trashbox": 7220,
+          "trashnet": 1686
+        }
+      },
+      "known_val": {
+        "total": 3417,
+        "by_label": {
+          "cardboard": 630,
+          "glass": 701,
+          "metal": 629,
+          "paper": 687,
+          "plastic": 770
+        },
+        "by_dataset": {
+          "garbage_v2": 1048,
+          "realwaste": 446,
+          "trashbox": 1574,
+          "trashnet": 349
+        }
+      },
+      "known_test": {
+        "total": 3426,
+        "by_label": {
+          "cardboard": 632,
+          "glass": 703,
+          "metal": 631,
+          "paper": 689,
+          "plastic": 771
+        },
+        "by_dataset": {
+          "garbage_v2": 1082,
+          "realwaste": 472,
+          "trashbox": 1517,
+          "trashnet": 355
+        }
+      },
+      "unknown_val": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1299,
+          "realwaste": 361
+        }
+      },
+      "unknown_test": {
+        "total": 1660,
+        "by_label": {
+          "biological": 555,
+          "textile": 1105
+        },
+        "by_dataset": {
+          "garbage_v2": 1292,
+          "realwaste": 368
+        }
+      }
+    }
+  }
+}

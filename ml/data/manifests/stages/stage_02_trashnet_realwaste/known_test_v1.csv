@@ -1,0 +1,828 @@
+source_dataset,image_path,source_label,canonical_label,split_role,include_in_known_training,notes,split
+realwaste,ml/data/raw/realwaste/Metal/Metal_468.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_93.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard335.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic241.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper70.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_354.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic201.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal81.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_628.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_370.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_498.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_209.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass375.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_58.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_74.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass300.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_613.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_29.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_822.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_316.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_710.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic181.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper90.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_220.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal291.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard190.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic330.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal223.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal150.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic364.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_37.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper554.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_342.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard262.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_89.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper219.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass390.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass193.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic197.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal175.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_182.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_64.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_660.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper133.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard245.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper13.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass438.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard315.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard24.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic311.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper316.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal12.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal62.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper213.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic253.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_467.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_808.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_10.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic240.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_164.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_395.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass459.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_87.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_612.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_311.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard352.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper252.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_789.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal302.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_692.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass133.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_366.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_209.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_91.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_363.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_315.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_317.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic373.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal399.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_249.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass428.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_28.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_306.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_131.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_48.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal282.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_166.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_10.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic6.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper372.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_332.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_334.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass434.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_558.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_415.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_426.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass119.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_268.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_832.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper303.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard128.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_723.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_863.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass39.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper76.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass478.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass93.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_743.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_292.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_204.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_442.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_1.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_437.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal72.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard51.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_104.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_800.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal343.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_646.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_191.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_73.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper220.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper362.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_602.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_72.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_62.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_382.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal128.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_77.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass62.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_45.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic178.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_696.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic278.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_62.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass98.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_26.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper212.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal372.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic39.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_783.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal230.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_231.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard133.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_747.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic269.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_496.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass355.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_509.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_462.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_127.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard39.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass289.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_224.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_77.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_206.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal75.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_43.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper289.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_23.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_301.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal78.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_298.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_361.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper18.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard322.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_252.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic272.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_482.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_387.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard333.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_428.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_178.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_46.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper414.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper64.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_32.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_400.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_318.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper348.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard319.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_290.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_665.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_371.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_727.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic121.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_98.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_317.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_844.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_14.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper260.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_421.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass342.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_174.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_481.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_773.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass469.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_491.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_578.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_754.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_138.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_552.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_778.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_364.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper155.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_573.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_413.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic353.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_77.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_408.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper543.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic245.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard83.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass494.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_777.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic22.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic279.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic448.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_711.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass311.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_768.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper227.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal395.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass153.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_870.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_438.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_391.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_61.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_129.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_13.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass452.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_82.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_144.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal382.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass500.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper552.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_544.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard253.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_158.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_200.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_253.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_691.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard186.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_331.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_35.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_720.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_565.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper432.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_309.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_66.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard286.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_226.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper467.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_219.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard106.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_11.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper317.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_314.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper196.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard214.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic112.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_173.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass183.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_372.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass472.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_675.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal113.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_131.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_257.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_867.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_231.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_179.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard111.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_774.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_310.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_118.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard98.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal315.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_162.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_323.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_288.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_338.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_680.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_690.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_184.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_221.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal408.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_250.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass287.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic188.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_456.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_278.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper184.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_245.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_145.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_638.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_647.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal59.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_106.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic468.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic204.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_213.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass498.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper193.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_381.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_130.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_841.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_119.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_631.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass108.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_839.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard84.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_382.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_216.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal36.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_412.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic264.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper585.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_206.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic77.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic23.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_159.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_370.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_874.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_564.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_80.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_897.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_307.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_41.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_350.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper135.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_601.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass230.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_48.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_855.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_447.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal250.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic424.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard308.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal184.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper117.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass458.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_820.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_368.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic51.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic145.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_568.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_166.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic412.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_449.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_117.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_381.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_134.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic18.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass67.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal254.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper498.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_240.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_253.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_176.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_20.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_118.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_162.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic199.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass185.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_638.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard77.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard110.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass423.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard153.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_171.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_349.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal25.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass3.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass86.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper34.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_563.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_302.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper136.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal313.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper106.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_736.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass324.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_432.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_383.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard125.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_115.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal195.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_297.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard354.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard35.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_148.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard395.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_115.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_136.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper487.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper573.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_262.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_306.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_265.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_65.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_225.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_111.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_712.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_352.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_405.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic319.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_88.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_252.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic153.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_304.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass127.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_356.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_238.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard184.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_149.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper251.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper416.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_553.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_75.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_184.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_130.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_221.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper32.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic127.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_766.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_496.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_161.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass378.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_173.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_694.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass190.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_249.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_641.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper337.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard170.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_467.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_443.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_151.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_615.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_120.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_454.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard134.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard287.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_328.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_396.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard241.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper176.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_71.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass491.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_341.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_76.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard348.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_150.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper217.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_443.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_466.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_524.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal261.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_796.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_555.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_884.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_350.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard360.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_62.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_286.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_629.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic100.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic406.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_396.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_220.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_49.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_92.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_30.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_767.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard316.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass454.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard314.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass129.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic66.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_396.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_345.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_452.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_465.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_410.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_141.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_299.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic423.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_417.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_343.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass413.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_405.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_410.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper256.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_241.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal248.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_378.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_437.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_105.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_278.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_141.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_515.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_29.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal30.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper72.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_791.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_343.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_134.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_145.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_671.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper295.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_406.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_114.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard56.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_10.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_301.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic150.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper250.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_395.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper48.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_57.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_196.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass106.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic395.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper269.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_286.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_384.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_218.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper100.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_539.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard80.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper25.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard37.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass501.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_101.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_557.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_175.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass455.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass164.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass465.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper87.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal356.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal401.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_776.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper451.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic474.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic190.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard104.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_251.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_78.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_500.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_123.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal295.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper480.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal369.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_309.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_689.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper78.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_204.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper465.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard231.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper230.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_767.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal20.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_46.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic195.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_267.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard177.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_67.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_205.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_142.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_550.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_118.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_21.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass260.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_325.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic246.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_279.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass161.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_282.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_320.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic411.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_599.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper460.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal137.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_223.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_419.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_707.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper444.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_817.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_387.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_263.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_167.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic1.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_349.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic398.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper293.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_195.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal84.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal246.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_34.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_835.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_505.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_186.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass1.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper286.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic41.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_663.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal118.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_467.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal60.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass202.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic275.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_518.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_223.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_512.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_412.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_266.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_436.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_429.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard94.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_96.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_398.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_481.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_322.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass80.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_911.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard323.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper588.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_94.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard284.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_377.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_487.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_78.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_209.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_876.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper453.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_357.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass170.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_449.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper461.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal260.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_34.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_280.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_700.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_200.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass495.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_335.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass285.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard283.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass247.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard299.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_213.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_781.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass312.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_311.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper121.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_787.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_131.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper388.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass437.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_650.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_740.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_254.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper170.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_321.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_319.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_37.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_18.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic286.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_492.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal205.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_69.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_217.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard355.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper397.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass345.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic163.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass76.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass268.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass168.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic28.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_152.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_445.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_708.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_88.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_136.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard312.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper156.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard351.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper27.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_461.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_779.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_26.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_276.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_355.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_39.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal41.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass69.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_298.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal236.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_498.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic287.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass327.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper17.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_324.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard200.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_54.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_299.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_501.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_596.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_728.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard31.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_53.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_484.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic81.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_116.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_294.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_160.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_244.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_213.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_402.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic170.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper491.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard147.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_327.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_770.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass244.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal279.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_461.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_92.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard295.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper283.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_335.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper2.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic257.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_199.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_497.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper505.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_814.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_324.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_42.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_48.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_128.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass36.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_30.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_18.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass248.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard100.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_47.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic49.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper174.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass111.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard246.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_427.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_84.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_74.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_202.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic259.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal46.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic216.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper75.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_413.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_395.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_42.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_726.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal204.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic54.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_672.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal267.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass338.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_702.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic329.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper428.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/metal/metal303.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard377.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_301.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_128.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_280.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper330.jpg,paper,paper,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic322.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard74.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_317.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass436.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper31.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_323.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_588.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal58.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_80.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_306.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass73.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_393.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/glass/glass462.jpg,glass,glass,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_340.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_242.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard261.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_136.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic151.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic8.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass385.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard357.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/glass/glass24.jpg,glass,glass,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic413.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard400.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_139.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal71.jpg,metal,metal,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_309.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_252.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_665.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_698.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/paper/paper446.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_147.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Paper/Paper_358.jpg,paper,paper,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_407.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Metal/Metal_330.jpg,metal,metal,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic265.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic36.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_257.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/metal/metal11.jpg,metal,metal,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/paper/paper314.jpg,paper,paper,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_251.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/cardboard/cardboard367.jpg,cardboard,cardboard,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Glass/Glass_333.jpg,glass,glass,known,true,Known 5-class label if present,known_test
+realwaste,ml/data/raw/realwaste/Plastic/Plastic_144.jpg,plastic,plastic,known,true,Known 5-class label if present,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic223.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+trashnet,ml/data/raw/trashnet/plastic/plastic357.jpg,plastic,plastic,known,true,Known 5-class label,known_test
+realwaste,ml/data/raw/realwaste/Cardboard/Cardboard_30.jpg,cardboard,cardboard,known,true,Known 5-class label if present,known_test

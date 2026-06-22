@@ -3239,5 +3239,90 @@ Test result:
 | Expanded public unknown evaluation docs tests |              6 passed |
 | Full project tests                            | 312 passed, 1 warning |
 
+## Expanded Public Safe Hierarchical Policy Tuning v1 Summary
+
+This stage tuned the safe hierarchical decision policy for Baseline C.
+
+Baseline C is defined as:
+
+| Baseline   | Description                              |
+| ---------- | ---------------------------------------- |
+| Baseline C | pretrained expanded public dataset model |
+
+Created files:
+
+* docs/methodology/expanded_public_safe_hierarchical_policy_tuning_v1.md
+* docs/supervisor_updates/expanded_public_safe_hierarchical_policy_tuning_summary_v1.md
+* ml/configs/expanded_public_safe_hierarchical_policy_tuning.yaml
+* tests/test_expanded_public_safe_hierarchical_policy_tuning_docs.py
+* docs/results/expanded_public_safe_hierarchical_policy_tuning_v1_report.md
+
+The tuning process evaluated 750 candidate threshold combinations.
+
+Selected policy:
+
+| Parameter                     | Value |
+| ----------------------------- | ----: |
+| fine confidence threshold     | 0.995 |
+| coarse confidence threshold   | 0.990 |
+| coarse margin threshold       | 0.150 |
+| minimum confidence for coarse | 0.350 |
+
+Selection configuration:
+
+| Parameter                                            | Value |
+| ---------------------------------------------------- | ----: |
+| minimum known decision coverage                      | 0.600 |
+| minimum known success rate over accepted predictions | 0.900 |
+| unknown manual review weight                         | 0.500 |
+| known success rate over accepted weight              | 0.300 |
+| known decision coverage weight                       | 0.200 |
+
+Known-test result:
+
+| Metric                                            |    Value |
+| ------------------------------------------------- | -------: |
+| known total samples                               |     1050 |
+| fine decision count                               |      720 |
+| coarse fallback count                             |      206 |
+| manual review count                               |      124 |
+| known decision coverage                           | 0.881905 |
+| known manual review rate                          | 0.118095 |
+| fine correct count                                |      712 |
+| coarse correct count                              |      199 |
+| hierarchical success count                        |      911 |
+| fine accuracy on fine decisions                   | 0.988889 |
+| coarse accuracy on coarse decisions               | 0.966019 |
+| hierarchical success rate over all samples        | 0.867619 |
+| hierarchical success rate over accepted decisions | 0.983801 |
+
+Local unknown result:
+
+| Metric                | Value |
+| --------------------- | ----: |
+| local unknown samples |    40 |
+| manual review count   |    19 |
+| fine accept count     |    13 |
+| coarse accept count   |     8 |
+| accepted count        |    21 |
+| manual review rate    | 0.475 |
+| acceptance rate       | 0.525 |
+
+Research note:
+
+The selected expanded public safe hierarchical policy achieved high accepted-decision reliability while maintaining strong known-class coverage. On the known test set, it accepted 926 out of 1050 samples through fine or coarse decisions and achieved a 0.983801 hierarchical success rate over accepted decisions. On the local unknown dataset, it sent 19 out of 40 samples to manual review.
+
+This result is important because it shows the final OpenWaste-HR policy should not be treated as a simple closed-set classifier. The system can produce fine labels when highly confident, fall back to coarse waste categories when safer, and route uncertain or unknown-like inputs to manual review.
+
+Implementation note:
+
+The tuning config uses saved prediction CSV files rather than directly rerunning the checkpoint. The config was updated to use the expanded public known predictions and expanded public local unknown predictions. Traceability markers were also added for the expanded public checkpoint, class mapping, known test manifest, and local unknown manifest.
+
+Test result:
+
+| Test Run                                                   |                Result |
+| ---------------------------------------------------------- | --------------------: |
+| Expanded public safe hierarchical policy tuning docs tests |              6 passed |
+| Full project tests                                         | 318 passed, 1 warning |
 
 

@@ -3487,3 +3487,40 @@ Test result:
 | README consistency cleanup docs test |              6 passed |
 | Final project README docs test       |             13 passed |
 | Full project tests                   | 341 passed, 1 warning |
+
+## Manual Review Records Completion Plan v1 Summary
+
+This stage documented how manual review records should be completed and used before active learning retraining.
+
+Updated files:
+
+* docs/methodology/manual_review_records_completion_plan_v1.md
+* docs/thesis/active_learning_retraining_impact_plan_v1.md
+* docs/supervisor_updates/manual_review_records_completion_summary_v1.md
+* tests/test_manual_review_records_completion_plan_docs.py
+
+Reason:
+
+The project includes local active learning, but reviewed samples should not automatically be added into training. A sample should only be used for retraining if it clearly belongs to the current known taxonomy.
+
+Key rule:
+
+Reviewed known-class samples can be used for active learning retraining, but outside-taxonomy samples must remain as unknown/future-class candidates.
+
+The local reviewed seed example, `local_000001`, was identified as a rubber slipper / flip-flop. This is outside the current known taxonomy, so it should not be used as a known training sample.
+
+Impact plan:
+
+The active learning impact will later compare:
+
+* Baseline C: expanded public pretrained model before active learning
+* Baseline C-AL: expanded public model after active learning fine-tuning
+
+The planned comparison will report known classification metrics, safe policy coverage, accepted decision quality, unknown handling, and the number of reviewed samples safely added to training.
+
+Test result:
+
+| Test Run                                   |                Result |
+| ------------------------------------------ | --------------------: |
+| manual review records completion docs test |              6 passed |
+| full project tests                         | 347 passed, 1 warning |

@@ -1,2 +1,0 @@
-source_file,sample_id,image_path,human_observation,taxonomy_status,reviewed_fine_label,reviewed_coarse_label,recommended_action,active_learning_role,audit_decision,audit_reason
-ml\data\splits\active_learning_v2_dataset_plan_v1.csv,local_000001,ml/data/local_unknown/images/local_000001.jpg,,,,,keep_as_unknown_test,unknown_test_and_future_class_candidate,unknown_or_future_candidate,The reviewed sample is outside the current known taxonomy or marked as unknown/future-class.

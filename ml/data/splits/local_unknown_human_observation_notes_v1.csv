@@ -1,2 +1,0 @@
-sample_id,image_path,human_observed_object,human_taxonomy_status,recommended_action,reviewer_notes
-local_000001,ml/data/local_unknown/images/local_000001.jpg,rubber slipper / flip-flop,outside_current_known_taxonomy,keep_as_unknown_test,Confirmed during prototype demo; model predicted paper_cardboard with high confidence but the object is outside the current known taxonomy.

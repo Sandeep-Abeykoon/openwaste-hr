@@ -1,0 +1,39 @@
+﻿source_dataset,source_label,canonical_label,split_role,include_in_known_training,notes
+trashnet,cardboard,cardboard,known,true,Known 5-class label
+trashnet,glass,glass,known,true,Known 5-class label
+trashnet,metal,metal,known,true,Known 5-class label
+trashnet,paper,paper,known,true,Known 5-class label
+trashnet,plastic,plastic,known,true,Known 5-class label
+trashnet,trash,excluded,exclude,false,Excluded because trash/residual is mixed and confusing
+realwaste,cardboard,cardboard,known,true,Known 5-class label if present
+realwaste,glass,glass,known,true,Known 5-class label if present
+realwaste,metal,metal,known,true,Known 5-class label if present
+realwaste,paper,paper,known,true,Known 5-class label if present
+realwaste,plastic,plastic,known,true,Known 5-class label if present
+realwaste,food organics,biological,unknown,false,Held out as unknown evaluation only
+realwaste,textile trash,textile,unknown,false,Held out as unknown evaluation only
+realwaste,vegetation,excluded,exclude,false,Excluded from main protocol
+realwaste,miscellaneous trash,excluded,exclude,false,Excluded because mixed/residual class
+garbage_v2,cardboard,cardboard,known,true,Known 5-class label
+garbage_v2,glass,glass,known,true,Known 5-class label
+garbage_v2,metal,metal,known,true,Known 5-class label
+garbage_v2,paper,paper,known,true,Known 5-class label
+garbage_v2,plastic,plastic,known,true,Known 5-class label
+garbage_v2,clothes,textile,unknown,false,Held out as unknown evaluation only
+garbage_v2,biological,biological,unknown,false,Held out as unknown evaluation only
+garbage_v2,battery,excluded,exclude,false,Excluded from main protocol
+garbage_v2,shoes,excluded,exclude,false,Excluded from main protocol
+garbage_v2,trash,excluded,exclude,false,Excluded because trash/residual is mixed
+trashbox,cardboard,cardboard,known,true,Known 5-class label
+trashbox,glass,glass,known,true,Known 5-class label
+trashbox,metal,metal,known,true,Known 5-class label
+trashbox,paper,paper,known,true,Known 5-class label
+trashbox,plastic,plastic,known,true,Known 5-class label
+trashbox,e-waste,excluded,exclude,false,Excluded from main protocol
+trashbox,medical,excluded,exclude,false,Excluded from main protocol
+garbage_classification,cardboard,cardboard,known,true,Known 5-class label
+garbage_classification,glass,glass,known,true,Known 5-class label
+garbage_classification,metal,metal,known,true,Known 5-class label
+garbage_classification,paper,paper,known,true,Known 5-class label
+garbage_classification,plastic,plastic,known,true,Known 5-class label
+garbage_classification,trash,excluded,exclude,false,Excluded because trash/residual is mixed

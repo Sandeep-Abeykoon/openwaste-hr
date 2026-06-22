@@ -1,0 +1,73 @@
+﻿project:
+  name: OpenWaste-HR
+  protocol_version: clean_5class_v1
+  description: >
+    Clean 5-class known waste taxonomy with held-out public unknown classes
+    for reject-option, open-set evaluation, and active learning.
+
+known_classes:
+  - cardboard
+  - glass
+  - metal
+  - paper
+  - plastic
+
+unknown_evaluation_classes:
+  textile:
+    canonical_name: textile
+    aliases:
+      - textile
+      - textiles
+      - cloth
+      - clothes
+      - clothing
+      - fabric
+  biological:
+    canonical_name: biological
+    aliases:
+      - biological
+      - food
+      - food_organic
+      - food organics
+      - organic
+      - organics
+
+excluded_classes:
+  - residual
+  - trash
+  - miscellaneous
+  - mixed
+  - unclear
+  - battery
+  - e-waste
+  - ewaste
+  - medical
+  - shoes
+  - vegetation
+
+label_policy:
+  known_training_rule: >
+    Only images clearly belonging to cardboard, glass, metal, paper, or plastic
+    may be used for known-class training, validation, or known testing.
+  unknown_rule: >
+    Textile/clothes and biological/food-organic images must be held out from
+    training and used only for unknown/reject-option evaluation.
+  exclusion_rule: >
+    Residual, trash, mixed, unclear, battery, e-waste, medical, shoes, and
+    vegetation classes are excluded from the main protocol unless explicitly
+    used later as optional stress-test unknown data.
+  active_learning_rule: >
+    During active learning, only human-confirmed known-class samples may be
+    added to training. True unknown samples must remain in unknown evaluation
+    or manual-review records and must not be trained as a sixth class.
+
+coarse_classes:
+  recyclable:
+    - cardboard
+    - glass
+    - metal
+    - paper
+    - plastic
+  unknown:
+    - textile
+    - biological

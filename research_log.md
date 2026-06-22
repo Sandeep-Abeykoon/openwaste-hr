@@ -3524,3 +3524,37 @@ Test result:
 | ------------------------------------------ | --------------------: |
 | manual review records completion docs test |              6 passed |
 | full project tests                         | 347 passed, 1 warning |
+
+## Manual Review Records Audit v1 Summary
+
+This stage audited the currently available manual review records for active learning retraining readiness.
+
+Updated files:
+
+* ml/src/openwaste_hr/active_learning/manual_review_audit.py
+* ml/outputs/active_learning/manual_review_records_audit_v1.csv
+* docs/results/manual_review_records_audit_v1.md
+* docs/supervisor_updates/manual_review_records_audit_summary_v1.md
+* tests/test_manual_review_records_audit_docs.py
+
+Audit result:
+
+| Metric                          | Result |
+| ------------------------------- | -----: |
+| total reviewed records          |      1 |
+| known train candidates          |      0 |
+| unknown/future-class candidates |      1 |
+| retraining ready                |  false |
+
+Interpretation:
+
+The currently reviewed sample is useful for unknown/future-class evaluation, but it is not suitable for known-class retraining. Therefore, active learning retraining should not be performed yet.
+
+This protects the known training set from label contamination. The project can now report that the manual review and active learning workflow is implemented, but the retraining impact experiment requires more reviewed samples that genuinely belong to current known classes.
+
+Test result:
+
+| Test Run                              |                Result |
+| ------------------------------------- | --------------------: |
+| manual review records audit docs test |              6 passed |
+| full project tests                    | 353 passed, 1 warning |

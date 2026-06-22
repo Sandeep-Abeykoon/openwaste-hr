@@ -1,0 +1,44 @@
+﻿datasets:
+  trashnet:
+    display_name: TrashNet
+    raw_dir: ml/data/raw/trashnet
+    role: baseline_known_dataset
+    use_in_project: true
+    notes: >
+      Used as the initial 5-class known baseline. The trash class is excluded.
+
+  realwaste:
+    display_name: RealWaste
+    raw_dir: ml/data/raw/realwaste
+    role: real_world_expansion_dataset
+    use_in_project: true
+    notes: >
+      Used as the first dataset expansion. Only cardboard, glass, metal, paper,
+      and plastic are used as known classes. Food organics and textile trash are
+      held out as unknown evaluation classes if available.
+
+  garbage_v2:
+    display_name: Garbage Classification V2
+    raw_dir: ml/data/raw/garbage_v2
+    role: public_expansion_and_unknown_dataset
+    use_in_project: true
+    notes: >
+      Used as a public expansion dataset. Cardboard, glass, metal, paper, and
+      plastic are used as known classes. Clothes and biological are held out as
+      unknown evaluation classes.
+
+  trashbox:
+    display_name: TrashBox
+    raw_dir: ml/data/raw/trashbox
+    role: additional_public_expansion_dataset
+    use_in_project: true
+    notes: >
+      Used as an additional public expansion dataset. Only cardboard, glass,
+      metal, paper, and plastic are used as known classes. E-waste and medical
+      are excluded from the main clean protocol.
+
+omitted_datasets:
+  garbage_classification:
+    reason: >
+      Omitted because it overlaps with the TrashNet-style class structure and
+      may duplicate the baseline source rather than improving the research design.

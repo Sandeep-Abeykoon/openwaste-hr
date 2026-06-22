@@ -2837,6 +2837,76 @@ Test result:
 | Combined public manifest tests |              7 passed |
 | Full project tests             | 282 passed, 1 warning |
 
+## Expanded Public Pretrained Training Config and Smoke Test v1 Summary
+
+This stage prepared and smoke-tested Baseline C training.
+
+Baseline C is defined as:
+
+| Baseline   | Description                              |
+| ---------- | ---------------------------------------- |
+| Baseline C | pretrained expanded public dataset model |
+
+Created files:
+
+* docs/methodology/expanded_public_pretrained_training_preparation_v1.md
+* docs/supervisor_updates/expanded_public_pretrained_training_preparation_summary_v1.md
+* ml/configs/train_expanded_public_pretrained.yaml
+* ml/configs/train_expanded_public_pretrained_smoke.yaml
+* tests/test_expanded_public_pretrained_training_preparation.py
+
+Input manifests:
+
+| Split      | File                                              |
+| ---------- | ------------------------------------------------- |
+| train      | ml/data/splits/expanded_public_known_train_v1.csv |
+| validation | ml/data/splits/expanded_public_known_val_v1.csv   |
+| test       | ml/data/splits/expanded_public_known_test_v1.csv  |
+
+Expanded known split sizes:
+
+| Split      | Count |
+| ---------- | ----: |
+| train      |  4869 |
+| validation |  1042 |
+| test       |  1050 |
+
+Smoke training result:
+
+| Metric                   |  Value |
+| ------------------------ | -----: |
+| Device                   |   cuda |
+| Classes                  |      6 |
+| Epochs                   |      1 |
+| Best epoch               |      1 |
+| Best validation macro-F1 | 0.5602 |
+| Test accuracy            | 0.6419 |
+| Test macro-F1            | 0.5813 |
+
+Classes loaded during smoke training:
+
+* paper_cardboard
+* plastic
+* glass
+* metal
+* organic
+* residual
+
+Research note:
+
+The expanded public pretrained smoke test confirms that the combined TrashNet-style and RealWaste known dataset loads correctly for training. The `unknown` class is not included in model training, which preserves the OpenWaste-HR open-set design. RealWaste `Textile Trash` remains separate as public unknown/future-class data for later evaluation rather than being trained as a known class.
+
+Implementation note:
+
+The smoke config initially contained duplicated output names such as `expanded_public_pretrained_smoke_smoke_v1` due to a repeated string replacement. This was fixed by replacing the duplicated name with `expanded_public_pretrained_smoke_v1`.
+
+Test result:
+
+| Test Run                                     |                Result |
+| -------------------------------------------- | --------------------: |
+| Expanded public pretrained preparation tests |              6 passed |
+| Full project tests                           | 288 passed, 1 warning |
+
 
 
 

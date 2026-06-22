@@ -2996,6 +2996,67 @@ Test result:
 | Full project tests                             | 294 passed, 1 warning |
 
 
+## Expanded Public Closed-Set Evaluation Report v1 Summary
+
+This stage evaluated Baseline C using the standard closed-set classification evaluation process.
+
+Baseline C is defined as:
+
+| Baseline   | Description                              |
+| ---------- | ---------------------------------------- |
+| Baseline C | pretrained expanded public dataset model |
+
+Created files:
+
+* docs/methodology/expanded_public_closed_set_evaluation_v1.md
+* docs/supervisor_updates/expanded_public_closed_set_evaluation_summary_v1.md
+* ml/configs/evaluate_expanded_public_pretrained.yaml
+* tests/test_expanded_public_closed_set_evaluation_docs.py
+* docs/results/expanded_public_pretrained_v1_report.md
+* ml/outputs/metrics/expanded_public_pretrained_test_predictions_v1.csv
+* ml/outputs/metrics/expanded_public_pretrained_eval_metrics_v1.json
+* ml/outputs/metrics/expanded_public_pretrained_confusion_matrix_v1.csv
+* ml/outputs/metrics/expanded_public_pretrained_classification_report_v1.csv
+* ml/outputs/figures/expanded_public_pretrained_confusion_matrix_v1.png
+
+Evaluation input:
+
+| Item          | Path                                                                                                  |
+| ------------- | ----------------------------------------------------------------------------------------------------- |
+| checkpoint    | ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_best.pt            |
+| class mapping | ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_class_mapping.json |
+| test manifest | ml/data/splits/expanded_public_known_test_v1.csv                                                      |
+
+Evaluation result:
+
+| Metric            |  Value |
+| ----------------- | -----: |
+| Test samples      |   1050 |
+| Accuracy          | 0.8876 |
+| Balanced accuracy | 0.8750 |
+| Macro-F1          | 0.8819 |
+| Weighted-F1       | 0.8870 |
+
+Comparison note:
+
+The earlier TrashNet-only pretrained model achieved approximately 0.8880 accuracy and 0.8510 macro-F1. The expanded public pretrained model achieved 0.8876 accuracy and 0.8819 macro-F1. This means accuracy stayed almost the same, while macro-F1 improved.
+
+Research note:
+
+This is an important result because the expanded public model is trained and evaluated on a broader six-class dataset that includes organic waste. The macro-F1 improvement suggests better class-balanced performance after adding RealWaste, even though the headline accuracy did not increase. This supports the thesis argument that dataset expansion improves robustness beyond TrashNet-only training.
+
+Implementation note:
+
+The evaluation config initially missed the `class_mapping_json` path. This was fixed by inserting the correct class mapping path under the checkpoint entry:
+
+ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_class_mapping.json
+
+Test result:
+
+| Test Run                                         |                Result |
+| ------------------------------------------------ | --------------------: |
+| Expanded public closed-set evaluation docs tests |              6 passed |
+| Full project tests                               | 300 passed, 1 warning |
 
 
 

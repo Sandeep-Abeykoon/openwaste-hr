@@ -14,9 +14,10 @@ The project combines:
 * hierarchical fine/coarse waste taxonomy
 * reject/manual-review decision support
 * local unknown evaluation
+* public unknown/future-class evaluation
 * safe threshold tuning
 * backend/frontend prototype integration
-* human-in-the-loop active learning
+* human-in-the-loop active learning preparation
 
 The main research argument is that waste classification should not be treated only as a closed-set image classification problem. In real-world use, local waste images may contain unfamiliar objects outside the training taxonomy. A normal classifier may still produce a high-confidence known label for these unknown objects.
 
@@ -40,12 +41,14 @@ Baseline C + Safe Policy C
 
 Where:
 
-| Component     | Meaning                                            |
-| ------------- | -------------------------------------------------- |
-| Baseline C    | pretrained expanded public model / pretrained expanded public dataset model           |
-| Safe Policy C | safe hierarchical decision policy using Baseline C |
+| Component     | Meaning                                                            |
+| ------------- | ------------------------------------------------------------------ |
+| Baseline C    | pretrained expanded public model                                   |
+| Safe Policy C | expanded public safe hierarchical decision policy using Baseline C |
 
-The final known-class model was trained on the expanded public dataset created from TrashNet-style known samples and RealWaste known samples. The known fine labels are:
+The final known-class model was trained on the expanded public dataset created from TrashNet-style known samples and RealWaste known samples.
+
+The known fine labels are:
 
 * paper/cardboard
 * plastic
@@ -56,7 +59,7 @@ The final known-class model was trained on the expanded public dataset created f
 
 RealWaste `Textile Trash` was intentionally kept outside the known training taxonomy and used as public unknown/future-class evaluation data.
 
-### Final Closed-Set Known Classification
+## Final Closed-Set Known Classification
 
 | Model                            | Accuracy | Balanced Accuracy | Macro-F1 | Weighted-F1 |
 | -------------------------------- | -------: | ----------------: | -------: | ----------: |
@@ -64,31 +67,56 @@ RealWaste `Textile Trash` was intentionally kept outside the known training taxo
 | Pretrained TrashNet-only model   |   0.8880 |            0.8431 |   0.8510 |      0.8873 |
 | Pretrained expanded public model |   0.8876 |            0.8750 |   0.8819 |      0.8870 |
 
-The expanded public model achieved similar accuracy to the TrashNet-only pretrained model, but improved macro-F1. This matters because macro-F1 better reflects class-balanced performance.
+The expanded public model achieved similar accuracy to the TrashNet-only pretrained model, but improved macro-F1. This matters because macro-F1 better reflects class-balanced performance. The expanded public model also includes the organic class, which was missing from the original TrashNet-only known training setup.
 
-### Final Safe Hierarchical Policy
+## Final Reject-Option Result
 
-| Policy                      | Known Coverage | Accepted Success Rate | Local Unknown Manual Review Rate |
-| --------------------------- | -------------: | --------------------: | -------------------------------: |
-| TrashNet-only safe policy   |         0.8646 |                0.9608 |                           0.6000 |
-| Expanded public safe policy |         0.8819 |                0.9838 |                           0.4750 |
+Reject-option evaluation tested whether the model could improve accepted prediction reliability by rejecting uncertain known-test samples.
 
-The expanded public safe policy achieved higher known coverage and higher accepted-decision reliability.
+| Method               | Coverage | Rejection Rate | Selective Macro-F1 | Selective Weighted-F1 |
+| -------------------- | -------: | -------------: | -----------------: | --------------------: |
+| Confidence threshold |   0.7229 |         0.2771 |             0.9732 |                0.9788 |
+| Max-logit            |   0.7362 |         0.2638 |             0.9627 |                0.9676 |
+| Energy score         |   0.7181 |         0.2819 |             0.9612 |                0.9668 |
 
-### Unknown Handling
+Confidence thresholding was strongest for known selective prediction because it produced the highest selective macro-F1 and selective weighted-F1.
 
-Standalone unknown rejection showed that energy-score rejection was strongest for unknown detection:
+## Final Unknown Handling Result
+
+Standalone unknown rejection showed that Energy score was strongest for unknown detection.
 
 | Unknown Source                    | Best Method  | Unknown Rejection Rate | False Acceptance Rate |
 | --------------------------------- | ------------ | ---------------------: | --------------------: |
 | Local unknown dataset             | Energy score |                 0.6750 |                0.3250 |
 | Public unknown/future-class split | Energy score |                 0.6509 |                0.3491 |
 
-This shows an important research trade-off. Confidence thresholding was strongest for selective known prediction, while energy score was strongest for unknown rejection.
+This shows an important research trade-off. Confidence thresholding was strongest for selective known prediction, while Energy score was strongest for unknown rejection.
 
-### Final Research Position
+## Final Safe Hierarchical Policy
 
-The final thesis position is that OpenWaste-HR should not be treated as a simple closed-set waste classifier. The final system supports:
+The final expanded public safe hierarchical policy selected these thresholds:
+
+| Parameter                              | Value |
+| -------------------------------------- | ----: |
+| fine confidence threshold              | 0.995 |
+| coarse confidence threshold            | 0.990 |
+| coarse margin threshold                | 0.150 |
+| minimum confidence for coarse fallback | 0.350 |
+
+Final safe policy result:
+
+| Policy                      | Known Coverage | Accepted Success Rate | Local Unknown Manual Review Rate |
+| --------------------------- | -------------: | --------------------: | -------------------------------: |
+| TrashNet-only safe policy   |         0.8646 |                0.9608 |                           0.6000 |
+| Expanded public safe policy |         0.8819 |                0.9838 |                           0.4750 |
+
+The expanded public safe policy achieved higher known coverage and higher accepted-decision reliability. The earlier TrashNet-only safe policy was stricter on local unknown samples. Therefore, the final result should be presented as a trade-off, not as one system being better in every metric.
+
+## Final Research Position
+
+The final thesis position is that OpenWaste-HR should not be treated as a simple closed-set waste classifier.
+
+The final system supports:
 
 | Output          | Meaning                               |
 | --------------- | ------------------------------------- |
@@ -98,61 +126,35 @@ The final thesis position is that OpenWaste-HR should not be treated as a simple
 
 The final expanded public safe hierarchical policy is the strongest balanced OpenWaste-HR system. However, the thesis should also report that a future version could add an energy-based unknown safety gate to improve unknown rejection further.
 
+## Human Review and Active Learning Status
 
-## Current Best System
+OpenWaste-HR includes a local active learning workflow, but the full human-review retraining cycle has not yet been completed.
 
-The current best system is:
+Completed active learning components:
 
-```text
-Pretrained Safe Hierarchical Policy
-```
+| Component                                    | Status   |
+| -------------------------------------------- | -------- |
+| active learning candidate selection          | complete |
+| human labelling sheet generation             | complete |
+| reviewed-label processing script             | complete |
+| reviewed local label seed for `local_000001` | complete |
+| active learning v2 dataset planning          | complete |
 
-| Item            | Value                                                                        |
-| --------------- | ---------------------------------------------------------------------------- |
-| Model           | pretrained transfer-learning model                                           |
-| Checkpoint      | ml/outputs/checkpoints/pretrained_trashnet_v1/pretrained_trashnet_v1_best.pt |
-| Decision policy | pretrained safe hierarchical policy                                          |
+Not yet completed:
 
-Selected thresholds:
+| Component                                           | Status  |
+| --------------------------------------------------- | ------- |
+| full manual review of remaining candidate images    | pending |
+| retraining with reviewed known-class samples        | pending |
+| before/after active learning improvement comparison | pending |
 
-| Threshold                     |    Value |
-| ----------------------------- | -------: |
-| fine_confidence_threshold     | 0.995000 |
-| coarse_confidence_threshold   | 0.800000 |
-| coarse_margin_threshold       | 0.150000 |
-| minimum_confidence_for_coarse | 0.900000 |
+The reviewed local example `local_000001` was identified as a rubber slipper / flip-flop, which is outside the current known taxonomy. It was therefore kept as an unknown/future-class candidate rather than being added incorrectly into a known class.
 
-## Best Evaluation Result
-
-| Metric                            |    Value |
-| --------------------------------- | -------: |
-| Known-test coverage               | 0.864583 |
-| Accepted hierarchical reliability | 0.960843 |
-| Local unknown manual-review rate  | 0.600000 |
-| Local unknown acceptance rate     | 0.400000 |
-
-## Closed-Set Model Improvement
-
-| Model                    | Accuracy | Macro-F1 |
-| ------------------------ | -------: | -------: |
-| Scratch-trained baseline | 0.692708 | 0.645600 |
-| Pretrained baseline      | 0.888000 | 0.851000 |
-
-The pretrained model improves known-class classification substantially, but OpenWaste-HR also shows that high known-test accuracy alone is not enough for local unknown safety.
-
-## Policy Comparison
-
-| Policy                       | Known Coverage | Accepted Reliability | Local Unknown Manual Review | Local Unknown Acceptance |
-| ---------------------------- | -------------: | -------------------: | --------------------------: | -----------------------: |
-| Scratch safe hierarchical    |       0.658854 |             0.889328 |                    0.375000 |                 0.625000 |
-| Pretrained hierarchical v1   |       0.976562 |             0.957333 |                    0.075000 |                 0.925000 |
-| Pretrained safe hierarchical |       0.864583 |             0.960843 |                    0.600000 |                 0.400000 |
-
-The pretrained safe hierarchical policy is the best current policy because it balances known-test coverage, accepted-decision reliability, and local unknown safety.
+This is important because active learning should improve the model only when reviewed samples genuinely belong to the current known taxonomy. Unknown or outside-taxonomy samples should be used for unknown evaluation, future-class planning, or manual-review analysis.
 
 ## Local Unknown Example
 
-The live demo used:
+The live demo uses:
 
 ```text
 ml/data/local_unknown/images/local_000001.jpg
@@ -166,7 +168,9 @@ rubber slipper / flip-flop
 
 This object is outside the current known fine-label taxonomy.
 
-The model/API result was:
+This example demonstrates why OpenWaste-HR needs local unknown evaluation and manual-review support. A normal closed-set classifier may still assign a known label to an unfamiliar object.
+
+The earlier model/API result for this sample was:
 
 | Field                  | Value           |
 | ---------------------- | --------------- |
@@ -238,10 +242,8 @@ pytest
 The latest full project test suite reached:
 
 ```text
-248 passed, 1 warning
+330 passed, 1 warning
 ```
-
-before the final README update step.
 
 ## Run Single-Image Inference
 
@@ -310,76 +312,106 @@ Use this image path:
 ml/data/local_unknown/images/local_000001.jpg
 ```
 
-## Key Thesis Files
+## Key Thesis and Result Files
 
-| Purpose                       | File                                                            |
-| ----------------------------- | --------------------------------------------------------------- |
-| methodology chapter           | docs/thesis/methodology_chapter_consolidated_v1.md              |
-| implementation chapter        | docs/thesis/implementation_chapter_draft_v1.md                  |
-| evaluation chapter draft      | docs/thesis/evaluation_chapter_draft_v1.md                      |
-| final evaluation update       | docs/thesis/evaluation_best_policy_active_learning_update_v1.md |
-| active learning v2 section    | docs/thesis/active_learning_v2_section_v1.md                    |
-| thesis assembly checklist     | docs/thesis/thesis_assembly_checklist_v1.md                     |
-| final model/policy comparison | docs/results/final_model_policy_comparison_v1.md                |
-| final evaluation summary      | docs/results/final_evaluation_summary_best_policy_v1.md         |
-| supervisor handover pack      | docs/supervisor_updates/supervisor_handover_pack_v1.md          |
-| supervisor demo script        | docs/supervisor_updates/supervisor_demo_script_v1.md            |
+| Purpose                               | File                                                             |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| methodology chapter                   | docs/thesis/methodology_chapter_consolidated_v1.md               |
+| implementation chapter                | docs/thesis/implementation_chapter_draft_v1.md                   |
+| evaluation chapter draft              | docs/thesis/evaluation_chapter_draft_v1.md                       |
+| final expanded public comparison      | docs/results/final_expanded_public_model_policy_comparison_v1.md |
+| final thesis evaluation update        | docs/thesis/evaluation_expanded_public_final_update_v1.md        |
+| final project summary after expansion | docs/thesis/final_project_summary_after_expansion_v1.md          |
+| active learning v2 section            | docs/thesis/active_learning_v2_section_v1.md                     |
+| thesis assembly checklist             | docs/thesis/thesis_assembly_checklist_v1.md                      |
+| supervisor handover pack              | docs/supervisor_updates/supervisor_handover_pack_v1.md           |
+| supervisor demo script                | docs/supervisor_updates/supervisor_demo_script_v1.md             |
+| final supervisor completion summary   | docs/supervisor_updates/final_project_completion_summary_v1.md   |
 
 ## Completed Pipeline
 
-| Stage                                      | Status   |
-| ------------------------------------------ | -------- |
-| taxonomy and label map                     | complete |
-| dataset manifest validation                | complete |
-| TrashNet intake                            | complete |
-| scratch baseline training                  | complete |
-| reject-option baselines                    | complete |
-| local unknown evaluation                   | complete |
-| hierarchical policy                        | complete |
-| safe policy tuning                         | complete |
-| pretrained training                        | complete |
-| pretrained reject/local unknown evaluation | complete |
-| pretrained safe policy selection           | complete |
-| backend/frontend prototype                 | complete |
-| human correction seed                      | complete |
-| active learning v2 dataset plan            | complete |
-| thesis section updates                     | complete |
-| supervisor handover pack                   | complete |
+| Stage                                                  | Status   |
+| ------------------------------------------------------ | -------- |
+| taxonomy and label map                                 | complete |
+| dataset manifest validation                            | complete |
+| TrashNet intake                                        | complete |
+| scratch baseline training                              | complete |
+| confidence/max-logit/energy reject-option baselines    | complete |
+| local unknown dataset evaluation                       | complete |
+| hierarchical decision policy                           | complete |
+| safe policy tuning                                     | complete |
+| pretrained TrashNet training                           | complete |
+| pretrained reject/local unknown evaluation             | complete |
+| pretrained safe policy selection                       | complete |
+| RealWaste intake                                       | complete |
+| RealWaste inspection                                   | complete |
+| expanded public manifest creation                      | complete |
+| expanded public pretrained training                    | complete |
+| expanded public closed-set evaluation                  | complete |
+| expanded public reject-option evaluation               | complete |
+| expanded public local unknown evaluation               | complete |
+| expanded public public unknown/future-class evaluation | complete |
+| expanded public safe hierarchical policy tuning        | complete |
+| final expanded public comparison                       | complete |
+| backend/frontend prototype                             | complete |
+| human correction seed                                  | complete |
+| active learning v2 dataset plan                        | complete |
+| thesis section updates                                 | complete |
+| supervisor handover pack                               | complete |
 
 ## Remaining Work
 
 Recommended future work:
 
-1. review the remaining active-learning candidate images
-2. collect more local unknown images
-3. add more public waste datasets
-4. evaluate more pretrained architectures
-5. fine-tune using reviewed active-learning data
-6. improve frontend upload support
-7. prepare final dissertation formatting and citations
-8. deploy the backend/frontend prototype
+1. complete manual review for the remaining active-learning candidate images
+2. identify which reviewed samples truly belong to the current known taxonomy
+3. build an active learning v2 retraining manifest using only valid reviewed known-class samples
+4. fine-tune the expanded public pretrained model using reviewed known-class samples
+5. compare before/after active learning performance
+6. evaluate TACO as the next public dataset
+7. decide whether TACO should be used for training, unknown evaluation, or future-class analysis
+8. evaluate more pretrained architectures
+9. improve frontend upload support
+10. prepare final dissertation formatting and citations
+11. deploy the backend/frontend prototype
+
+## Next Dataset Work
+
+The next planned dataset stage is TACO feasibility and intake planning.
+
+TACO should not be added blindly into training. It requires a careful label-mapping protocol because its labels are more detailed and may not directly fit the current six known fine labels.
+
+The next dataset decision should classify TACO labels into:
+
+| Mapping Role           | Meaning                                             |
+| ---------------------- | --------------------------------------------------- |
+| known_train_candidate  | can safely map to a current known fine label        |
+| known_eval_candidate   | can be evaluated as a known class                   |
+| unknown_eval_candidate | useful as unknown/outside-taxonomy evaluation       |
+| future_class_candidate | useful for future taxonomy expansion                |
+| exclude_or_review      | too ambiguous or unsuitable without manual checking |
 
 ## Terminology
 
 Use these terms consistently:
 
-| Use This Term                       | Avoid                     |
-| ----------------------------------- | ------------------------- |
-| local unknown dataset               | corrected unknown dataset |
-| manual_review                       | reject only               |
-| coarse fallback                     | wrong broad prediction    |
-| pretrained safe hierarchical policy | final model only          |
-| human-in-the-loop active learning   | manual checking only      |
-| outside_current_known_taxonomy      | wrong label               |
+| Use This Term                            | Avoid                   |
+| ---------------------------------------- | ----------------------- |
+| local unknown dataset                    | unclear unknown dataset |
+| manual_review                            | reject only             |
+| coarse fallback                          | wrong broad prediction  |
+| expanded public safe hierarchical policy | final model only        |
+| human-in-the-loop active learning        | manual checking only    |
+| outside_current_known_taxonomy           | wrong label             |
 
 ## Current Status
 
-OpenWaste-HR now has a complete v1 research and prototype pipeline.
+OpenWaste-HR now has a complete expanded public research and prototype pipeline.
 
 The strongest current thesis message is:
 
 ```text
-OpenWaste-HR improves waste classification by combining pretrained image recognition with hierarchical open-set decision-making, safe reject/manual-review behaviour, local unknown evaluation, and human-in-the-loop active learning.
+OpenWaste-HR improves waste classification by combining pretrained image recognition with hierarchical open-set decision-making, safe reject/manual-review behaviour, local unknown evaluation, public unknown evaluation, and human-in-the-loop active learning preparation.
 ```
 
-
+The next major research step is to complete the human-review retraining cycle and then continue with TACO dataset feasibility and intake planning.

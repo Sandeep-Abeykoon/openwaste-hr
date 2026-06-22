@@ -3449,3 +3449,41 @@ Test result:
 | ----------------------------------------- | --------------------: |
 | Final README and thesis summary docs test |              6 passed |
 | Full project tests                        | 330 passed, 1 warning |
+
+
+## README Consistency Cleanup v1 Summary
+
+This stage cleaned the README after the final expanded public model and policy comparison.
+
+Updated files:
+
+* README.md
+* docs/supervisor_updates/readme_consistency_cleanup_summary_v1.md
+* tests/test_readme_consistency_cleanup_docs.py
+* tests/test_final_project_readme_docs.py
+
+Reason:
+
+The README previously contained both the final expanded public result and older wording that described the TrashNet-only safe hierarchical policy as the current best system. This could confuse the final project position.
+
+Cleanup performed:
+
+* removed the outdated `Current Best System` section
+* updated README wording to emphasise `Baseline C + Safe Policy C`
+* added final active learning status
+* added remaining human-review retraining work
+* added TACO as the next dataset work
+* updated full test count to 330 passed, 1 warning in README
+* updated the old README tests to match the final expanded public project direction
+
+Final README position:
+
+The README now presents OpenWaste-HR as a completed expanded public research and prototype pipeline, with the next major research step being the human-review retraining cycle followed by TACO feasibility and intake planning.
+
+Test result:
+
+| Test Run                             |                Result |
+| ------------------------------------ | --------------------: |
+| README consistency cleanup docs test |              6 passed |
+| Final project README docs test       |             13 passed |
+| Full project tests                   | 341 passed, 1 warning |

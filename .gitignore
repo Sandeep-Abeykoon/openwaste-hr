@@ -31,3 +31,14 @@ experiments/
 Thumbs.db
 .vscode/
 .idea/
+# OpenWaste-HR local datasets and generated ML artifacts
+ml/data/raw/*
+!ml/data/raw/.gitkeep
+ml/data/processed/*
+!ml/data/processed/.gitkeep
+ml/outputs/*
+!ml/outputs/.gitkeep
+*.pth
+*.pt
+*.onnx
+*.ckpt

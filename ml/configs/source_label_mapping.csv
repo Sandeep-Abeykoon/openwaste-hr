@@ -31,9 +31,3 @@ trashbox,paper,paper,known,true,Known 5-class label
 trashbox,plastic,plastic,known,true,Known 5-class label
 trashbox,e-waste,excluded,exclude,false,Excluded from main protocol
 trashbox,medical,excluded,exclude,false,Excluded from main protocol
-garbage_classification,cardboard,cardboard,known,true,Known 5-class label
-garbage_classification,glass,glass,known,true,Known 5-class label
-garbage_classification,metal,metal,known,true,Known 5-class label
-garbage_classification,paper,paper,known,true,Known 5-class label
-garbage_classification,plastic,plastic,known,true,Known 5-class label
-garbage_classification,trash,excluded,exclude,false,Excluded because trash/residual is mixed

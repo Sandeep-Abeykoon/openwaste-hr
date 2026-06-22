@@ -33,7 +33,7 @@ preprocessing:
 
 training:
   seed: 42
-  epochs: 25
+  epochs: 50
   batch_size: 32
   learning_rate: 0.0003
   weight_decay: 0.0001

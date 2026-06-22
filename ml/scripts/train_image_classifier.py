@@ -561,16 +561,10 @@ def main() -> None:
         }
         history.append(epoch_record)
 
-        print(
-            f"Epoch {epoch:03d}/{epochs} | "
-            f"train_loss={train_metrics['loss']:.4f} | "
-            f"train_acc={train_metrics['accuracy']:.4f} | "
-            f"val_loss={val_metrics['loss']:.4f} | "
-            f"val_acc={val_metrics['accuracy']:.4f} | "
-            f"val_macro_f1={val_metrics['macro_f1']:.4f}"
-        )
+        improved = current_val_macro_f1 > best_val_macro_f1
 
-        if current_val_macro_f1 > best_val_macro_f1:
+        if improved:
+            previous_best = best_val_macro_f1
             best_val_macro_f1 = current_val_macro_f1
             best_epoch = epoch
             epochs_without_improvement = 0
@@ -582,11 +576,50 @@ def main() -> None:
                 class_names=class_names,
                 best_metric=best_val_macro_f1,
             )
+
+            if previous_best < 0:
+                early_stopping_message = (
+                    f"IMPROVED | first best model saved | "
+                    f"best_epoch={best_epoch} | "
+                    f"best_val_macro_f1={best_val_macro_f1:.4f} | "
+                    f"patience=0/{patience}"
+                )
+            else:
+                improvement_amount = best_val_macro_f1 - previous_best
+                early_stopping_message = (
+                    f"IMPROVED | +{improvement_amount:.4f} macro-F1 | "
+                    f"best model saved | "
+                    f"best_epoch={best_epoch} | "
+                    f"best_val_macro_f1={best_val_macro_f1:.4f} | "
+                    f"patience=0/{patience}"
+                )
         else:
             epochs_without_improvement += 1
+            early_stopping_message = (
+                f"NO IMPROVEMENT | "
+                f"best_epoch={best_epoch} | "
+                f"best_val_macro_f1={best_val_macro_f1:.4f} | "
+                f"patience={epochs_without_improvement}/{patience}"
+            )
+
+        print(
+            f"Epoch {epoch:03d}/{epochs} | "
+            f"train_loss={train_metrics['loss']:.4f} | "
+            f"train_acc={train_metrics['accuracy']:.4f} | "
+            f"val_loss={val_metrics['loss']:.4f} | "
+            f"val_acc={val_metrics['accuracy']:.4f} | "
+            f"val_macro_f1={val_metrics['macro_f1']:.4f} | "
+            f"{early_stopping_message}"
+        )
 
         if early_stopping.get("enabled", True) and epochs_without_improvement >= patience:
-            print(f"Early stopping triggered at epoch {epoch}.")
+            print(
+                f"EARLY STOPPING TRIGGERED | "
+                f"epoch={epoch} | "
+                f"no improvement for {epochs_without_improvement} epoch(s) | "
+                f"best_epoch={best_epoch} | "
+                f"best_val_macro_f1={best_val_macro_f1:.4f}"
+            )
             break
 
     checkpoint = torch.load(model_path, map_location=device)
@@ -675,3 +708,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+

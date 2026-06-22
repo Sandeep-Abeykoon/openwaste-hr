@@ -1,0 +1,71 @@
+﻿experiment:
+  name: stage_02_trashnet_realwaste
+  version: v1
+  description: >
+    Stage 2 closed-set model trained on TrashNet and RealWaste known classes
+    using the clean 5-class OpenWaste-HR protocol.
+
+data:
+  stage_dir: ml/data/manifests/stages/stage_02_trashnet_realwaste
+  train_csv: ml/data/manifests/stages/stage_02_trashnet_realwaste/known_train_v1.csv
+  val_csv: ml/data/manifests/stages/stage_02_trashnet_realwaste/known_val_v1.csv
+  test_csv: ml/data/manifests/stages/stage_02_trashnet_realwaste/known_test_v1.csv
+  unknown_val_csv: ml/data/manifests/stages/stage_02_trashnet_realwaste/unknown_val_v1.csv
+  unknown_test_csv: ml/data/manifests/stages/stage_02_trashnet_realwaste/unknown_test_v1.csv
+
+labels:
+  known_classes:
+    - cardboard
+    - glass
+    - metal
+    - paper
+    - plastic
+  num_classes: 5
+
+model:
+  backbone: mobilenet_v3_large
+  pretrained: true
+  dropout: 0.2
+
+preprocessing:
+  config_path: ml/configs/preprocessing.yaml
+  image_size: 224
+
+training:
+  seed: 42
+  epochs: 50
+  batch_size: 32
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  optimizer: adamw
+  scheduler: cosine
+  early_stopping:
+    enabled: true
+    patience: 6
+    monitor: val_macro_f1
+    mode: max
+
+outputs:
+  output_dir: ml/outputs/stage_02_trashnet_realwaste
+  model_path: ml/outputs/stage_02_trashnet_realwaste/best_model.pt
+  metrics_path: ml/outputs/stage_02_trashnet_realwaste/metrics_v1.json
+  predictions_path: ml/outputs/stage_02_trashnet_realwaste/predictions_v1.csv
+  confusion_matrix_path: ml/outputs/stage_02_trashnet_realwaste/confusion_matrix_v1.png
+
+evaluation:
+  closed_set_metrics:
+    - accuracy
+    - macro_f1
+    - balanced_accuracy
+    - confusion_matrix
+
+  reject_option_metrics_later:
+    - unknown_rejection_rate
+    - auroc_known_vs_unknown
+    - expected_calibration_error
+    - coverage_risk_curve
+
+notes:
+  - This model trains on the full known-class subset of TrashNet and RealWaste.
+  - Food Organics and Textile Trash remain outside training and are used only for unknown/reject-option evaluation.
+  - After this model is trained, active learning must be completed before moving to Garbage Classification V2.

@@ -3326,3 +3326,70 @@ Test result:
 | Full project tests                                         | 318 passed, 1 warning |
 
 
+## Final Expanded Public Model and Policy Comparison v1 Summary
+
+This stage consolidated the final expanded public model and policy results for thesis and supervisor reporting.
+
+Created files:
+
+* docs/results/final_expanded_public_model_policy_comparison_v1.md
+* docs/thesis/evaluation_expanded_public_final_update_v1.md
+* docs/supervisor_updates/final_expanded_public_comparison_summary_v1.md
+* tests/test_final_expanded_public_comparison_docs.py
+
+Main comparison:
+
+| System        | Description                               |
+| ------------- | ----------------------------------------- |
+| Baseline A    | scratch TrashNet-only CNN baseline        |
+| Baseline B    | pretrained TrashNet-only model            |
+| Baseline C    | pretrained expanded public dataset model  |
+| Safe Policy B | safe hierarchical policy using Baseline B |
+| Safe Policy C | safe hierarchical policy using Baseline C |
+
+Closed-set comparison:
+
+| Model      | Accuracy | Balanced Accuracy | Macro-F1 | Weighted-F1 |
+| ---------- | -------: | ----------------: | -------: | ----------: |
+| Baseline A |   0.6927 |            0.6545 |   0.6456 |      0.7009 |
+| Baseline B |   0.8880 |            0.8431 |   0.8510 |      0.8873 |
+| Baseline C |   0.8876 |            0.8750 |   0.8819 |      0.8870 |
+
+Expanded public reject-option result:
+
+| Method               | Coverage | Rejection Rate | Selective Macro-F1 | Selective Weighted-F1 |
+| -------------------- | -------: | -------------: | -----------------: | --------------------: |
+| confidence threshold |   0.7229 |         0.2771 |             0.9732 |                0.9788 |
+| max-logit            |   0.7362 |         0.2638 |             0.9627 |                0.9676 |
+| energy               |   0.7181 |         0.2819 |             0.9612 |                0.9668 |
+
+Expanded public unknown-handling result:
+
+| Unknown Source                    | Best Standalone Method | Unknown Rejection Rate | False Acceptance Rate |
+| --------------------------------- | ---------------------- | ---------------------: | --------------------: |
+| local unknown dataset             | energy                 |                 0.6750 |                0.3250 |
+| public unknown/future-class split | energy                 |                 0.6509 |                0.3491 |
+
+Safe hierarchical policy comparison:
+
+| Policy        | Known Coverage | Accepted Success Rate | Local Unknown Manual Review Rate |
+| ------------- | -------------: | --------------------: | -------------------------------: |
+| Safe Policy B |         0.8646 |                0.9608 |                           0.6000 |
+| Safe Policy C |         0.8819 |                0.9838 |                           0.4750 |
+
+Research conclusion:
+
+The expanded public pretrained model improved macro-F1 and accepted-decision reliability compared with the TrashNet-only pretrained model. The expanded safe hierarchical policy achieved higher known decision coverage and higher accepted hierarchical success rate. However, the earlier TrashNet-only safe policy remained stricter on local unknown samples.
+
+Final thesis position:
+
+The expanded public safe hierarchical policy should be presented as the strongest balanced OpenWaste-HR system because it combines broader public training, improved class-balanced known performance, fine/coarse/manual-review decision outputs, and very high accepted-decision reliability.
+
+However, the thesis should also report the trade-off honestly: energy-score rejection is the strongest standalone unknown-rejection method, and future work could add an energy-based unknown safety gate on top of the expanded safe hierarchical policy.
+
+Test result:
+
+| Test Run                                   |                Result |
+| ------------------------------------------ | --------------------: |
+| Final expanded public comparison docs test |              6 passed |
+| Full project tests                         | 324 passed, 1 warning |

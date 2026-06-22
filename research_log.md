@@ -3393,3 +3393,59 @@ Test result:
 | ------------------------------------------ | --------------------: |
 | Final expanded public comparison docs test |              6 passed |
 | Full project tests                         | 324 passed, 1 warning |
+
+## Final README and Thesis Summary Update v1 Summary
+
+This stage updated the final public-facing project summary after the expanded public evaluation and final comparison stages.
+
+Created or updated files:
+
+* README.md
+* docs/thesis/final_project_summary_after_expansion_v1.md
+* docs/supervisor_updates/final_project_completion_summary_v1.md
+* tests/test_final_readme_and_thesis_summary_docs.py
+
+README update:
+
+The README now includes a final expanded public result section explaining:
+
+* Baseline C + Safe Policy C
+* expanded public pretrained model
+* six known fine labels
+* RealWaste Textile Trash as public unknown/future-class evaluation data
+* final closed-set known classification results
+* final safe hierarchical policy results
+* unknown-handling trade-off
+* final research position
+
+Final thesis summary update:
+
+The thesis summary explains the completed OpenWaste-HR pipeline as a hierarchical uncertainty-aware waste classification system with:
+
+| Output          | Meaning                                   |
+| --------------- | ----------------------------------------- |
+| fine label      | confident fine-grained class prediction   |
+| coarse fallback | safer higher-level waste category         |
+| manual review   | uncertain, unsafe, or unknown-like sample |
+
+Final key result:
+
+| Area                                 | Result |
+| ------------------------------------ | -----: |
+| expanded public accuracy             | 0.8876 |
+| expanded public macro-F1             | 0.8819 |
+| safe policy known coverage           | 0.8819 |
+| safe policy accepted success rate    | 0.9838 |
+| local unknown energy rejection rate  | 0.6750 |
+| public unknown energy rejection rate | 0.6509 |
+
+Final thesis position:
+
+OpenWaste-HR should be presented as a hierarchical uncertainty-aware waste classification system, not as a normal closed-set image classifier. The final expanded public safe hierarchical policy is the strongest balanced system, while energy-score rejection remains the strongest standalone unknown-rejection method and a clear future improvement direction.
+
+Test result:
+
+| Test Run                                  |                Result |
+| ----------------------------------------- | --------------------: |
+| Final README and thesis summary docs test |              6 passed |
+| Full project tests                        | 330 passed, 1 warning |

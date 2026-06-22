@@ -28,6 +28,77 @@ OpenWaste-HR addresses this by allowing the system to return:
 | coarse_label  | safer broad fallback category             |
 | manual_review | uncertain or unsafe case routed to review |
 
+## Final Expanded Public Result
+
+OpenWaste-HR was extended beyond the original TrashNet-only workflow by adding RealWaste as a second public dataset. The final system was evaluated as a hierarchical, uncertainty-aware waste classification pipeline rather than a simple closed-set classifier.
+
+The final strongest balanced system is:
+
+```text
+Baseline C + Safe Policy C
+```
+
+Where:
+
+| Component     | Meaning                                            |
+| ------------- | -------------------------------------------------- |
+| Baseline C    | pretrained expanded public model / pretrained expanded public dataset model           |
+| Safe Policy C | safe hierarchical decision policy using Baseline C |
+
+The final known-class model was trained on the expanded public dataset created from TrashNet-style known samples and RealWaste known samples. The known fine labels are:
+
+* paper/cardboard
+* plastic
+* glass
+* metal
+* organic
+* residual
+
+RealWaste `Textile Trash` was intentionally kept outside the known training taxonomy and used as public unknown/future-class evaluation data.
+
+### Final Closed-Set Known Classification
+
+| Model                            | Accuracy | Balanced Accuracy | Macro-F1 | Weighted-F1 |
+| -------------------------------- | -------: | ----------------: | -------: | ----------: |
+| Scratch TrashNet-only baseline   |   0.6927 |            0.6545 |   0.6456 |      0.7009 |
+| Pretrained TrashNet-only model   |   0.8880 |            0.8431 |   0.8510 |      0.8873 |
+| Pretrained expanded public model |   0.8876 |            0.8750 |   0.8819 |      0.8870 |
+
+The expanded public model achieved similar accuracy to the TrashNet-only pretrained model, but improved macro-F1. This matters because macro-F1 better reflects class-balanced performance.
+
+### Final Safe Hierarchical Policy
+
+| Policy                      | Known Coverage | Accepted Success Rate | Local Unknown Manual Review Rate |
+| --------------------------- | -------------: | --------------------: | -------------------------------: |
+| TrashNet-only safe policy   |         0.8646 |                0.9608 |                           0.6000 |
+| Expanded public safe policy |         0.8819 |                0.9838 |                           0.4750 |
+
+The expanded public safe policy achieved higher known coverage and higher accepted-decision reliability.
+
+### Unknown Handling
+
+Standalone unknown rejection showed that energy-score rejection was strongest for unknown detection:
+
+| Unknown Source                    | Best Method  | Unknown Rejection Rate | False Acceptance Rate |
+| --------------------------------- | ------------ | ---------------------: | --------------------: |
+| Local unknown dataset             | Energy score |                 0.6750 |                0.3250 |
+| Public unknown/future-class split | Energy score |                 0.6509 |                0.3491 |
+
+This shows an important research trade-off. Confidence thresholding was strongest for selective known prediction, while energy score was strongest for unknown rejection.
+
+### Final Research Position
+
+The final thesis position is that OpenWaste-HR should not be treated as a simple closed-set waste classifier. The final system supports:
+
+| Output          | Meaning                               |
+| --------------- | ------------------------------------- |
+| fine label      | high-confidence fine waste prediction |
+| coarse fallback | safer higher-level waste category     |
+| manual review   | uncertain or unknown-like sample      |
+
+The final expanded public safe hierarchical policy is the strongest balanced OpenWaste-HR system. However, the thesis should also report that a future version could add an energy-based unknown safety gate to improve unknown rejection further.
+
+
 ## Current Best System
 
 The current best system is:
@@ -310,3 +381,5 @@ The strongest current thesis message is:
 ```text
 OpenWaste-HR improves waste classification by combining pretrained image recognition with hierarchical open-set decision-making, safe reject/manual-review behaviour, local unknown evaluation, and human-in-the-loop active learning.
 ```
+
+

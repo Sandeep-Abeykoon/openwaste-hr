@@ -3150,6 +3150,94 @@ Test result:
 | Full project tests                       | 306 passed, 1 warning |
 
 
+## Expanded Public Local and Public Unknown Evaluation v1 Summary
+
+This stage evaluated unknown-handling behaviour for Baseline C.
+
+Baseline C is defined as:
+
+| Baseline   | Description                              |
+| ---------- | ---------------------------------------- |
+| Baseline C | pretrained expanded public dataset model |
+
+Created files:
+
+* docs/methodology/expanded_public_unknown_evaluation_v1.md
+* docs/supervisor_updates/expanded_public_unknown_evaluation_summary_v1.md
+* ml/configs/expanded_public_local_unknown_evaluation.yaml
+* ml/configs/expanded_public_public_unknown_evaluation.yaml
+* tests/test_expanded_public_unknown_evaluation_docs.py
+* docs/results/expanded_public_local_unknown_evaluation_v1_report.md
+* docs/results/expanded_public_public_unknown_evaluation_v1_report.md
+
+Evaluation inputs:
+
+| Evaluation                        | Manifest                                           |
+| --------------------------------- | -------------------------------------------------- |
+| local unknown dataset             | ml/data/splits/local_unknown_manifest_v1.csv       |
+| public unknown/future-class split | ml/data/splits/expanded_public_unknown_test_v1.csv |
+
+Model input:
+
+| Item          | Path                                                                                                  |
+| ------------- | ----------------------------------------------------------------------------------------------------- |
+| checkpoint    | ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_best.pt            |
+| class mapping | ml/outputs/checkpoints/expanded_public_pretrained_v1/expanded_public_pretrained_v1_class_mapping.json |
+
+Threshold sources:
+
+| Threshold File                  | Path                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| confidence threshold            | ml/outputs/metrics/expanded_public_confidence_reject_selected_threshold_v1.json |
+| max-logit and energy thresholds | ml/outputs/metrics/expanded_public_open_set_score_selected_thresholds_v1.json   |
+
+Threshold values used:
+
+| Method     | Threshold |
+| ---------- | --------: |
+| confidence |  0.990000 |
+| max-logit  |  9.593050 |
+| energy     | -9.870391 |
+
+Local unknown dataset result:
+
+| Method     | Unknown Samples | Rejected | Accepted as Known | Unknown Rejection Rate | False Acceptance Rate |
+| ---------- | --------------: | -------: | ----------------: | ---------------------: | --------------------: |
+| confidence |              40 |       24 |                16 |               0.600000 |              0.400000 |
+| max-logit  |              40 |       26 |                14 |               0.650000 |              0.350000 |
+| energy     |              40 |       27 |                13 |               0.675000 |              0.325000 |
+
+Public unknown/future-class result:
+
+| Method     | Unknown Samples | Rejected | Accepted as Known | Unknown Rejection Rate | False Acceptance Rate |
+| ---------- | --------------: | -------: | ----------------: | ---------------------: | --------------------: |
+| confidence |             318 |      200 |               118 |               0.628931 |              0.371069 |
+| max-logit  |             318 |      202 |               116 |               0.635220 |              0.364780 |
+| energy     |             318 |      207 |               111 |               0.650943 |              0.349057 |
+
+Best unknown-rejection method:
+
+| Unknown Source                    | Best Method | Reason                         |
+| --------------------------------- | ----------- | ------------------------------ |
+| local unknown dataset             | energy      | highest unknown rejection rate |
+| public unknown/future-class split | energy      | highest unknown rejection rate |
+
+Research note:
+
+The expanded public model achieved stronger unknown rejection when the updated expanded public thresholds were used. On the local unknown dataset, energy-score rejection rejected 27 out of 40 samples, giving a 0.675 unknown rejection rate. On the public unknown/future-class split, energy-score rejection rejected 207 out of 318 samples, giving a 0.650943 unknown rejection rate.
+
+This result is important because Step 57 showed confidence threshold was best for selective known-class prediction, while Step 58 shows energy-score rejection is strongest for unknown rejection. This means the final safe hierarchical policy should not be selected only from closed-set accuracy or known selective performance. It must balance known-class coverage, accepted prediction reliability, and unknown rejection.
+
+Implementation note:
+
+The unknown evaluation configs initially pointed to earlier pretrained threshold files. This was fixed by updating the threshold source paths to the expanded public threshold files generated in Step 57.
+
+Test result:
+
+| Test Run                                      |                Result |
+| --------------------------------------------- | --------------------: |
+| Expanded public unknown evaluation docs tests |              6 passed |
+| Full project tests                            | 312 passed, 1 warning |
 
 
 

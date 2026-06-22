@@ -1,0 +1,2 @@
+source_file,sample_id,image_path,current_model_label,current_model_confidence,current_model_decision_type,selection_reason,human_observation,taxonomy_status,reviewed_fine_label,reviewed_coarse_label,recommended_action,active_learning_v2_role,reviewer_notes,review_status
+ml\data\splits\active_learning_v2_dataset_plan_v1.csv,local_000001,ml/data/local_unknown/images/local_000001.jpg,,,,,,,,,keep_as_unknown_test,unknown_test_and_future_class_candidate,,already_reviewed

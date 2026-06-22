@@ -3558,3 +3558,36 @@ Test result:
 | ------------------------------------- | --------------------: |
 | manual review records audit docs test |              6 passed |
 | full project tests                    | 353 passed, 1 warning |
+
+## Manual Review Working Sheet v1 Summary
+
+This stage prepared a manual review working sheet for OpenWaste-HR active learning v2.
+
+Updated files:
+
+* ml/src/openwaste_hr/active_learning/prepare_manual_review_working_sheet.py
+* ml/outputs/active_learning/manual_review_working_sheet_v1.csv
+* docs/results/manual_review_working_sheet_v1.md
+* docs/supervisor_updates/manual_review_working_sheet_summary_v1.md
+* tests/test_manual_review_working_sheet_docs.py
+
+Result:
+
+| Metric                   | Result |
+| ------------------------ | -----: |
+| total working sheet rows |      1 |
+| pending review rows      |      0 |
+| already reviewed rows    |      1 |
+
+Interpretation:
+
+The working sheet currently contains only the already-reviewed `local_000001` record. No pending manual-review candidate rows were found by the working sheet script.
+
+This means active learning retraining is still not ready. The next step is to locate the earlier active-learning candidate sheet or regenerate candidate rows from the local unknown dataset.
+
+Test result:
+
+| Test Run                              |                Result |
+| ------------------------------------- | --------------------: |
+| manual review working sheet docs test |              6 passed |
+| full project tests                    | 359 passed, 1 warning |

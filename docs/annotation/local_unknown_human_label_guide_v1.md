@@ -23,8 +23,23 @@ outside_current_known_taxonomy
 | glass           | glass bottles, jars, or glass pieces                             |
 | metal           | cans, metal containers, or visible metal waste                   |
 | organic         | food waste, plant waste, or biodegradable organic material       |
-| e_waste_battery | batteries or electronic waste                                    |
+| e_waste_battery | batteries or electronic waste; broader target taxonomy, not a current expanded-public retraining label |
 | residual        | general non-recyclable waste already covered by the taxonomy     |
+
+## Current Expanded-Public Review Rule
+
+For the current expanded-public model and active learning v2 workflow, only these six labels should be treated as current known-class additions:
+
+* paper_cardboard
+* plastic
+* glass
+* metal
+* organic
+* residual
+
+The broader project taxonomy still reserves `e_waste_battery`, but the current expanded-public training data does not support it as a known retraining class yet.
+
+At this stage, batteries, chargers, cables, bulbs, and similar e-waste samples should stay as unknown-test or future-class candidates unless the project later adds dedicated trained support for that class.
 
 ## Recommended Human Fields
 

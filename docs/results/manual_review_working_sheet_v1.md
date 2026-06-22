@@ -10,9 +10,9 @@ The working sheet collects candidate images that need human review before active
 
 | Metric | Value |
 |---|---:|
-| total working sheet rows | 1 |
-| pending review rows | 0 |
-| already reviewed rows | 1 |
+| total working sheet rows | 20 |
+| pending review rows | 20 |
+| already reviewed rows | 0 |
 
 ## Output CSV
 

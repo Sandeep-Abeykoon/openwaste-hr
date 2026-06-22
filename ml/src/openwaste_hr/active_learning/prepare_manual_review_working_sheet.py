@@ -39,6 +39,28 @@ OUTPUT_FIELDS = [
 ]
 
 
+PREFERRED_CANDIDATE_FILENAMES = [
+    "human_labelling_sheet_v1_seeded_review.csv",
+    "human_labelling_sheet_v1_working_review.csv",
+    "human_labelling_sheet_v1.csv",
+    "active_learning_candidates_v1.csv",
+]
+
+
+BLOCKED_FILENAME_KEYWORDS = [
+    "audit",
+    "working_sheet",
+    "distribution",
+    "dataset_plan",
+    "ready_for_dataset",
+    "decisions",
+    "predictions",
+    "manifest",
+    "unknown_test",
+    "accepted_label_distribution",
+]
+
+
 @dataclass(frozen=True)
 class WorkingSheetSummary:
     total_rows: int
@@ -93,45 +115,59 @@ def infer_review_status(row: dict[str, str]) -> str:
     return "pending_review"
 
 
-def discover_candidate_files(project_root: Path) -> list[Path]:
+def discover_all_csv_files(project_root: Path) -> list[Path]:
     search_roots = [
+        project_root / "ml" / "outputs" / "metrics",
         project_root / "ml" / "data" / "splits",
         project_root / "ml" / "outputs" / "active_learning",
     ]
 
-    candidate_files: list[Path] = []
+    csv_files: list[Path] = []
 
     for search_root in search_roots:
         if not search_root.exists():
             continue
 
-        for csv_path in search_root.rglob("*.csv"):
-            name = csv_path.name.lower()
+        csv_files.extend(search_root.rglob("*.csv"))
 
-            if any(
-                blocked in name
-                for blocked in [
-                    "audit",
-                    "working_sheet",
-                    "manual_review_records_audit",
-                ]
-            ):
-                continue
+    return sorted(set(csv_files))
 
-            if any(
-                keyword in name
-                for keyword in [
-                    "candidate",
-                    "human",
-                    "review",
-                    "labelling",
-                    "labeling",
-                    "active_learning",
-                ]
-            ):
-                candidate_files.append(csv_path)
 
-    return sorted(set(candidate_files))
+def discover_candidate_files(project_root: Path) -> list[Path]:
+    csv_files = discover_all_csv_files(project_root)
+
+    for preferred_name in PREFERRED_CANDIDATE_FILENAMES:
+        matches = [
+            csv_path
+            for csv_path in csv_files
+            if csv_path.name.lower() == preferred_name
+        ]
+
+        if matches:
+            return sorted(matches)
+
+    fallback_files: list[Path] = []
+
+    for csv_path in csv_files:
+        name = csv_path.name.lower()
+
+        if any(blocked in name for blocked in BLOCKED_FILENAME_KEYWORDS):
+            continue
+
+        if any(
+            keyword in name
+            for keyword in [
+                "candidate",
+                "human",
+                "review",
+                "labelling",
+                "labeling",
+                "active_learning",
+            ]
+        ):
+            fallback_files.append(csv_path)
+
+    return sorted(set(fallback_files))
 
 
 def read_csv_rows(csv_path: Path) -> list[dict[str, str]]:

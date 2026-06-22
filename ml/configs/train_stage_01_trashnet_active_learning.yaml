@@ -1,0 +1,72 @@
+﻿experiment:
+  name: stage_01_trashnet_active_learning_v1
+  version: v1
+  description: >
+    Stage 1 active-learning retraining model using TrashNet baseline training data
+    plus 100 human-reviewed RealWaste known-class additions.
+
+data:
+  stage_dir: ml/data/manifests/stages/stage_01_trashnet_active_learning_v1
+  train_csv: ml/data/manifests/stages/stage_01_trashnet_active_learning_v1/known_train_v1.csv
+  val_csv: ml/data/manifests/stages/stage_01_trashnet_active_learning_v1/known_val_v1.csv
+  test_csv: ml/data/manifests/stages/stage_01_trashnet_active_learning_v1/known_test_v1.csv
+  unknown_val_csv: ml/data/manifests/stages/stage_01_trashnet_active_learning_v1/unknown_val_v1.csv
+  unknown_test_csv: ml/data/manifests/stages/stage_01_trashnet_active_learning_v1/unknown_test_v1.csv
+
+labels:
+  known_classes:
+    - cardboard
+    - glass
+    - metal
+    - paper
+    - plastic
+  num_classes: 5
+
+model:
+  backbone: mobilenet_v3_large
+  pretrained: true
+  dropout: 0.2
+
+preprocessing:
+  config_path: ml/configs/preprocessing.yaml
+  image_size: 224
+
+training:
+  seed: 42
+  epochs: 50
+  batch_size: 32
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  optimizer: adamw
+  scheduler: cosine
+  early_stopping:
+    enabled: true
+    patience: 6
+    monitor: val_macro_f1
+    mode: max
+
+outputs:
+  output_dir: ml/outputs/stage_01_trashnet_active_learning_v1
+  model_path: ml/outputs/stage_01_trashnet_active_learning_v1/best_model.pt
+  metrics_path: ml/outputs/stage_01_trashnet_active_learning_v1/metrics_v1.json
+  predictions_path: ml/outputs/stage_01_trashnet_active_learning_v1/predictions_v1.csv
+  confusion_matrix_path: ml/outputs/stage_01_trashnet_active_learning_v1/confusion_matrix_v1.png
+
+evaluation:
+  closed_set_metrics:
+    - accuracy
+    - macro_f1
+    - balanced_accuracy
+    - confusion_matrix
+
+  reject_option_metrics_later:
+    - unknown_rejection_rate
+    - auroc_known_vs_unknown
+    - expected_calibration_error
+    - coverage_risk_curve
+
+notes:
+  - This model tests the impact of the first active-learning cycle.
+  - Training data equals TrashNet known_train plus 100 human-reviewed RealWaste known additions.
+  - Validation and test sets remain unchanged from Stage 1 to allow fair before-vs-after comparison.
+  - After training, compare this model against stage_01_trashnet_baseline.

@@ -1,0 +1,12 @@
+{
+  "input_csv": "ml\\data\\manifests\\evaluation\\stage_03_trashbox_external_test_v1.csv",
+  "valid_output_csv": "ml\\data\\manifests\\evaluation\\stage_03_trashbox_external_test_clean_v1.csv",
+  "invalid_output_csv": "ml\\data\\manifests\\evaluation\\stage_03_trashbox_external_test_invalid_images_v1.csv",
+  "total_rows": 1517,
+  "valid_rows": 1517,
+  "invalid_rows": 0,
+  "invalid_reason_counts": {},
+  "invalid_by_label": {},
+  "invalid_by_dataset": {},
+  "rule": "Rows with unreadable, missing, or corrupted image files are excluded from model scoring and training manifests. They are retained separately for auditability."
+}

@@ -1,0 +1,25 @@
+{
+  "review_sheet": "stage_02_human_review_sheet_v1",
+  "total_review_candidates": 100,
+  "by_source_reference_label": {
+    "cardboard": 32,
+    "glass": 23,
+    "metal": 15,
+    "paper": 15,
+    "plastic": 15
+  },
+  "by_model_prediction": {
+    "cardboard": 14,
+    "glass": 7,
+    "metal": 19,
+    "paper": 25,
+    "plastic": 35
+  },
+  "by_selection_reason": {
+    "confident_wrong_candidate": 100
+  },
+  "by_uncertainty_band": {
+    "medium_uncertainty": 100
+  },
+  "review_instruction": "Review each selected image. If the source reference label is correct and belongs to cardboard, glass, metal, paper, or plastic, set reviewed_label to that class and reviewed_action to add_to_training. If the image is unclear, mixed, or not one of the five known classes, set reviewed_action to exclude_or_unknown."
+}

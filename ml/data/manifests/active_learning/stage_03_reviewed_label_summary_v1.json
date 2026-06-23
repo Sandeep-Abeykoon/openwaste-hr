@@ -1,0 +1,17 @@
+{
+  "stage_name": "stage_03_after_garbage_v2",
+  "input_review_sheet": "ml\\data\\manifests\\active_learning\\stage_03_human_review_sheet_v1.csv",
+  "total_review_rows": 100,
+  "known_additions": 100,
+  "excluded_or_unknown": 0,
+  "invalid_or_pending": 0,
+  "known_additions_by_label": {
+    "cardboard": 18,
+    "glass": 15,
+    "metal": 15,
+    "paper": 20,
+    "plastic": 32
+  },
+  "excluded_reason_counts": {},
+  "rule": "Only rows marked review_status=reviewed, reviewed_action=add_to_training, and reviewed_label in cardboard/glass/metal/paper/plastic are added to training."
+}

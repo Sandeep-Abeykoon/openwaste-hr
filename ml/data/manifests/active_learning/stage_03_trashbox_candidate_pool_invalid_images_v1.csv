@@ -1,0 +1,3 @@
+source_dataset,image_path,source_label,canonical_label,split_role,include_in_known_training,notes,split,active_learning_stage,candidate_pool_role,review_status,human_review_label,human_review_action,reviewer_notes,invalid_image_reason
+trashbox,ml/data/raw/trashbox/paper/paper 2273.jpg,paper,paper,known,true,Known 5-class label,known_train,stage_03_after_garbage_v2,trashbox_known_candidate_pool,pending_model_scoring,,,,unidentified_image
+trashbox,ml/data/raw/trashbox/cardboard/cardboard 1075.jpg,cardboard,cardboard,known,true,Known 5-class label,known_train,stage_03_after_garbage_v2,trashbox_known_candidate_pool,pending_model_scoring,,,,unidentified_image

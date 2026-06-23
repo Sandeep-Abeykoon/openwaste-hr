@@ -1,0 +1,19 @@
+{
+  "input_csv": "ml\\data\\manifests\\active_learning\\stage_03_trashbox_candidate_pool_v1.csv",
+  "valid_output_csv": "ml\\data\\manifests\\active_learning\\stage_03_trashbox_candidate_pool_clean_v1.csv",
+  "invalid_output_csv": "ml\\data\\manifests\\active_learning\\stage_03_trashbox_candidate_pool_invalid_images_v1.csv",
+  "total_rows": 7220,
+  "valid_rows": 7218,
+  "invalid_rows": 2,
+  "invalid_reason_counts": {
+    "unidentified_image": 2
+  },
+  "invalid_by_label": {
+    "cardboard": 1,
+    "paper": 1
+  },
+  "invalid_by_dataset": {
+    "trashbox": 2
+  },
+  "rule": "Rows with unreadable, missing, or corrupted image files are excluded from model scoring and training manifests. They are retained separately for auditability."
+}

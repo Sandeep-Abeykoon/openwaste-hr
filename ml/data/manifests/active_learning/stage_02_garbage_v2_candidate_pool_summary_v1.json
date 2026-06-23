@@ -1,0 +1,16 @@
+{
+  "active_learning_stage": "stage_02_after_trashnet_realwaste",
+  "candidate_pool": "Garbage V2 known-class training subset",
+  "total_candidates": 4880,
+  "by_label": {
+    "cardboard": 971,
+    "glass": 1216,
+    "metal": 632,
+    "paper": 933,
+    "plastic": 1128
+  },
+  "by_dataset": {
+    "garbage_v2": 4880
+  },
+  "rule": "These candidates are used for model scoring and human review. Only human-confirmed known-class samples may be added to active-learning retraining."
+}

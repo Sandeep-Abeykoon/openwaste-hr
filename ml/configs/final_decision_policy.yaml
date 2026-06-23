@@ -1,0 +1,63 @@
+﻿policy:
+  name: final_stage_04_energy_reject_policy_v1
+  model_stage: stage_04_add_trashbox_clean_v1
+  purpose: >
+    Final OpenWaste-HR decision policy for converting model logits into a safe
+    user-facing prediction with reject-option support.
+
+known_classes:
+  - cardboard
+  - glass
+  - metal
+  - paper
+  - plastic
+
+coarse_mapping:
+  cardboard: recyclable
+  glass: recyclable
+  metal: recyclable
+  paper: recyclable
+  plastic: recyclable
+
+reject_method:
+  selected_method: energy
+  threshold: -7.1776
+  direction: lower_is_known
+  rule: >
+    Accept the predicted fine label only when energy <= -7.1776.
+    Otherwise, reject the image as unknown/manual_review.
+
+calibration:
+  temperature_scaling_used_for_confidence_display: true
+  temperature: 1.8482
+  note: >
+    Temperature-scaled confidence is used for better calibrated confidence display.
+    Energy score is used for the final reject/accept decision.
+
+decision_outputs:
+  accept_known:
+    decision: known_fine_label
+    show_fine_label: true
+    show_coarse_label: true
+    coarse_label: recyclable
+    user_message_template: >
+      This item is likely {fine_label}. It belongs to the recyclable category.
+
+  reject_unknown:
+    decision: unknown_manual_review
+    show_fine_label: false
+    show_coarse_label: false
+    user_message_template: >
+      The system is not confident that this item belongs to the supported known classes.
+      Please send it for manual review.
+
+safety_notes:
+  - The system must not force textile or biological items into one of the five known classes.
+  - Unknown/rejected samples should be stored for optional manual review and future active learning.
+  - The raw top-1 prediction may be logged internally, but should not be shown as a confident label when rejected.
+
+evaluation_reference:
+  known_test_coverage: 0.7665
+  unknown_test_rejection_rate: 0.8500
+  accepted_known_accuracy: 0.9791
+  test_auroc_known_vs_unknown: 0.8789

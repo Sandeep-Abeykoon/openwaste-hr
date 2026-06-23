@@ -231,6 +231,9 @@ def train_one_epoch(
     criterion: nn.Module,
     optimizer: torch.optim.Optimizer,
     device: torch.device,
+    epoch: int,
+    epochs: int,
+    log_every_batches: int,
 ) -> dict[str, float]:
     model.train()
 
@@ -238,7 +241,9 @@ def train_one_epoch(
     total_correct = 0
     total_samples = 0
 
-    for batch in loader:
+    total_batches = len(loader)
+
+    for batch_index, batch in enumerate(loader, start=1):
         images = batch["image"].to(device)
         labels = batch["label_index"].to(device)
 
@@ -256,6 +261,30 @@ def train_one_epoch(
         total_loss += float(loss.item()) * batch_size
         total_correct += int((predictions == labels).sum().item())
         total_samples += batch_size
+
+        should_log_batch = (
+            log_every_batches > 0
+            and (
+                batch_index == 1
+                or batch_index % log_every_batches == 0
+                or batch_index == total_batches
+            )
+        )
+
+        if should_log_batch:
+            running_loss = total_loss / max(total_samples, 1)
+            running_accuracy = total_correct / max(total_samples, 1)
+            progress_percent = (batch_index / max(total_batches, 1)) * 100.0
+
+            print(
+                f"Epoch {epoch:03d}/{epochs} | "
+                f"batch {batch_index:04d}/{total_batches:04d} | "
+                f"progress={progress_percent:6.2f}% | "
+                f"batch_loss={loss.item():.4f} | "
+                f"running_loss={running_loss:.4f} | "
+                f"running_acc={running_accuracy:.4f}",
+                flush=True,
+            )
 
     return {
         "loss": total_loss / max(total_samples, 1),
@@ -469,6 +498,7 @@ def main() -> None:
 
     batch_size = int(config["training"]["batch_size"])
     num_workers = int(config["training"].get("num_workers", 0))
+    log_every_batches = int(config["training"].get("log_every_batches", 10))
 
     train_loader = DataLoader(
         train_dataset,
@@ -536,6 +566,9 @@ def main() -> None:
             criterion=criterion,
             optimizer=optimizer,
             device=device,
+            epoch=epoch,
+            epochs=epochs,
+            log_every_batches=log_every_batches,
         )
 
         val_result = predict_dataset(

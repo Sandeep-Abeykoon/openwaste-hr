@@ -35,6 +35,7 @@ training:
   seed: 42
   epochs: 50
   batch_size: 32
+  log_every_batches: 10
   learning_rate: 0.0003
   weight_decay: 0.0001
   optimizer: adamw
@@ -69,3 +70,4 @@ notes:
   - This model trains on the full known-class subset of TrashNet and RealWaste.
   - Food Organics and Textile Trash remain outside training and are used only for unknown/reject-option evaluation.
   - After this model is trained, active learning must be completed before moving to Garbage Classification V2.
+

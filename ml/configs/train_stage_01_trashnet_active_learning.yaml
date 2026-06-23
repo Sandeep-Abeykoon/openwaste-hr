@@ -35,6 +35,7 @@ training:
   seed: 42
   epochs: 50
   batch_size: 32
+  log_every_batches: 10
   learning_rate: 0.0003
   weight_decay: 0.0001
   optimizer: adamw
@@ -70,3 +71,4 @@ notes:
   - Training data equals TrashNet known_train plus 100 human-reviewed RealWaste known additions.
   - Validation and test sets remain unchanged from Stage 1 to allow fair before-vs-after comparison.
   - After training, compare this model against stage_01_trashnet_baseline.
+

@@ -179,6 +179,44 @@ The final Fusion Gate v2 policy substantially reduced false acceptance of unknow
 
 ---
 
+## Statistical Evaluation of Final Fusion Gate v2
+
+To strengthen the final evaluation, the final Fusion Gate v2 policy was also evaluated using bootstrap confidence intervals, calibration metrics, and low-FAR partial AUROC.
+
+### Bootstrap 95% Confidence Intervals
+
+The confidence intervals were computed using 1,000 bootstrap resamples of the final known-test and unknown-test predictions.
+
+| Metric | Point Estimate | 95% CI Lower | 95% CI Upper |
+|---|---:|---:|---:|
+| Known coverage | 0.7656 | 0.7522 | 0.7799 |
+| Unknown rejection rate | 0.9337 | 0.9217 | 0.9452 |
+| False acceptance rate | 0.0663 | 0.0548 | 0.0783 |
+| Accepted-known accuracy | 0.9752 | 0.9694 | 0.9809 |
+| AUROC known vs unknown | 0.9269 | 0.9197 | 0.9347 |
+
+### Fusion Gate Calibration
+
+Fusion Gate v2 outputs a knownness score between 0 and 1. Its calibration was evaluated using ECE and Brier score.
+
+| Metric | Value |
+|---|---:|
+| Fusion Gate v2 ECE | 0.0641 |
+| Fusion Gate v2 Brier score | 0.1087 |
+
+### Low-FAR Partial AUROC
+
+Because the project prioritises reducing false acceptance of unknown waste, partial AUROC was also reported in low-FAR regions.
+
+| Region | Standardized pAUC |
+|---|---:|
+| FAR <= 0.05 | 0.8062 |
+| FAR <= 0.10 | 0.8421 |
+
+These results show that the final Fusion Gate v2 result is supported by statistical uncertainty estimates, calibration analysis, and safety-focused low-FAR evaluation.
+
+---
+
 ## Final Inference Behaviour
 
 ### Known Plastic Example
@@ -254,3 +292,10 @@ The final selected OpenWaste-HR decision policy is complete.
 | Final AUROC | 0.9269 |
 | Final unknown rejection | 0.9337 |
 | Final FAR | 0.0663 |
+| FAR 95% CI | 0.0548 to 0.0783 |
+| Unknown rejection 95% CI | 0.9217 to 0.9452 |
+| AUROC 95% CI | 0.9197 to 0.9347 |
+| Fusion Gate v2 ECE | 0.0641 |
+| Fusion Gate v2 Brier score | 0.1087 |
+| pAUC, FAR <= 0.05 | 0.8062 |
+| pAUC, FAR <= 0.10 | 0.8421 |

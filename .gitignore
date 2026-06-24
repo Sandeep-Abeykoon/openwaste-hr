@@ -31,6 +31,29 @@ experiments/
 Thumbs.db
 .vscode/
 .idea/
+
+# Frontend / Node / Vite
+node_modules/
+frontend/node_modules/
+web/**/node_modules/
+dist/
+build/
+coverage/
+.vite/
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+storybook-static/
+*.tsbuildinfo
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
 # OpenWaste-HR local datasets and generated ML artifacts
 ml/data/raw/*
 !ml/data/raw/.gitkeep

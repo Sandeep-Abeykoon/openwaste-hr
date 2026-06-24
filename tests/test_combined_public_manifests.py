@@ -13,10 +13,6 @@ from openwaste_hr.data.build_combined_public_manifests import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-def read_text(relative_path: str) -> str:
-    return (PROJECT_ROOT / relative_path).read_text(encoding="utf-8")
-
-
 def make_manifest_row(
     *,
     sample_id: str,
@@ -48,29 +44,10 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
     pd.DataFrame(rows).to_csv(path, index=False)
 
 
-def test_combined_public_docs_and_config_exist():
-    assert (
-        PROJECT_ROOT / "docs" / "methodology" / "combined_public_training_manifests_v1.md"
-    ).exists()
-    assert (
-        PROJECT_ROOT
-        / "docs"
-        / "supervisor_updates"
-        / "combined_public_training_manifests_summary_v1.md"
-    ).exists()
+def test_combined_public_config_exists():
     assert (
         PROJECT_ROOT / "ml" / "configs" / "combined_public_training_manifests.yaml"
     ).exists()
-
-
-def test_combined_public_docs_mention_baseline_c_and_textile_unknown():
-    text = read_text("docs/methodology/combined_public_training_manifests_v1.md")
-
-    assert "Baseline C" in text
-    assert "pretrained expanded public dataset model" in text
-    assert "Textile Trash" in text
-    assert "future_class_candidate" in text
-    assert "unknown_test" in text
 
 
 def test_combined_public_config_contains_expected_inputs_and_outputs():

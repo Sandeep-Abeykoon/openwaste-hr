@@ -12,31 +12,14 @@ from openwaste_hr.data.build_realwaste_manifest import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-def read_text(relative_path: str) -> str:
-    return (PROJECT_ROOT / relative_path).read_text(encoding="utf-8")
-
-
 def create_toy_image(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(b"fake image content")
 
 
-def test_realwaste_docs_and_config_exist():
-    assert (PROJECT_ROOT / "docs" / "methodology" / "realwaste_intake_v1.md").exists()
-    assert (
-        PROJECT_ROOT / "docs" / "supervisor_updates" / "realwaste_intake_summary_v1.md"
-    ).exists()
+def test_realwaste_config_exists():
     assert (PROJECT_ROOT / "ml" / "configs" / "realwaste.yaml").exists()
     assert (PROJECT_ROOT / "ml" / "configs" / "realwaste_label_mapping_v1.csv").exists()
-
-
-def test_realwaste_docs_mention_safe_textile_mapping():
-    text = read_text("docs/methodology/realwaste_intake_v1.md")
-
-    assert "RealWaste" in text
-    assert "Textile Trash" in text
-    assert "future_class_candidate" in text
-    assert "Do not force outside-taxonomy labels into current known classes" in text
 
 
 def test_realwaste_config_contains_expected_labels():

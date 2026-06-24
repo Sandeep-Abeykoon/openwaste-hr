@@ -15,23 +15,10 @@ def read_text(relative_path: str) -> str:
     return (PROJECT_ROOT / relative_path).read_text(encoding="utf-8")
 
 
-def test_realwaste_inspection_docs_and_script_exist():
-    assert (PROJECT_ROOT / "docs" / "methodology" / "realwaste_inspection_v1.md").exists()
-    assert (
-        PROJECT_ROOT / "docs" / "supervisor_updates" / "realwaste_inspection_summary_v1.md"
-    ).exists()
+def test_realwaste_inspection_script_exists():
     assert (
         PROJECT_ROOT / "ml" / "src" / "openwaste_hr" / "data" / "inspect_realwaste_manifest.py"
     ).exists()
-
-
-def test_realwaste_inspection_docs_mention_textile_unknown():
-    text = read_text("docs/methodology/realwaste_inspection_v1.md")
-
-    assert "Textile Trash" in text
-    assert "unknown/future-class" in text
-    assert "future_class_candidate" in text
-    assert "open-set design" in text
 
 
 def test_value_counts_table_returns_counts_and_proportions():

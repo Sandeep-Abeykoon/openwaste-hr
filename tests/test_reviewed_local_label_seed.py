@@ -7,23 +7,6 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
-def read_text(relative_path: str) -> str:
-    return (PROJECT_ROOT / relative_path).read_text(encoding="utf-8")
-
-
-def test_reviewed_local_label_seed_docs_exist():
-    assert (
-        PROJECT_ROOT / "docs" / "methodology" / "reviewed_local_label_seed_v1.md"
-    ).exists()
-
-    assert (
-        PROJECT_ROOT
-        / "docs"
-        / "supervisor_updates"
-        / "reviewed_local_label_seed_summary_v1.md"
-    ).exists()
-
-
 def test_reviewed_local_label_seed_script_exists():
     assert (
         PROJECT_ROOT
@@ -109,15 +92,3 @@ def test_seeded_working_review_sheet_contains_local_000001_human_fields():
     assert row["proposed_new_label"] == "rubber_slipper_flip_flop"
     assert row["recommended_human_action"] == "keep_as_unknown_test"
     assert "rubber slipper" in row["human_notes"]
-
-
-def test_reviewed_local_label_seed_docs_mention_active_learning_v2():
-    methodology_text = read_text("docs/methodology/reviewed_local_label_seed_v1.md")
-    summary_text = read_text(
-        "docs/supervisor_updates/reviewed_local_label_seed_summary_v1.md"
-    )
-
-    assert "active learning v2" in methodology_text.lower()
-    assert "rubber slipper" in methodology_text
-    assert "outside_current_known_taxonomy" in methodology_text
-    assert "human-in-the-loop active learning" in summary_text

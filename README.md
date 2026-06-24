@@ -1,417 +1,455 @@
-# OpenWaste-HR
+﻿# OpenWaste-HR
 
 ## Project Title
 
-**OpenWaste-HR: Hierarchical Open-Set Waste Classification with Reject/Manual-Review Option and Local Active Learning**
+**OpenWaste-HR: Safety-Aware Open-Set Waste Classification with Active Learning and Fusion-Gate Manual Review**
 
 ## Project Summary
 
 OpenWaste-HR is a final-year research and prototype project for safer real-world waste classification.
 
-The project combines:
+The project investigates why waste classification should not be treated only as a closed-set image classification problem. In real-world use, a waste image may contain an item outside the model's known training taxonomy. A normal classifier may still force such an unknown item into one of the known classes with high confidence.
 
-* pretrained image classification
-* hierarchical fine/coarse waste taxonomy
-* reject/manual-review decision support
-* local unknown evaluation
-* public unknown/future-class evaluation
-* safe threshold tuning
-* backend/frontend prototype integration
-* human-in-the-loop active learning preparation
+OpenWaste-HR addresses this by combining:
 
-The main research argument is that waste classification should not be treated only as a closed-set image classification problem. In real-world use, local waste images may contain unfamiliar objects outside the training taxonomy. A normal classifier may still produce a high-confidence known label for these unknown objects.
+- staged multi-source dataset expansion,
+- pretrained image classification,
+- active-learning-supported dataset adaptation,
+- temperature-scaled confidence calibration,
+- reject-option open-set evaluation,
+- Mahalanobis feature-distance scoring,
+- a calibrated Fusion Gate v2 accept/reject policy,
+- final manual-review routing for unknown or unsafe inputs,
+- backend/frontend prototype integration for prediction demonstration.
 
-OpenWaste-HR addresses this by allowing the system to return:
+The final system does not simply return a class label for every image. Instead, it decides whether the image is safe to classify as a known recyclable item or whether it should be sent to manual review.
 
-| Decision Type | Meaning                                   |
-| ------------- | ----------------------------------------- |
-| fine_label    | confident known fine-label prediction     |
-| coarse_label  | safer broad fallback category             |
-| manual_review | uncertain or unsafe case routed to review |
-
-## Final Expanded Public Result
-
-OpenWaste-HR was extended beyond the original TrashNet-only workflow by adding RealWaste as a second public dataset. The final system was evaluated as a hierarchical, uncertainty-aware waste classification pipeline rather than a simple closed-set classifier.
-
-The final strongest balanced system is:
-
-```text
-Baseline C + Safe Policy C
-```
-
-Where:
-
-| Component     | Meaning                                                            |
-| ------------- | ------------------------------------------------------------------ |
-| Baseline C    | pretrained expanded public model                                   |
-| Safe Policy C | expanded public safe hierarchical decision policy using Baseline C |
-
-The final known-class model was trained on the expanded public dataset created from TrashNet-style known samples and RealWaste known samples.
-
-The known fine labels are:
-
-* paper/cardboard
-* plastic
-* glass
-* metal
-* organic
-* residual
-
-RealWaste `Textile Trash` was intentionally kept outside the known training taxonomy and used as public unknown/future-class evaluation data.
-
-## Final Closed-Set Known Classification
-
-| Model                            | Accuracy | Balanced Accuracy | Macro-F1 | Weighted-F1 |
-| -------------------------------- | -------: | ----------------: | -------: | ----------: |
-| Scratch TrashNet-only baseline   |   0.6927 |            0.6545 |   0.6456 |      0.7009 |
-| Pretrained TrashNet-only model   |   0.8880 |            0.8431 |   0.8510 |      0.8873 |
-| Pretrained expanded public model |   0.8876 |            0.8750 |   0.8819 |      0.8870 |
-
-The expanded public model achieved similar accuracy to the TrashNet-only pretrained model, but improved macro-F1. This matters because macro-F1 better reflects class-balanced performance. The expanded public model also includes the organic class, which was missing from the original TrashNet-only known training setup.
-
-## Final Reject-Option Result
-
-Reject-option evaluation tested whether the model could improve accepted prediction reliability by rejecting uncertain known-test samples.
-
-| Method               | Coverage | Rejection Rate | Selective Macro-F1 | Selective Weighted-F1 |
-| -------------------- | -------: | -------------: | -----------------: | --------------------: |
-| Confidence threshold |   0.7229 |         0.2771 |             0.9732 |                0.9788 |
-| Max-logit            |   0.7362 |         0.2638 |             0.9627 |                0.9676 |
-| Energy score         |   0.7181 |         0.2819 |             0.9612 |                0.9668 |
-
-Confidence thresholding was strongest for known selective prediction because it produced the highest selective macro-F1 and selective weighted-F1.
-
-## Final Unknown Handling Result
-
-Standalone unknown rejection showed that Energy score was strongest for unknown detection.
-
-| Unknown Source                    | Best Method  | Unknown Rejection Rate | False Acceptance Rate |
-| --------------------------------- | ------------ | ---------------------: | --------------------: |
-| Local unknown dataset             | Energy score |                 0.6750 |                0.3250 |
-| Public unknown/future-class split | Energy score |                 0.6509 |                0.3491 |
-
-This shows an important research trade-off. Confidence thresholding was strongest for selective known prediction, while Energy score was strongest for unknown rejection.
-
-## Final Safe Hierarchical Policy
-
-The final expanded public safe hierarchical policy selected these thresholds:
-
-| Parameter                              | Value |
-| -------------------------------------- | ----: |
-| fine confidence threshold              | 0.995 |
-| coarse confidence threshold            | 0.990 |
-| coarse margin threshold                | 0.150 |
-| minimum confidence for coarse fallback | 0.350 |
-
-Final safe policy result:
-
-| Policy                      | Known Coverage | Accepted Success Rate | Local Unknown Manual Review Rate |
-| --------------------------- | -------------: | --------------------: | -------------------------------: |
-| TrashNet-only safe policy   |         0.8646 |                0.9608 |                           0.6000 |
-| Expanded public safe policy |         0.8819 |                0.9838 |                           0.4750 |
-
-The expanded public safe policy achieved higher known coverage and higher accepted-decision reliability. The earlier TrashNet-only safe policy was stricter on local unknown samples. Therefore, the final result should be presented as a trade-off, not as one system being better in every metric.
+---
 
 ## Final Research Position
 
-The final thesis position is that OpenWaste-HR should not be treated as a simple closed-set waste classifier.
-
-The final system supports:
-
-| Output          | Meaning                               |
-| --------------- | ------------------------------------- |
-| fine label      | high-confidence fine waste prediction |
-| coarse fallback | safer higher-level waste category     |
-| manual review   | uncertain or unknown-like sample      |
-
-The final expanded public safe hierarchical policy is the strongest balanced OpenWaste-HR system. However, the thesis should also report that a future version could add an energy-based unknown safety gate to improve unknown rejection further.
-
-## Human Review and Active Learning Status
-
-OpenWaste-HR includes a local active learning workflow, but the full human-review retraining cycle has not yet been completed.
-
-Completed active learning components:
-
-| Component                                    | Status   |
-| -------------------------------------------- | -------- |
-| active learning candidate selection          | complete |
-| human labelling sheet generation             | complete |
-| reviewed-label processing script             | complete |
-| reviewed local label seed for `local_000001` | complete |
-| active learning v2 dataset planning          | complete |
-
-Not yet completed:
-
-| Component                                           | Status  |
-| --------------------------------------------------- | ------- |
-| full manual review of remaining candidate images    | pending |
-| retraining with reviewed known-class samples        | pending |
-| before/after active learning improvement comparison | pending |
-
-The reviewed local example `local_000001` was identified as a rubber slipper / flip-flop, which is outside the current known taxonomy. It was therefore kept as an unknown/future-class candidate rather than being added incorrectly into a known class.
-
-This is important because active learning should improve the model only when reviewed samples genuinely belong to the current known taxonomy. Unknown or outside-taxonomy samples should be used for unknown evaluation, future-class planning, or manual-review analysis.
-
-## Local Unknown Example
-
-The live demo uses:
+The final thesis position is:
 
 ```text
-ml/data/local_unknown/images/local_000001.jpg
+OpenWaste-HR shows that a closed-set waste classifier becomes safer for real-world deployment when combined with a validation-calibrated reject-option layer. The final Mahalanobis-enhanced Fusion Gate v2 reduced false acceptance of unknown waste from 0.1500 to 0.0663 while preserving similar known-class coverage, demonstrating the value of combining score-level uncertainty and feature-space evidence.
 ```
 
-Human observation:
+The final selected decision policy is:
 
 ```text
-rubber slipper / flip-flop
+Stage 4 MobileNetV3 classifier
++ temperature-scaled confidence display
++ Mahalanobis feature-distance knownness
++ Fusion Gate v2 knownness threshold
++ manual review for unsafe/unknown inputs
 ```
 
-This object is outside the current known fine-label taxonomy.
+---
 
-This example demonstrates why OpenWaste-HR needs local unknown evaluation and manual-review support. A normal closed-set classifier may still assign a known label to an unfamiliar object.
+## Final Known Taxonomy
 
-The earlier model/API result for this sample was:
+The final classifier is trained on five known recyclable fine classes:
 
-| Field                  | Value           |
-| ---------------------- | --------------- |
-| Predicted fine label   | paper_cardboard |
-| Max softmax confidence | 0.993654        |
-| Decision type          | coarse_label    |
-| Final label            | recyclable      |
-| Final confidence       | 0.999999        |
+| Known class |
+|---|
+| cardboard |
+| glass |
+| metal |
+| paper |
+| plastic |
 
-This example shows why OpenWaste-HR needs local unknown evaluation and human-in-the-loop active learning.
+These known classes map to the coarse category:
 
-## Active Learning v2
+```text
+recyclable
+```
 
-The reviewed local sample was assigned as:
+The project uses a safety-aware coarse-to-fine decision policy:
 
-| Field                   | Value                                   |
-| ----------------------- | --------------------------------------- |
-| Sample ID               | local_000001                            |
-| Human observation       | rubber slipper / flip-flop              |
-| Taxonomy status         | outside_current_known_taxonomy          |
-| Recommended action      | keep_as_unknown_test                    |
-| Active learning v2 role | unknown_test_and_future_class_candidate |
+```text
+accepted known fine label → recyclable
+unknown or unsafe input → manual review
+```
 
-This prevents the unknown object from being incorrectly added to existing known training classes.
+This is not claimed as a rich multi-level waste hierarchy. It is a practical safety-aware mapping from supported known fine labels to a recyclable coarse category, with unknown items routed to manual review.
+
+---
+
+## Unknown / Open-Set Evaluation Classes
+
+The final unknown classes used for validation and testing are:
+
+| Unknown class |
+|---|
+| biological |
+| textile |
+
+These unknown classes are not trained as a sixth class. They are used only for:
+
+- validation threshold selection,
+- reject-option evaluation,
+- final open-set testing,
+- manual-review behaviour analysis.
+
+---
+
+## Final Dataset Sources
+
+The final Stage 4 known-class dataset combines cleaned known-class samples from:
+
+| Dataset |
+|---|
+| TrashNet |
+| RealWaste |
+| Garbage Classification V2 |
+| TrashBox |
+
+The final unknown validation/test data comes from held-out biological and textile samples.
+
+---
+
+## Final Dataset Split Summary
+
+| Split | Rows |
+|---|---:|
+| known_train | 15,958 |
+| known_val | 3,417 |
+| known_test | 3,426 |
+| unknown_val | 1,660 |
+| unknown_test | 1,660 |
+
+---
+
+## Staged Closed-Set Results
+
+| Stage | Description | Test Accuracy | Test Macro-F1 | Test Balanced Accuracy |
+|---|---|---:|---:|---:|
+| Stage 1 | TrashNet baseline | 0.9324 | 0.9320 | 0.9357 |
+| Stage 2 | TrashNet + RealWaste | 0.9432 | 0.9447 | 0.9445 |
+| Stage 3 | Add Garbage V2 | 0.9445 | 0.9445 | 0.9437 |
+| Stage 3 + Active Learning | Add reviewed active-learning samples | 0.9508 | 0.9509 | 0.9510 |
+| Stage 4 | Add cleaned TrashBox | 0.9212 | 0.9213 | 0.9217 |
+
+The Stage 4 model is selected as the final known-class classifier because it uses the broadest cleaned multi-source dataset.
+
+---
+
+## Final Stage 4 Per-Dataset Results
+
+| Dataset | Rows | Accuracy | Macro-F1 | Balanced Accuracy |
+|---|---:|---:|---:|---:|
+| TrashNet | 355 | 0.9634 | 0.9636 | 0.9639 |
+| RealWaste | 472 | 0.9089 | 0.9111 | 0.9101 |
+| Garbage V2 | 1,082 | 0.9538 | 0.9532 | 0.9551 |
+| TrashBox | 1,517 | 0.8919 | 0.8916 | 0.8915 |
+| Overall | 3,426 | 0.9212 | 0.9213 | 0.9217 |
+
+---
+
+## Active Learning Findings
+
+Active learning was used between staged dataset expansions to select uncertain or informative external samples for human review.
+
+| Comparison | External Dataset | Baseline Macro-F1 | Active Learning Macro-F1 | Result |
+|---|---|---:|---:|---|
+| Stage 1 to Stage 2 | RealWaste | 0.5161 | 0.7606 | Improved |
+| Stage 2 to Stage 3 | Garbage V2 | 0.7494 | 0.8540 | Improved |
+| Stage 3 to Stage 4 | TrashBox | 0.6292 | 0.6901 | Improved |
+
+The results show that active learning improved adaptation to new dataset sources before full staged expansion.
+
+---
+
+## Calibration Result
+
+Temperature scaling was applied to improve confidence calibration.
+
+| Metric | Before Temperature Scaling | After Temperature Scaling |
+|---|---:|---:|
+| Validation ECE | 0.0397 | 0.0118 |
+| Test ECE | 0.0430 | 0.0084 |
+
+The selected temperature was:
+
+```text
+1.8482154607772827
+```
+
+Temperature-scaled confidence is used for confidence display. The final accept/reject decision is made by Fusion Gate v2.
+
+---
+
+## Reject-Option and Fusion-Gate Results
+
+| Method | Test AUROC | Known Coverage | Unknown Rejection | FAR | Accepted-Known Accuracy |
+|---|---:|---:|---:|---:|---:|
+| Confidence threshold | 0.8498 | 0.6842 | 0.8831 | 0.1169 | 0.9906 |
+| Temperature-scaled confidence | 0.8572 | 0.7341 | 0.8530 | 0.1470 | 0.9877 |
+| Max-logit score | 0.8782 | 0.7659 | 0.8506 | 0.1494 | 0.9802 |
+| Energy score | 0.8789 | 0.7665 | 0.8500 | 0.1500 | 0.9791 |
+| Fusion Gate v1 score-only | 0.8793 | 0.7627 | 0.8536 | 0.1464 | 0.9790 |
+| Mahalanobis-only | 0.5636 | 0.7607 | 0.3012 | 0.6988 | 0.9068 |
+| Fusion Gate v2 + Mahalanobis | 0.9269 | 0.7656 | 0.9337 | 0.0663 | 0.9752 |
+
+---
+
+## Final Selected Reject-Option Policy
+
+The final selected policy is:
+
+```text
+Fusion Gate v2 with Mahalanobis feature-distance
+```
+
+Final threshold:
+
+```text
+0.6314586412215439
+```
+
+Decision rule:
+
+```text
+if fusion_knownness_score >= 0.6314586412215439:
+    accept predicted known class
+else:
+    send to manual review
+```
+
+---
+
+## Improvement Over Energy-Only Baseline
+
+| Metric | Energy-Only | Fusion Gate v2 + Mahalanobis | Change |
+|---|---:|---:|---:|
+| AUROC | 0.8789 | 0.9269 | +0.0480 |
+| Known coverage | 0.7665 | 0.7656 | -0.0009 |
+| Unknown rejection | 0.8500 | 0.9337 | +0.0837 |
+| FAR | 0.1500 | 0.0663 | -0.0837 |
+| Accepted-known accuracy | 0.9791 | 0.9752 | -0.0039 |
+
+The final Fusion Gate v2 policy substantially reduced false acceptance of unknown samples while keeping known coverage almost unchanged.
+
+---
+
+## Final Inference Behaviour
+
+### Known Plastic Example
+
+| Field | Value |
+|---|---|
+| Image | ml/data/raw/trashbox/plastic/plastic 1777.jpg |
+| Internal prediction | plastic |
+| Fusion knownness score | 0.9969 |
+| Threshold | 0.6315 |
+| Decision | known_fine_label |
+| User-visible label | plastic |
+| Coarse label | recyclable |
+
+User-facing message:
+
+```text
+This item is likely plastic. It belongs to the recyclable category.
+```
+
+### Unknown Textile Example
+
+| Field | Value |
+|---|---|
+| Image | ml/data/raw/garbage_v2/clothes/clothes_319.jpg |
+| Actual unknown type | textile / clothes |
+| Internal prediction | paper |
+| Fusion knownness score | 0.0713 |
+| Threshold | 0.6315 |
+| Decision | unknown_manual_review |
+| User-visible label | manual_review_required |
+| Internal prediction shown to user | false |
+
+User-facing message:
+
+```text
+The system is not confident that this item belongs to the supported recyclable classes. Please send it for manual review.
+```
+
+---
+
+## Deployment Readiness
+
+The final model was also tested for inference efficiency.
+
+| Runtime | Mean Latency |
+|---|---:|
+| PyTorch CPU | 20.07 ms |
+| PyTorch CUDA | 8.38 ms |
+| ONNX Runtime CPU | 4.95 ms |
+
+This supports the feasibility of using the model in a prototype prediction interface.
+
+---
 
 ## Repository Structure
 
 ```text
-backend/                 FastAPI backend prototype
-frontend/                Simple frontend demo page
 ml/
-  configs/               YAML configuration files
-  data/splits/           dataset manifests and reviewed local-label plans
-  src/openwaste_hr/      training, evaluation, inference, and utility code
+  api/                         FastAPI prediction API for final Fusion Gate v2 policy
+  configs/                     taxonomy, preprocessing, training, and final policy configs
+  data/                        raw datasets, manifests, and split files
+  outputs/                     model outputs, metrics, reports, and inference examples
+  scripts/                     training, evaluation, fusion-gate, inference, and utility scripts
+
+web/
+  prediction-ui/               React + Vite prediction interface
+
 docs/
-  methodology/           method notes and protocol files
-  results/               evaluation reports and comparison summaries
-  thesis/                thesis-ready chapter drafts and sections
-  supervisor_updates/    supervisor summaries, demo script, and handover pack
-tests/                   pytest validation tests
-research_log.md          chronological project log
+  methodology/                 method notes and protocol files
+  results/                     evaluation reports, figures, and final result summaries
+
+tests/                         pytest validation tests
 ```
+
+---
 
 ## Setup
 
-Create and activate a Python virtual environment, then install the project dependencies.
+Create and activate a Python virtual environment:
 
 ```powershell
+cd "D:\Github Repositories\openwaste-hr"
+
 python -m venv .venv
 .\.venv\Scripts\activate
-pip install -r requirements.txt
 ```
 
-Set the Python path before running project modules:
+Install Python dependencies:
 
 ```powershell
-$env:PYTHONPATH="ml/src;."
+python -m pip install -r requirements.txt
 ```
 
-## Run Tests
-
-Run the full test suite:
+If using the prediction API, also install:
 
 ```powershell
-$env:PYTHONPATH="ml/src;."
-pytest
+python -m pip install fastapi uvicorn python-multipart
 ```
 
-The latest full project test suite reached:
+---
 
-```text
-330 passed, 1 warning
-```
+## Run Final Single-Image Inference
 
-## Run Single-Image Inference
+Known example:
 
 ```powershell
-$env:PYTHONPATH="ml/src;."
-python -m openwaste_hr.inference.single_image_inference --config ml/configs/inference_pipeline.yaml --project-root . --image ml/data/local_unknown/images/local_000001.jpg --sample-id local_000001
+python ml\scripts\infer_with_fusion_gate_v2_policy.py `
+  --image "ml\data\raw\trashbox\plastic\plastic 1777.jpg" `
+  --output-json "ml\outputs\inference_examples\fusion_gate_v2_known_example_v1.json"
 ```
 
-## Run API Wrapper
+Unknown/manual-review example:
 
 ```powershell
-$env:PYTHONPATH="ml/src;."
-python -m openwaste_hr.inference.api_wrapper --config ml/configs/prototype_api_wrapper.yaml --project-root . --image ml/data/local_unknown/images/local_000001.jpg --sample-id local_000001 --request-id best_policy_demo_001
+python ml\scripts\infer_with_fusion_gate_v2_policy.py `
+  --image "ml\data\raw\garbage_v2\clothes\clothes_319.jpg" `
+  --output-json "ml\outputs\inference_examples\fusion_gate_v2_unknown_example_v1.json"
 ```
 
-## Run Backend
+---
+
+## Run Prediction API
 
 Open PowerShell in the project root:
 
 ```powershell
 cd "D:\Github Repositories\openwaste-hr"
-$env:PYTHONPATH="ml/src;."
-uvicorn backend.app.main:app --reload --port 8000
+
+python -m uvicorn ml.api.predict_api:app --host 127.0.0.1 --port 8000 --reload
 ```
 
 Health check:
 
 ```powershell
-Invoke-RestMethod -Uri "http://127.0.0.1:8000/health" -Method GET
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/health" -Method GET
 ```
 
-Prediction request:
+---
+
+## Run React Prediction Interface
+
+Open a second PowerShell window:
 
 ```powershell
-$body = @{
-    request_id = "backend_best_policy_demo_001"
-    sample_id = "local_000001"
-    image_path = "ml/data/local_unknown/images/local_000001.jpg"
-} | ConvertTo-Json
+cd "D:\Github Repositories\openwaste-hr\web\prediction-ui"
 
-Invoke-RestMethod `
-    -Uri "http://127.0.0.1:8000/api/inference/predict" `
-    -Method POST `
-    -ContentType "application/json" `
-    -Body $body
-```
-
-## Run Frontend Demo
-
-Open another PowerShell window:
-
-```powershell
-cd "D:\Github Repositories\openwaste-hr\frontend"
-python -m http.server 5500
+npm install
+npm run dev
 ```
 
 Open:
 
 ```text
-http://127.0.0.1:5500
+http://127.0.0.1:5173
 ```
 
-Use this image path:
+Upload an image and run prediction.
 
-```text
-ml/data/local_unknown/images/local_000001.jpg
-```
+---
 
-## Key Thesis and Result Files
+## Key Result Files
 
-| Purpose                               | File                                                             |
-| ------------------------------------- | ---------------------------------------------------------------- |
-| methodology chapter                   | docs/thesis/methodology_chapter_consolidated_v1.md               |
-| implementation chapter                | docs/thesis/implementation_chapter_draft_v1.md                   |
-| evaluation chapter draft              | docs/thesis/evaluation_chapter_draft_v1.md                       |
-| final expanded public comparison      | docs/results/final_expanded_public_model_policy_comparison_v1.md |
-| final thesis evaluation update        | docs/thesis/evaluation_expanded_public_final_update_v1.md        |
-| final project summary after expansion | docs/thesis/final_project_summary_after_expansion_v1.md          |
-| active learning v2 section            | docs/thesis/active_learning_v2_section_v1.md                     |
-| thesis assembly checklist             | docs/thesis/thesis_assembly_checklist_v1.md                      |
-| supervisor handover pack              | docs/supervisor_updates/supervisor_handover_pack_v1.md           |
-| supervisor demo script                | docs/supervisor_updates/supervisor_demo_script_v1.md             |
-| final supervisor completion summary   | docs/supervisor_updates/final_project_completion_summary_v1.md   |
+| Purpose | File |
+|---|---|
+| Final result summary | docs/results/openwaste_hr_final_results_summary_v1.md |
+| Fusion Gate v2 results | docs/results/fusion_gate_v2_mahalanobis_results_v1.md |
+| Final decision policy v2 | docs/methodology/final_decision_policy_v2_fusion_gate.md |
+| Final inference examples | docs/results/fusion_gate_v2_inference_examples_v1.md |
+| ONNX and latency benchmark | docs/results/onnx_latency_benchmark_results_v1.md |
+| Taxonomy protocol | docs/methodology/taxonomy_protocol_v1.md |
+| Reject-option protocol | docs/methodology/reject_option_evaluation_protocol_v1.md |
+| Preprocessing protocol | docs/methodology/preprocessing_augmentation_protocol_v1.md |
+
+---
 
 ## Completed Pipeline
 
-| Stage                                                  | Status   |
-| ------------------------------------------------------ | -------- |
-| taxonomy and label map                                 | complete |
-| dataset manifest validation                            | complete |
-| TrashNet intake                                        | complete |
-| scratch baseline training                              | complete |
-| confidence/max-logit/energy reject-option baselines    | complete |
-| local unknown dataset evaluation                       | complete |
-| hierarchical decision policy                           | complete |
-| safe policy tuning                                     | complete |
-| pretrained TrashNet training                           | complete |
-| pretrained reject/local unknown evaluation             | complete |
-| pretrained safe policy selection                       | complete |
-| RealWaste intake                                       | complete |
-| RealWaste inspection                                   | complete |
-| expanded public manifest creation                      | complete |
-| expanded public pretrained training                    | complete |
-| expanded public closed-set evaluation                  | complete |
-| expanded public reject-option evaluation               | complete |
-| expanded public local unknown evaluation               | complete |
-| expanded public public unknown/future-class evaluation | complete |
-| expanded public safe hierarchical policy tuning        | complete |
-| final expanded public comparison                       | complete |
-| backend/frontend prototype                             | complete |
-| human correction seed                                  | complete |
-| active learning v2 dataset plan                        | complete |
-| thesis section updates                                 | complete |
-| supervisor handover pack                               | complete |
+| Stage | Status |
+|---|---|
+| taxonomy and label mapping protocol | complete |
+| multi-source dataset manifest | complete |
+| dataset split creation | complete |
+| staged dataset expansion | complete |
+| Stage 1 to Stage 4 classifier training | complete |
+| active-learning candidate selection and evaluation | complete |
+| temperature scaling | complete |
+| confidence, max-logit, and energy reject-option evaluation | complete |
+| Fusion Gate v1 score-level evaluation | complete |
+| Mahalanobis feature-distance scoring | complete |
+| Fusion Gate v2 Mahalanobis-enhanced evaluation | complete |
+| final decision policy v2 | complete |
+| final single-image inference script | complete |
+| final FastAPI prediction backend | complete |
+| React prediction interface | in progress |
+| thesis/report packaging | in progress |
+
+---
 
 ## Remaining Work
 
-Recommended future work:
+The main research implementation is complete. Remaining work is mainly final packaging and demonstration polish:
 
-1. complete manual review for the remaining active-learning candidate images
-2. identify which reviewed samples truly belong to the current known taxonomy
-3. build an active learning v2 retraining manifest using only valid reviewed known-class samples
-4. fine-tune the expanded public pretrained model using reviewed known-class samples
-5. compare before/after active learning performance
-6. evaluate TACO as the next public dataset
-7. decide whether TACO should be used for training, unknown evaluation, or future-class analysis
-8. evaluate more pretrained architectures
-9. improve frontend upload support
-10. prepare final dissertation formatting and citations
-11. deploy the backend/frontend prototype
+1. ensure README, methodology docs, and result docs all tell the same final Fusion Gate v2 story,
+2. finalise the React prediction interface,
+3. create final report-ready methodology, implementation, and evaluation writeups,
+4. optionally add confidence intervals or extra statistical reporting,
+5. run repository tests after installing pytest,
+6. prepare final dissertation formatting and citations.
 
-## Next Dataset Work
-
-The next planned dataset stage is TACO feasibility and intake planning.
-
-TACO should not be added blindly into training. It requires a careful label-mapping protocol because its labels are more detailed and may not directly fit the current six known fine labels.
-
-The next dataset decision should classify TACO labels into:
-
-| Mapping Role           | Meaning                                             |
-| ---------------------- | --------------------------------------------------- |
-| known_train_candidate  | can safely map to a current known fine label        |
-| known_eval_candidate   | can be evaluated as a known class                   |
-| unknown_eval_candidate | useful as unknown/outside-taxonomy evaluation       |
-| future_class_candidate | useful for future taxonomy expansion                |
-| exclude_or_review      | too ambiguous or unsuitable without manual checking |
-
-## Terminology
-
-Use these terms consistently:
-
-| Use This Term                            | Avoid                   |
-| ---------------------------------------- | ----------------------- |
-| local unknown dataset                    | unclear unknown dataset |
-| manual_review                            | reject only             |
-| coarse fallback                          | wrong broad prediction  |
-| expanded public safe hierarchical policy | final model only        |
-| human-in-the-loop active learning        | manual checking only    |
-| outside_current_known_taxonomy           | wrong label             |
+---
 
 ## Current Status
 
-OpenWaste-HR now has a complete expanded public research and prototype pipeline.
+OpenWaste-HR now has a complete final research pipeline and a strong final result.
 
 The strongest current thesis message is:
 
 ```text
-OpenWaste-HR improves waste classification by combining pretrained image recognition with hierarchical open-set decision-making, safe reject/manual-review behaviour, local unknown evaluation, public unknown evaluation, and human-in-the-loop active learning preparation.
+OpenWaste-HR improves real-world waste classification safety by combining staged multi-source classifier training, active learning, calibrated confidence, open-set reject-option evaluation, and a Mahalanobis-enhanced Fusion Gate v2 policy that significantly reduces false acceptance of unknown waste items.
 ```
-
-The next major research step is to complete the human-review retraining cycle and then continue with TACO dataset feasibility and intake planning.

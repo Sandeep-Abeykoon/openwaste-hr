@@ -15,22 +15,6 @@ def read_text(relative_path: str) -> str:
     return (PROJECT_ROOT / relative_path).read_text(encoding="utf-8")
 
 
-def test_best_policy_docs_exist():
-    assert (
-        PROJECT_ROOT
-        / "docs"
-        / "methodology"
-        / "best_pretrained_safe_policy_integration_v1.md"
-    ).exists()
-
-    assert (
-        PROJECT_ROOT
-        / "docs"
-        / "supervisor_updates"
-        / "best_pretrained_safe_policy_integration_summary_v1.md"
-    ).exists()
-
-
 def test_core_configs_use_pretrained_best_checkpoint():
     for relative_path in CORE_CONFIGS:
         text = read_text(relative_path)
@@ -54,23 +38,3 @@ def test_frontend_mentions_best_policy():
 
     assert "OpenWaste-HR Best Prototype" in text
     assert "pretrained safe hierarchical policy" in text
-
-
-def test_methodology_doc_mentions_best_result():
-    text = read_text("docs/methodology/best_pretrained_safe_policy_integration_v1.md")
-
-    assert "Pretrained Safe Hierarchical Policy" in text
-    assert "0.864583" in text
-    assert "0.960843" in text
-    assert "0.600000" in text
-
-
-def test_supervisor_summary_mentions_updated_components():
-    text = read_text(
-        "docs/supervisor_updates/best_pretrained_safe_policy_integration_summary_v1.md"
-    )
-
-    assert "single-image inference" in text
-    assert "batch inference" in text
-    assert "API wrapper" in text
-    assert "frontend demo" in text

@@ -513,7 +513,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--summary-md",
         type=Path,
-        default=Path("docs/supervisor_updates/manual_review_records_audit_summary_v1.md"),
+        default=Path("docs/results/manual_review_records_audit_summary_v1.md"),
     )
     return parser.parse_args()
 

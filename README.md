@@ -408,6 +408,13 @@ npm install
 npm run dev
 ```
 
+Optional: if the frontend should call a different API host, create
+`web/prediction-ui/.env` from `web/prediction-ui/.env.example` and set:
+
+```text
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
+
 Open:
 
 ```text
@@ -453,20 +460,18 @@ Upload an image and run prediction.
 | final decision policy v2 | complete |
 | final single-image inference script | complete |
 | final FastAPI prediction backend | complete |
-| React prediction interface | in progress |
+| React prediction interface | complete |
 | thesis/report packaging | in progress |
 
 ---
 
 ## Remaining Work
 
-The main research implementation is complete. Remaining work is mainly final packaging and demonstration polish:
+The main research implementation is complete. Remaining work is mainly final packaging:
 
-1. ensure README, methodology docs, and result docs all tell the same final Fusion Gate v2 story,
-2. finalise the React prediction interface,
-3. create final report-ready methodology, implementation, and evaluation writeups,
-4. run repository tests after installing pytest,
-5. prepare final dissertation formatting and citations.
+1. create final report-ready methodology, implementation, and evaluation writeups,
+2. run repository tests after installing pytest,
+3. prepare final dissertation formatting and citations.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "name": "openwaste-hr-prediction-ui",
+  "name": "openwaste-hr-prototype-ui",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -9,10 +9,11 @@
     "preview": "vite preview --host 127.0.0.1 --port 4173"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "react": "latest",
-    "react-dom": "latest"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
 }

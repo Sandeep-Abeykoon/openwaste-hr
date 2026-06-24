@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import json
+import os
 import shutil
 import sys
 import uuid
@@ -159,12 +160,22 @@ app = FastAPI(
     description="Prediction API for OpenWaste-HR Fusion Gate v2 waste classification.",
 )
 
+default_allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:4173",
+    "http://127.0.0.1:4173",
+]
+
+extra_allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("OPENWASTE_UI_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=[*default_allowed_origins, *extra_allowed_origins],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

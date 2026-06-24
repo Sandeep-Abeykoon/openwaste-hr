@@ -1,8 +1,15 @@
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 from typing import Any
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+ML_SRC_PATH = PROJECT_ROOT / "ml" / "src"
+
+if str(ML_SRC_PATH) not in sys.path:
+    sys.path.insert(0, str(ML_SRC_PATH))
 
 from openwaste_hr.inference.api_wrapper import run_api_wrapper_prediction
 
@@ -21,7 +28,7 @@ def get_project_root() -> Path:
     if env_project_root:
         return Path(env_project_root).resolve()
 
-    return Path(__file__).resolve().parents[3]
+    return PROJECT_ROOT
 
 
 def get_default_api_config_path(project_root: Path) -> Path:

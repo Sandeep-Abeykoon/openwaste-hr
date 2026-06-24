@@ -232,6 +232,31 @@ The final Fusion Gate v2 policy substantially reduced false acceptance of unknow
 
 ---
 
+## Statistical Evaluation of Final Fusion Gate v2
+
+To strengthen the final evaluation, Fusion Gate v2 was also assessed using bootstrap confidence intervals, calibration metrics, and partial AUROC in low false-acceptance-rate regions.
+
+| Metric | Point Estimate | 95% CI Lower | 95% CI Upper |
+|---|---:|---:|---:|
+| Known coverage | 0.7656 | 0.7522 | 0.7799 |
+| Unknown rejection rate | 0.9337 | 0.9217 | 0.9452 |
+| False acceptance rate | 0.0663 | 0.0548 | 0.0783 |
+| Accepted-known accuracy | 0.9752 | 0.9694 | 0.9809 |
+| AUROC known vs unknown | 0.9269 | 0.9197 | 0.9347 |
+
+Fusion Gate v2 calibration and low-FAR performance were also measured:
+
+| Metric | Value |
+|---|---:|
+| Fusion Gate v2 ECE | 0.0641 |
+| Fusion Gate v2 Brier score | 0.1087 |
+| Standardized pAUC, FAR <= 0.05 | 0.8062 |
+| Standardized pAUC, FAR <= 0.10 | 0.8421 |
+
+These results show that the final Fusion Gate v2 improvement is supported by statistical uncertainty estimates, measured calibration quality, and additional low-FAR analysis.
+
+---
+
 ## Final Inference Behaviour
 
 ### Known Plastic Example
@@ -401,6 +426,7 @@ Upload an image and run prediction.
 | Fusion Gate v2 results | docs/results/fusion_gate_v2_mahalanobis_results_v1.md |
 | Final decision policy v2 | docs/methodology/final_decision_policy_v2_fusion_gate.md |
 | Final inference examples | docs/results/fusion_gate_v2_inference_examples_v1.md |
+| Fusion Gate v2 statistical evaluation | docs/results/fusion_gate_v2_statistical_evaluation_v1.md |
 | ONNX and latency benchmark | docs/results/onnx_latency_benchmark_results_v1.md |
 | Taxonomy protocol | docs/methodology/taxonomy_protocol_v1.md |
 | Reject-option protocol | docs/methodology/reject_option_evaluation_protocol_v1.md |
@@ -423,6 +449,7 @@ Upload an image and run prediction.
 | Fusion Gate v1 score-level evaluation | complete |
 | Mahalanobis feature-distance scoring | complete |
 | Fusion Gate v2 Mahalanobis-enhanced evaluation | complete |
+| Fusion Gate v2 statistical evaluation | complete |
 | final decision policy v2 | complete |
 | final single-image inference script | complete |
 | final FastAPI prediction backend | complete |
@@ -438,9 +465,8 @@ The main research implementation is complete. Remaining work is mainly final pac
 1. ensure README, methodology docs, and result docs all tell the same final Fusion Gate v2 story,
 2. finalise the React prediction interface,
 3. create final report-ready methodology, implementation, and evaluation writeups,
-4. optionally add confidence intervals or extra statistical reporting,
-5. run repository tests after installing pytest,
-6. prepare final dissertation formatting and citations.
+4. run repository tests after installing pytest,
+5. prepare final dissertation formatting and citations.
 
 ---
 

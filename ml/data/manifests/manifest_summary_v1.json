@@ -1,0 +1,39 @@
+{
+  "total_images": 33820,
+  "known_images": 22803,
+  "unknown_images": 3320,
+  "excluded_images": 7697,
+  "unmapped_or_missing_entries": 0,
+  "by_dataset": {
+    "garbage_v2": 12259,
+    "realwaste": 4752,
+    "trashbox": 14282,
+    "trashnet": 2527
+  },
+  "by_split_role": {
+    "exclude": 7697,
+    "known": 22803,
+    "unknown": 3320
+  },
+  "by_canonical_label": {
+    "biological": 1110,
+    "cardboard": 4205,
+    "excluded": 7697,
+    "glass": 4679,
+    "metal": 4198,
+    "paper": 4586,
+    "plastic": 5135,
+    "textile": 2210
+  },
+  "known_by_label": {
+    "cardboard": 4205,
+    "glass": 4679,
+    "metal": 4198,
+    "paper": 4586,
+    "plastic": 5135
+  },
+  "unknown_by_label": {
+    "biological": 1110,
+    "textile": 2210
+  }
+}

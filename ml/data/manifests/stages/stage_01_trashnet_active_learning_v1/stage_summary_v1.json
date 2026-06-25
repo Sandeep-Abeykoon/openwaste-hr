@@ -1,0 +1,23 @@
+{
+  "stage": "stage_01_trashnet_active_learning_v1",
+  "base_training_rows": 1686,
+  "reviewed_additions_available": 100,
+  "reviewed_additions_added": 100,
+  "final_training_rows": 1786,
+  "known_val_rows": 349,
+  "known_test_rows": 355,
+  "unknown_val_rows": 1660,
+  "unknown_test_rows": 1660,
+  "training_by_label": {
+    "cardboard": 296,
+    "glass": 376,
+    "metal": 322,
+    "paper": 419,
+    "plastic": 373
+  },
+  "training_by_dataset": {
+    "realwaste": 100,
+    "trashnet": 1686
+  },
+  "rule": "Stage 1 active-learning retraining uses original TrashNet training data plus only human-reviewed RealWaste known-class additions."
+}

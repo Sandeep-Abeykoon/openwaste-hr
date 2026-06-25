@@ -1,0 +1,55 @@
+from pathlib import Path
+
+import yaml
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_expanded_public_training_configs_exist():
+    assert (
+        PROJECT_ROOT / "ml" / "configs" / "train_expanded_public_pretrained.yaml"
+    ).exists()
+
+    assert (
+        PROJECT_ROOT / "ml" / "configs" / "train_expanded_public_pretrained_smoke.yaml"
+    ).exists()
+
+
+def test_expanded_public_full_config_uses_expanded_manifests():
+    text = read_text("ml/configs/train_expanded_public_pretrained.yaml")
+
+    assert "expanded_public_known_train_v1.csv" in text
+    assert "expanded_public_known_val_v1.csv" in text
+    assert "expanded_public_known_test_v1.csv" in text
+    assert "expanded_public_pretrained_v1" in text
+    assert "pretrained: true" in text
+
+
+def test_expanded_public_smoke_config_uses_smoke_outputs_and_one_epoch():
+    text = read_text("ml/configs/train_expanded_public_pretrained_smoke.yaml")
+
+    assert "expanded_public_known_train_v1.csv" in text
+    assert "expanded_public_known_val_v1.csv" in text
+    assert "expanded_public_known_test_v1.csv" in text
+    assert "expanded_public_pretrained_smoke_v1" in text
+    assert "epochs: 1" in text
+    assert "patience: 1" in text
+
+
+def test_expanded_public_configs_are_valid_yaml():
+    full_config = yaml.safe_load(
+        (PROJECT_ROOT / "ml" / "configs" / "train_expanded_public_pretrained.yaml")
+        .read_text(encoding="utf-8")
+    )
+    smoke_config = yaml.safe_load(
+        (
+            PROJECT_ROOT
+            / "ml"
+            / "configs"
+            / "train_expanded_public_pretrained_smoke.yaml"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert full_config is not None
+    assert smoke_config is not None

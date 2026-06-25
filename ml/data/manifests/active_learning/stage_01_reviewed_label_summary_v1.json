@@ -1,0 +1,16 @@
+{
+  "input_review_sheet": "ml\\data\\manifests\\active_learning\\stage_01_human_review_sheet_v1.csv",
+  "total_review_rows": 100,
+  "known_additions": 100,
+  "excluded_or_unknown": 0,
+  "invalid_or_pending": 0,
+  "known_additions_by_label": {
+    "cardboard": 15,
+    "glass": 20,
+    "metal": 21,
+    "paper": 16,
+    "plastic": 28
+  },
+  "excluded_reason_counts": {},
+  "rule": "Only rows marked review_status=reviewed, reviewed_action=add_to_training, and reviewed_label in cardboard/glass/metal/paper/plastic are added to training."
+}

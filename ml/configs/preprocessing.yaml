@@ -1,0 +1,54 @@
+﻿preprocessing:
+  image_size: 224
+  color_mode: RGB
+  normalization:
+    name: imagenet
+    mean:
+      - 0.485
+      - 0.456
+      - 0.406
+    std:
+      - 0.229
+      - 0.224
+      - 0.225
+
+training_augmentation:
+  enabled: true
+  random_resized_crop:
+    enabled: true
+    size: 224
+    scale_min: 0.75
+    scale_max: 1.0
+    ratio_min: 0.75
+    ratio_max: 1.3333
+  horizontal_flip:
+    enabled: true
+    probability: 0.5
+  rotation:
+    enabled: true
+    degrees: 15
+  color_jitter:
+    enabled: true
+    brightness: 0.2
+    contrast: 0.2
+    saturation: 0.15
+    hue: 0.03
+  affine:
+    enabled: true
+    translate:
+      - 0.05
+      - 0.05
+    scale:
+      - 0.95
+      - 1.05
+
+evaluation_preprocessing:
+  enabled: true
+  resize_size: 256
+  center_crop_size: 224
+  random_augmentation: false
+
+rules:
+  do_not_save_augmented_images: true
+  apply_augmentation_only_to_known_train: true
+  use_deterministic_preprocessing_for_validation_test_and_unknown: true

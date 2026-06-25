@@ -1,0 +1,114 @@
+{
+  "stage": "stage_04_add_trashbox_clean_v1",
+  "source_stage": "stage_04_add_trashbox",
+  "split_summaries": {
+    "known_train_v1.csv": {
+      "input_rows": 15960,
+      "valid_rows": 15958,
+      "invalid_rows": 2,
+      "invalid_reason_counts": {
+        "unidentified_image": 2
+      },
+      "valid_by_label": {
+        "cardboard": 2942,
+        "glass": 3275,
+        "metal": 2938,
+        "paper": 3209,
+        "plastic": 3594
+      },
+      "valid_by_dataset": {
+        "garbage_v2": 4880,
+        "realwaste": 2174,
+        "trashbox": 7218,
+        "trashnet": 1686
+      }
+    },
+    "known_val_v1.csv": {
+      "input_rows": 3417,
+      "valid_rows": 3417,
+      "invalid_rows": 0,
+      "invalid_reason_counts": {},
+      "valid_by_label": {
+        "cardboard": 630,
+        "glass": 701,
+        "metal": 629,
+        "paper": 687,
+        "plastic": 770
+      },
+      "valid_by_dataset": {
+        "garbage_v2": 1048,
+        "realwaste": 446,
+        "trashbox": 1574,
+        "trashnet": 349
+      }
+    },
+    "known_test_v1.csv": {
+      "input_rows": 3426,
+      "valid_rows": 3426,
+      "invalid_rows": 0,
+      "invalid_reason_counts": {},
+      "valid_by_label": {
+        "cardboard": 632,
+        "glass": 703,
+        "metal": 631,
+        "paper": 689,
+        "plastic": 771
+      },
+      "valid_by_dataset": {
+        "garbage_v2": 1082,
+        "realwaste": 472,
+        "trashbox": 1517,
+        "trashnet": 355
+      }
+    },
+    "unknown_val_v1.csv": {
+      "input_rows": 1660,
+      "valid_rows": 1660,
+      "invalid_rows": 0,
+      "invalid_reason_counts": {},
+      "valid_by_label": {
+        "biological": 555,
+        "textile": 1105
+      },
+      "valid_by_dataset": {
+        "garbage_v2": 1299,
+        "realwaste": 361
+      }
+    },
+    "unknown_test_v1.csv": {
+      "input_rows": 1660,
+      "valid_rows": 1660,
+      "invalid_rows": 0,
+      "invalid_reason_counts": {},
+      "valid_by_label": {
+        "biological": 555,
+        "textile": 1105
+      },
+      "valid_by_dataset": {
+        "garbage_v2": 1292,
+        "realwaste": 368
+      }
+    }
+  },
+  "total_invalid_images_removed": 2,
+  "invalid_images_file": "ml\\data\\manifests\\stages\\stage_04_add_trashbox_clean_v1\\invalid_images_v1.csv",
+  "known_train_rows": 15958,
+  "known_val_rows": 3417,
+  "known_test_rows": 3426,
+  "unknown_val_rows": 1660,
+  "unknown_test_rows": 1660,
+  "known_train_by_label": {
+    "cardboard": 2942,
+    "glass": 3275,
+    "metal": 2938,
+    "paper": 3209,
+    "plastic": 3594
+  },
+  "known_train_by_dataset": {
+    "garbage_v2": 4880,
+    "realwaste": 2174,
+    "trashbox": 7218,
+    "trashnet": 1686
+  },
+  "rule": "Stage 4 clean split excludes unreadable, missing, or corrupted image files from all Stage 4 split manifests before training and evaluation."
+}

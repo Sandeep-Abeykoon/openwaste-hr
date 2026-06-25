@@ -1,0 +1,73 @@
+{
+  "description": "TrashNet-only 5-class baseline.",
+  "known_datasets": [
+    "trashnet"
+  ],
+  "unknown_datasets": [
+    "garbage_v2",
+    "realwaste"
+  ],
+  "splits": {
+    "known_train": {
+      "total": 1686,
+      "by_label": {
+        "cardboard": 281,
+        "glass": 356,
+        "metal": 301,
+        "paper": 403,
+        "plastic": 345
+      },
+      "by_dataset": {
+        "trashnet": 1686
+      }
+    },
+    "known_val": {
+      "total": 349,
+      "by_label": {
+        "cardboard": 56,
+        "glass": 69,
+        "metal": 54,
+        "paper": 106,
+        "plastic": 64
+      },
+      "by_dataset": {
+        "trashnet": 349
+      }
+    },
+    "known_test": {
+      "total": 355,
+      "by_label": {
+        "cardboard": 66,
+        "glass": 76,
+        "metal": 55,
+        "paper": 85,
+        "plastic": 73
+      },
+      "by_dataset": {
+        "trashnet": 355
+      }
+    },
+    "unknown_val": {
+      "total": 1660,
+      "by_label": {
+        "biological": 555,
+        "textile": 1105
+      },
+      "by_dataset": {
+        "garbage_v2": 1299,
+        "realwaste": 361
+      }
+    },
+    "unknown_test": {
+      "total": 1660,
+      "by_label": {
+        "biological": 555,
+        "textile": 1105
+      },
+      "by_dataset": {
+        "garbage_v2": 1292,
+        "realwaste": 368
+      }
+    }
+  }
+}

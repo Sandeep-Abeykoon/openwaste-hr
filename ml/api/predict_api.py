@@ -1,0 +1,242 @@
+﻿from __future__ import annotations
+
+import json
+import os
+import shutil
+import sys
+import uuid
+from pathlib import Path
+from typing import Any
+
+import joblib
+import numpy as np
+import torch
+import yaml
+from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SCRIPTS_DIR = REPO_ROOT / "ml" / "scripts"
+
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from infer_with_fusion_gate_v2_policy import (  # noqa: E402
+    FUSION_FEATURES,
+    build_fusion_feature_vector,
+    compute_mahalanobis_knownness,
+    compute_model_scores,
+    load_classifier,
+    make_user_message,
+    preprocess_image,
+    read_yaml,
+    run_classifier_with_embedding,
+)
+from train_image_classifier import build_transforms  # noqa: E402
+
+
+class PredictionService:
+    def __init__(self) -> None:
+        self.training_config_path = REPO_ROOT / "ml" / "configs" / "train_stage_04_add_trashbox_clean.yaml"
+        self.policy_config_path = REPO_ROOT / "ml" / "configs" / "final_decision_policy_v2_fusion_gate.yaml"
+
+        self.training_config = read_yaml(self.training_config_path)
+        self.policy_config = read_yaml(self.policy_config_path)
+
+        self.checkpoint_path = REPO_ROOT / self.policy_config["base_model"]["checkpoint_path"]
+        self.mahalanobis_model_path = REPO_ROOT / self.policy_config["mahalanobis"]["model_path"]
+        self.fusion_gate_model_path = REPO_ROOT / self.policy_config["fusion_gate"]["model_path"]
+
+        self.threshold = float(self.policy_config["fusion_gate"]["threshold"])
+        self.temperature = float(self.policy_config["temperature_scaling"]["temperature"])
+
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        self.model, self.class_names = load_classifier(
+            training_config=self.training_config,
+            checkpoint_path=self.checkpoint_path,
+            device=self.device,
+        )
+
+        self.transform = build_transforms(
+            REPO_ROOT / self.training_config["preprocessing"]["config_path"],
+            train=False,
+        )
+
+        self.mahalanobis_model = joblib.load(self.mahalanobis_model_path)
+        self.fusion_gate = joblib.load(self.fusion_gate_model_path)
+
+    def predict(self, image_path: Path) -> dict[str, Any]:
+        image_tensor = preprocess_image(
+            image_path=image_path,
+            transform=self.transform,
+            device=self.device,
+        )
+
+        logits, embedding, embedding_layer = run_classifier_with_embedding(
+            model=self.model,
+            image_tensor=image_tensor,
+        )
+
+        model_scores = compute_model_scores(
+            logits=logits,
+            class_names=self.class_names,
+            temperature=self.temperature,
+        )
+
+        mahalanobis_scores = compute_mahalanobis_knownness(
+            embedding=embedding,
+            mahalanobis_model=self.mahalanobis_model,
+            class_names=self.class_names,
+        )
+
+        combined_scores = {
+            **model_scores,
+            **mahalanobis_scores,
+        }
+
+        fusion_feature_vector = build_fusion_feature_vector(combined_scores)
+        fusion_knownness_score = float(self.fusion_gate.predict_proba(fusion_feature_vector)[0, 1])
+
+        accepted = bool(fusion_knownness_score >= self.threshold)
+
+        decision_type = "known_fine_label" if accepted else "unknown_manual_review"
+        coarse_label = "recyclable" if accepted else "manual_review_required"
+
+        result = {
+            "policy_version": self.policy_config["policy_version"],
+            "image_path": str(image_path),
+            "device": str(self.device),
+            "embedding_layer": embedding_layer,
+            "embedding_dimension": int(embedding.shape[0]),
+            "known_classes": self.class_names,
+            "prediction": {
+                "internal_top1_prediction": combined_scores["pred_label"],
+                "pred_index": combined_scores["pred_index"],
+                "raw_confidence": combined_scores["confidence"],
+                "temperature_scaled_confidence": combined_scores["temperature_scaled_confidence"],
+                "max_logit": combined_scores["max_logit"],
+                "energy": combined_scores["energy"],
+                "softmax_margin": combined_scores["softmax_margin"],
+                "softmax_entropy": combined_scores["softmax_entropy"],
+                "class_probabilities": {
+                    class_name: combined_scores[f"prob_{class_name}"]
+                    for class_name in self.class_names
+                },
+            },
+            "mahalanobis": {
+                "mahalanobis_min_distance": combined_scores["mahalanobis_min_distance"],
+                "mahalanobis_knownness": combined_scores["mahalanobis_knownness"],
+                "mahalanobis_nearest_class": combined_scores["mahalanobis_nearest_class"],
+            },
+            "fusion_gate": {
+                "feature_names": FUSION_FEATURES,
+                "knownness_score": fusion_knownness_score,
+                "threshold": self.threshold,
+                "accepted_as_known": accepted,
+                "decision_type": decision_type,
+            },
+            "final_decision": {
+                "accepted_as_known": accepted,
+                "decision_type": decision_type,
+                "user_visible_label": combined_scores["pred_label"] if accepted else "manual_review_required",
+                "coarse_label": coarse_label,
+                "show_internal_prediction_to_user": accepted,
+                "internal_top1_prediction_logged": True,
+                "user_message": make_user_message(
+                    accepted=accepted,
+                    pred_label=combined_scores["pred_label"],
+                    coarse_label="recyclable",
+                ),
+            },
+        }
+
+        return result
+
+
+app = FastAPI(
+    title="OpenWaste-HR Prediction API",
+    version="1.0.0",
+    description="Prediction API for OpenWaste-HR Fusion Gate v2 waste classification.",
+)
+
+default_allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:4173",
+    "http://127.0.0.1:4173",
+]
+
+extra_allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("OPENWASTE_UI_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[*default_allowed_origins, *extra_allowed_origins],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+service = PredictionService()
+
+
+@app.get("/")
+def root() -> dict[str, Any]:
+    return {
+        "message": "OpenWaste-HR Prediction API is running.",
+        "policy_version": service.policy_config["policy_version"],
+        "device": str(service.device),
+        "known_classes": service.class_names,
+    }
+
+
+@app.get("/api/health")
+def health() -> dict[str, Any]:
+    return {
+        "status": "ok",
+        "policy_version": service.policy_config["policy_version"],
+        "device": str(service.device),
+    }
+
+
+@app.post("/api/predict")
+async def predict_image(file: UploadFile = File(...)) -> dict[str, Any]:
+    if file.content_type is None or not file.content_type.startswith("image/"):
+        raise HTTPException(
+            status_code=400,
+            detail="Please upload a valid image file.",
+        )
+
+    uploads_dir = REPO_ROOT / "ml" / "outputs" / "api_uploads"
+    uploads_dir.mkdir(parents=True, exist_ok=True)
+
+    suffix = Path(file.filename or "uploaded_image.jpg").suffix
+    if suffix.strip() == "":
+        suffix = ".jpg"
+
+    safe_name = f"{uuid.uuid4().hex}{suffix}"
+    image_path = uploads_dir / safe_name
+
+    try:
+        with image_path.open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        result = service.predict(image_path)
+
+        response = {
+            "uploaded_filename": file.filename,
+            "stored_image_path": str(image_path),
+            "result": result,
+        }
+
+        return response
+
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Prediction failed: {error}",
+        ) from error

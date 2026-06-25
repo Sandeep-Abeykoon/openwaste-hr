@@ -1,0 +1,88 @@
+﻿policy_version: fusion_gate_v2_mahalanobis_v1
+policy_name: Final OpenWaste-HR Fusion Gate v2 Decision Policy
+
+base_model:
+  experiment_name: stage_04_add_trashbox_clean_v1
+  checkpoint_path: ml/outputs/stage_04_add_trashbox_clean_v1/best_model.pt
+  model_type: MobileNetV3 Large
+  known_classes:
+    - cardboard
+    - glass
+    - metal
+    - paper
+    - plastic
+
+unknown_handling:
+  unknown_classes_used_for_validation_and_testing:
+    - biological
+    - textile
+  unknown_is_not_a_training_class: true
+  unknown_decision: unknown_manual_review
+
+temperature_scaling:
+  enabled: true
+  temperature: 1.8482154607772827
+  purpose: confidence_display_only
+
+mahalanobis:
+  enabled: true
+  model_path: ml/outputs/fusion_gate/stage_04_mahalanobis_v1/mahalanobis_model_v1.joblib
+  scores_path: ml/outputs/fusion_gate/stage_04_mahalanobis_v1/mahalanobis_scores_v1.csv
+  embedding_layer: classifier.3
+  embedding_dimension: 1280
+  fitted_on: known_train
+  fit_rows: 15958
+
+fusion_gate:
+  enabled: true
+  model_path: ml/outputs/fusion_gate/stage_04_fusion_gate_v2_mahalanobis/fusion_gate_v2_mahalanobis_model.joblib
+  threshold: 0.6314586412215439
+  decision_rule: accept_as_known_if_fusion_knownness_score_is_greater_than_or_equal_to_threshold
+  trained_on:
+    - known_val
+    - unknown_val
+  final_evaluated_on:
+    - known_test
+    - unknown_test
+  features:
+    - confidence
+    - temperature_scaled_confidence
+    - max_logit
+    - energy
+    - softmax_margin
+    - softmax_entropy
+    - mahalanobis_knownness
+
+final_test_reference:
+  known_test_rows: 3426
+  unknown_test_rows: 1660
+  known_coverage: 0.7656158785755983
+  unknown_rejection_rate: 0.9337349397590361
+  false_acceptance_rate: 0.06626506024096386
+  accepted_known_accuracy: 0.9752192146397255
+  auroc_known_vs_unknown: 0.926860155156528
+
+comparison_baseline:
+  previous_energy_policy:
+    threshold: -7.177558458400871
+    known_coverage: 0.7664915353181553
+    unknown_rejection_rate: 0.85
+    false_acceptance_rate: 0.15
+    accepted_known_accuracy: 0.9790555978674791
+    auroc_known_vs_unknown: 0.8789459062168112
+
+decision_outputs:
+  accepted_known:
+    decision_type: known_fine_label
+    user_visible_label: predicted_known_class
+    coarse_label: recyclable
+  rejected_unknown:
+    decision_type: unknown_manual_review
+    user_visible_label: manual_review_required
+    internal_top1_prediction_logged: true
+    show_internal_prediction_to_user: false
+
+research_note: >
+  Fusion Gate v2 with Mahalanobis is selected as the final decision policy because it
+  substantially reduces false acceptance of unknown textile and biological samples while
+  maintaining similar known coverage to the energy-only reject-option baseline.

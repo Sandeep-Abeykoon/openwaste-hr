@@ -1,0 +1,84 @@
+﻿protocol:
+  name: reject_option_open_set_v1
+  description: >
+    Reject-option and open-set evaluation protocol for OpenWaste-HR clean
+    5-class waste classification.
+
+known_classes:
+  - cardboard
+  - glass
+  - metal
+  - paper
+  - plastic
+
+unknown_classes:
+  - textile
+  - biological
+
+required_splits:
+  - known_train
+  - known_val
+  - known_test
+  - unknown_val
+  - unknown_test
+
+methods:
+  softmax_confidence:
+    enabled: true
+    score_name: max_softmax_probability
+    threshold_search:
+      min: 0.50
+      max: 0.95
+      step: 0.05
+    accept_rule: "accept if max_softmax_probability >= selected_threshold"
+
+  temperature_scaled_confidence:
+    enabled: true
+    score_name: calibrated_max_softmax_probability
+    temperature_selection: validation_nll
+    threshold_search:
+      min: 0.50
+      max: 0.95
+      step: 0.05
+    accept_rule: "accept if calibrated_max_softmax_probability >= selected_threshold"
+
+  max_logit:
+    enabled: true
+    score_name: max_logit
+    threshold_selection: validation_score_sweep
+    accept_rule: "accept if max_logit >= selected_threshold"
+
+  energy_score:
+    enabled: true
+    score_name: energy
+    temperature: 1.0
+    threshold_selection: validation_score_sweep
+    accept_rule: "accept or reject based on selected energy threshold"
+
+  safe_final_policy:
+    enabled: true
+    selection_rule: >
+      Select the policy with the best validation trade-off between known
+      performance, unknown rejection, calibration, and coverage-risk.
+
+metrics:
+  closed_set:
+    - accuracy
+    - macro_f1
+    - balanced_accuracy
+    - confusion_matrix
+
+  reject_option:
+    - unknown_rejection_rate
+    - known_acceptance_rate
+    - false_known_rejection_rate
+    - auroc_known_vs_unknown
+    - expected_calibration_error
+    - coverage_risk_curve
+
+active_learning:
+  enabled: true
+  rule: >
+    After each model stage, select uncertain, rejected, and confusing samples
+    for human review. Add only human-confirmed known-class samples to training.
+    Keep true unknown samples outside known training.

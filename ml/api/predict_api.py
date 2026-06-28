@@ -19,9 +19,11 @@ from pydantic import BaseModel, Field
 
 from ml.api.manual_review_queue import (
     delete_manual_review,
+    get_intelligence_candidates_path,
     list_manual_reviews,
     queue_manual_review,
     resolve_review_image_path,
+    save_intelligence_candidates,
     update_review_decision,
 )
 
@@ -117,6 +119,7 @@ class PredictionService:
             "policy_version": self.policy_config["policy_version"],
             "image_path": str(image_path),
             "device": str(self.device),
+            "temperature": self.temperature,
             "embedding_layer": embedding_layer,
             "embedding_dimension": int(embedding.shape[0]),
             "known_classes": self.class_names,
@@ -235,12 +238,28 @@ def health() -> dict[str, Any]:
         "status": "ok",
         "policy_version": service.policy_config["policy_version"],
         "device": str(service.device),
+        "known_classes": service.class_names,
+        "threshold": service.threshold,
+        "temperature": service.temperature,
     }
 
 
 @app.get("/api/manual-review")
 def get_manual_review_queue() -> dict[str, Any]:
     return build_manual_review_queue_response()
+
+
+@app.get("/api/manual-review/intelligence/export")
+def export_intelligence_candidates() -> FileResponse:
+    queue_payload = list_manual_reviews(REPO_ROOT)
+    save_intelligence_candidates(REPO_ROOT, queue_payload["items"])
+    export_path = get_intelligence_candidates_path(REPO_ROOT)
+
+    return FileResponse(
+        export_path,
+        media_type="application/json",
+        filename="intelligence_candidates.json",
+    )
 
 
 @app.get("/api/manual-review/{review_id}/image")

@@ -1,7 +1,49 @@
 export const RESEARCH_STATS = [
-  { label: "AUROC", value: "0.9269" },
-  { label: "Unknown Rejection", value: "93.37%" },
-  { label: "False Acceptance", value: "6.63%" },
+  {
+    label: "AUROC",
+    value: "0.9269",
+    description: "Known vs unknown separation on the final test split.",
+  },
+  {
+    label: "Known Coverage",
+    value: "76.56%",
+    description: "Known recyclable items safely accepted by the final gate.",
+  },
+  {
+    label: "Unknown Rejection",
+    value: "93.37%",
+    description: "Unsafe or unsupported items correctly routed away.",
+  },
+  {
+    label: "False Acceptance",
+    value: "6.63%",
+    description: "Unknown items incorrectly accepted as known.",
+  },
+  {
+    label: "Accepted-Known Accuracy",
+    value: "97.52%",
+    description: "Accuracy after the safety gate accepts a known item.",
+  },
+  {
+    label: "Fusion Gate ECE",
+    value: "0.0641",
+    description: "Calibration quality for the final accept/reject score.",
+  },
+  {
+    label: "Brier Score",
+    value: "0.1087",
+    description: "Overall probabilistic quality of the Fusion Gate score.",
+  },
+  {
+    label: "pAUC FAR <= 0.05",
+    value: "0.8062",
+    description: "Low-false-acceptance performance in the strict regime.",
+  },
+  {
+    label: "pAUC FAR <= 0.10",
+    value: "0.8421",
+    description: "Low-false-acceptance performance in the practical regime.",
+  },
 ];
 
 export const KNOWN_CLASSES = ["cardboard", "glass", "metal", "paper", "plastic"];
@@ -15,6 +57,7 @@ export const DEMO_SCENARIOS = {
         policy_version: "fusion_gate_v2_mahalanobis_v1",
         image_path: "ml/data/raw/trashbox/plastic/plastic 1777.jpg",
         device: "cpu",
+        temperature: 1.8482154607772827,
         embedding_layer: "classifier.3",
         embedding_dimension: 1280,
         known_classes: [...KNOWN_CLASSES],
@@ -78,6 +121,7 @@ export const DEMO_SCENARIOS = {
         policy_version: "fusion_gate_v2_mahalanobis_v1",
         image_path: "ml/data/raw/garbage_v2/clothes/clothes_319.jpg",
         device: "cpu",
+        temperature: 1.8482154607772827,
         embedding_layer: "classifier.3",
         embedding_dimension: 1280,
         known_classes: [...KNOWN_CLASSES],

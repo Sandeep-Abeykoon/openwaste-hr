@@ -14,6 +14,18 @@ import torch
 import yaml
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from pydantic import BaseModel, Field
+
+from ml.api.manual_review_queue import (
+    delete_manual_review,
+    get_intelligence_candidates_path,
+    list_manual_reviews,
+    queue_manual_review,
+    resolve_review_image_path,
+    save_intelligence_candidates,
+    update_review_decision,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = REPO_ROOT / "ml" / "scripts"
@@ -107,6 +119,7 @@ class PredictionService:
             "policy_version": self.policy_config["policy_version"],
             "image_path": str(image_path),
             "device": str(self.device),
+            "temperature": self.temperature,
             "embedding_layer": embedding_layer,
             "embedding_dimension": int(embedding.shape[0]),
             "known_classes": self.class_names,
@@ -152,6 +165,31 @@ class PredictionService:
         }
 
         return result
+
+
+class ManualReviewDecisionRequest(BaseModel):
+    selected_label: str | None = Field(default=None)
+    custom_label: str | None = Field(default=None)
+    review_notes: str | None = Field(default=None)
+    promote_to_intelligence: bool = Field(default=False)
+
+
+def build_manual_review_item_response(item: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **item,
+        "image_url": f"/api/manual-review/{item['review_id']}/image",
+    }
+
+
+def build_manual_review_queue_response() -> dict[str, Any]:
+    queue_payload = list_manual_reviews(REPO_ROOT)
+    return {
+        "items": [
+            build_manual_review_item_response(item)
+            for item in queue_payload["items"]
+        ],
+        "summary": queue_payload["summary"],
+    }
 
 
 app = FastAPI(
@@ -200,6 +238,83 @@ def health() -> dict[str, Any]:
         "status": "ok",
         "policy_version": service.policy_config["policy_version"],
         "device": str(service.device),
+        "known_classes": service.class_names,
+        "threshold": service.threshold,
+        "temperature": service.temperature,
+    }
+
+
+@app.get("/api/manual-review")
+def get_manual_review_queue() -> dict[str, Any]:
+    return build_manual_review_queue_response()
+
+
+@app.get("/api/manual-review/intelligence/export")
+def export_intelligence_candidates() -> FileResponse:
+    queue_payload = list_manual_reviews(REPO_ROOT)
+    save_intelligence_candidates(REPO_ROOT, queue_payload["items"])
+    export_path = get_intelligence_candidates_path(REPO_ROOT)
+
+    return FileResponse(
+        export_path,
+        media_type="application/json",
+        filename="intelligence_candidates.json",
+    )
+
+
+@app.get("/api/manual-review/{review_id}/image")
+def get_manual_review_image(review_id: str) -> FileResponse:
+    try:
+        image_path = resolve_review_image_path(REPO_ROOT, review_id)
+    except KeyError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+    return FileResponse(image_path)
+
+
+@app.post("/api/manual-review/{review_id}/decision")
+def submit_manual_review_decision(
+    review_id: str,
+    payload: ManualReviewDecisionRequest,
+) -> dict[str, Any]:
+    try:
+        updated_item = update_review_decision(
+            repo_root=REPO_ROOT,
+            review_id=review_id,
+            selected_label=payload.selected_label,
+            custom_label=payload.custom_label,
+            review_notes=payload.review_notes,
+            promote_to_intelligence=payload.promote_to_intelligence,
+        )
+    except KeyError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+
+    queue_payload = build_manual_review_queue_response()
+    return {
+        "item": build_manual_review_item_response(updated_item),
+        "summary": queue_payload["summary"],
+    }
+
+
+@app.delete("/api/manual-review/{review_id}")
+def remove_manual_review_item(review_id: str) -> dict[str, Any]:
+    try:
+        deleted_item, deleted_image_from_system = delete_manual_review(
+            repo_root=REPO_ROOT,
+            review_id=review_id,
+        )
+    except KeyError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+    queue_payload = build_manual_review_queue_response()
+    return {
+        "deleted_review_id": deleted_item["review_id"],
+        "deleted_image_from_system": deleted_image_from_system,
+        "summary": queue_payload["summary"],
     }
 
 
@@ -231,7 +346,22 @@ async def predict_image(file: UploadFile = File(...)) -> dict[str, Any]:
             "uploaded_filename": file.filename,
             "stored_image_path": str(image_path),
             "result": result,
+            "manual_review_entry": None,
+            "manual_review_entry_status": None,
         }
+
+        if not result["final_decision"]["accepted_as_known"]:
+            review_entry, was_created = queue_manual_review(
+                repo_root=REPO_ROOT,
+                review_id=uuid.uuid4().hex,
+                response_payload=response,
+            )
+            response["manual_review_entry"] = build_manual_review_item_response(
+                review_entry
+            )
+            response["manual_review_entry_status"] = (
+                "queued" if was_created else "existing"
+            )
 
         return response
 

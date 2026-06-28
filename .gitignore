@@ -66,3 +66,8 @@ ml/outputs/*
 *.pt
 *.onnx
 *.ckpt
+
+# Test temporary files
+.pytest-temp/
+.pytest-cache/
+tmp_test_runs/

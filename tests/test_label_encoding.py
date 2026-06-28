@@ -23,7 +23,7 @@ def test_build_label_names_from_manifest_uses_taxonomy_order():
         [
             {"fine_label": "metal"},
             {"fine_label": "plastic"},
-            {"fine_label": "residual"},
+            {"fine_label": "paper"},
         ]
     )
 
@@ -33,21 +33,21 @@ def test_build_label_names_from_manifest_uses_taxonomy_order():
         label_column="fine_label",
     )
 
-    assert label_names == ["plastic", "metal", "residual"]
+    assert label_names == ["metal", "paper", "plastic"]
 
 
 def test_build_label_to_id_and_encode_labels():
-    label_names = ["plastic", "metal", "residual"]
+    label_names = ["metal", "paper", "plastic"]
     label_to_id = build_label_to_id(label_names)
 
     assert label_to_id == {
-        "plastic": 0,
-        "metal": 1,
-        "residual": 2,
+        "metal": 0,
+        "paper": 1,
+        "plastic": 2,
     }
 
     encoded = encode_labels(
-        labels=["residual", "plastic", "metal"],
+        labels=["plastic", "metal", "paper"],
         label_to_id=label_to_id,
     )
 
@@ -60,7 +60,7 @@ def test_unknown_label_in_known_training_manifest_raises_error():
     manifest = pd.DataFrame(
         [
             {"fine_label": "plastic"},
-            {"fine_label": "unknown"},
+            {"fine_label": "biological"},
         ]
     )
 

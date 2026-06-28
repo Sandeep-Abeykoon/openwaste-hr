@@ -92,7 +92,7 @@ def validate_manifest(
 
     taxonomy = load_taxonomy(taxonomy_path)
     known_fine_labels = set(get_fine_labels(taxonomy))
-    known_coarse_labels = set(get_coarse_labels(taxonomy))
+    allowed_coarse_labels = set(get_coarse_labels(taxonomy))
 
     invalid_usage = set(manifest["usage"]) - ALLOWED_USAGE_VALUES
     if invalid_usage:
@@ -110,7 +110,7 @@ def validate_manifest(
                     f"Row {row_index}: known sample has invalid fine label '{fine_label}'."
                 )
 
-            if coarse_label not in known_coarse_labels:
+            if coarse_label not in allowed_coarse_labels:
                 raise ValueError(
                     f"Row {row_index}: known sample has invalid coarse label '{coarse_label}'."
                 )
@@ -134,6 +134,11 @@ def validate_manifest(
                 raise ValueError(
                     f"Row {row_index}: unknown sample should use fine_label "
                     f"'unknown' or 'manual_review', got '{fine_label}'."
+                )
+
+            if coarse_label not in allowed_coarse_labels:
+                raise ValueError(
+                    f"Row {row_index}: unknown sample has invalid coarse label '{coarse_label}'."
                 )
 
     return True

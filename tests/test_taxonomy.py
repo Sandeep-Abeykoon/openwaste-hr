@@ -30,13 +30,11 @@ def test_fine_labels_are_correct():
     fine_labels = get_fine_labels(taxonomy)
 
     assert fine_labels == [
-        "paper_cardboard",
-        "plastic",
+        "cardboard",
         "glass",
         "metal",
-        "organic",
-        "e_waste_battery",
-        "residual",
+        "paper",
+        "plastic",
     ]
 
 
@@ -48,9 +46,7 @@ def test_coarse_labels_are_correct():
 
     assert coarse_labels == [
         "recyclable",
-        "organic",
-        "hazardous",
-        "residual",
+        "unknown",
     ]
 
 
@@ -60,10 +56,8 @@ def test_fine_to_coarse_mapping_is_correct():
 
     mapping = get_fine_to_coarse_map(taxonomy)
 
-    assert mapping["paper_cardboard"] == "recyclable"
+    assert mapping["cardboard"] == "recyclable"
     assert mapping["plastic"] == "recyclable"
     assert mapping["glass"] == "recyclable"
     assert mapping["metal"] == "recyclable"
-    assert mapping["organic"] == "organic"
-    assert mapping["e_waste_battery"] == "hazardous"
-    assert mapping["residual"] == "residual"
+    assert mapping["paper"] == "recyclable"

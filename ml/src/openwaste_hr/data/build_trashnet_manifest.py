@@ -13,13 +13,22 @@ from openwaste_hr.data.manifest import validate_manifest
 
 ALLOWED_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
+EXPECTED_TRASHNET_CLASS_FOLDERS = [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic",
+    "trash",
+]
+
 TRASHNET_LABEL_MAPPING = {
     "cardboard": {
-        "fine_label": "paper_cardboard",
+        "fine_label": "cardboard",
         "coarse_label": "recyclable",
     },
     "paper": {
-        "fine_label": "paper_cardboard",
+        "fine_label": "paper",
         "coarse_label": "recyclable",
     },
     "plastic": {
@@ -33,10 +42,6 @@ TRASHNET_LABEL_MAPPING = {
     "metal": {
         "fine_label": "metal",
         "coarse_label": "recyclable",
-    },
-    "trash": {
-        "fine_label": "residual",
-        "coarse_label": "residual",
     },
 }
 
@@ -71,7 +76,10 @@ def make_relative_path(path: Path, project_root: Path) -> str:
 
 def discover_trashnet_images(dataset_root: str | Path, project_root: str | Path) -> pd.DataFrame:
     """
-    Discover TrashNet images and map them into the OpenWaste-HR taxonomy.
+    Discover TrashNet images and map them into the clean 5-class taxonomy.
+
+    The original TrashNet "trash" folder is expected to exist, but it is
+    intentionally excluded from the main protocol because it is a mixed class.
     """
     dataset_root = Path(dataset_root)
     project_root = Path(project_root)
@@ -85,11 +93,14 @@ def discover_trashnet_images(dataset_root: str | Path, project_root: str | Path)
     rows: list[dict[str, Any]] = []
     sample_counter = 1
 
-    for original_label in sorted(TRASHNET_LABEL_MAPPING.keys()):
+    for original_label in EXPECTED_TRASHNET_CLASS_FOLDERS:
         class_dir = dataset_root / original_label
 
         if not class_dir.exists():
             raise FileNotFoundError(f"Expected TrashNet class folder not found: {class_dir}")
+
+    for original_label in sorted(TRASHNET_LABEL_MAPPING.keys()):
+        class_dir = dataset_root / original_label
 
         image_paths = sorted(
             path for path in class_dir.iterdir()

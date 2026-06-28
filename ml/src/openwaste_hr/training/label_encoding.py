@@ -21,12 +21,11 @@ def build_label_names_from_manifest(
     """
     Build label names in taxonomy order, keeping only labels present in the manifest.
 
-    For the first TrashNet baseline, this keeps the available labels only.
-    Example:
-    paper_cardboard, plastic, glass, metal, residual
+    For the clean 5-class protocol, this keeps only the known labels present
+    in the manifest while preserving taxonomy order.
 
-    Organic and e_waste_battery are not included until actual training images
-    for those labels are added.
+    Example:
+    cardboard, glass, metal, paper, plastic
     """
     if label_column not in manifest.columns:
         raise ValueError(f"Label column not found in manifest: {label_column}")

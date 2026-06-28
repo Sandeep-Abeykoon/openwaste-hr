@@ -16,7 +16,7 @@ from openwaste_hr.data.build_trashnet_manifest import (  # noqa: E402
 )
 
 
-TRASHNET_CLASSES = [
+TRASHNET_SOURCE_CLASSES = [
     "cardboard",
     "glass",
     "metal",
@@ -25,9 +25,17 @@ TRASHNET_CLASSES = [
     "trash",
 ]
 
+TRASHNET_KNOWN_CLASSES = [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic",
+]
+
 
 def create_fake_trashnet_dataset(root: Path, images_per_class: int = 5) -> None:
-    for class_name in TRASHNET_CLASSES:
+    for class_name in TRASHNET_SOURCE_CLASSES:
         class_dir = root / class_name
         class_dir.mkdir(parents=True, exist_ok=True)
 
@@ -42,16 +50,15 @@ def test_discover_trashnet_images_maps_labels_correctly(tmp_path):
 
     manifest = discover_trashnet_images(dataset_root, tmp_path)
 
-    assert len(manifest) == 30
-    assert set(manifest["original_label"]) == set(TRASHNET_CLASSES)
+    assert len(manifest) == 25
+    assert set(manifest["original_label"]) == set(TRASHNET_KNOWN_CLASSES)
 
     cardboard_rows = manifest[manifest["original_label"] == "cardboard"]
-    assert set(cardboard_rows["fine_label"]) == {"paper_cardboard"}
+    assert set(cardboard_rows["fine_label"]) == {"cardboard"}
     assert set(cardboard_rows["coarse_label"]) == {"recyclable"}
 
     trash_rows = manifest[manifest["original_label"] == "trash"]
-    assert set(trash_rows["fine_label"]) == {"residual"}
-    assert set(trash_rows["coarse_label"]) == {"residual"}
+    assert trash_rows.empty
 
 
 def test_split_manifest_creates_train_val_test(tmp_path):
@@ -71,7 +78,7 @@ def test_split_manifest_creates_train_val_test(tmp_path):
     assert set(split_df["usage"]) == {"known_train", "known_val", "known_test"}
     assert set(split_df["source_split"]) == {"train", "val", "test"}
 
-    for class_name in TRASHNET_CLASSES:
+    for class_name in TRASHNET_KNOWN_CLASSES:
         class_rows = split_df[split_df["original_label"] == class_name]
         assert "known_train" in set(class_rows["usage"])
         assert "known_val" in set(class_rows["usage"])
@@ -119,7 +126,7 @@ def test_build_trashnet_manifest_saves_files(tmp_path):
         project_root=tmp_path,
     )
 
-    assert len(manifest) == 30
+    assert len(manifest) == 25
     assert (tmp_path / "ml" / "data" / "splits" / "trashnet_manifest_v1.csv").exists()
     assert (tmp_path / "ml" / "data" / "splits" / "known_train.csv").exists()
     assert (tmp_path / "ml" / "data" / "splits" / "known_val.csv").exists()

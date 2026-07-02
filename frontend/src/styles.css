@@ -811,6 +811,29 @@ textarea {
   font-size: 0.95rem;
 }
 
+.live-result-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.live-result-actions-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.live-result-status-chip {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #b2f2bb;
+  background: #ebfbee;
+  color: #2b8a3e;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .gate-meter {
   margin-top: 0;
   padding: 14px 14px 12px;

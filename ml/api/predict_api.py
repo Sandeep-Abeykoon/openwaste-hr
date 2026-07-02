@@ -47,8 +47,27 @@ from infer_with_fusion_gate_v2_policy import (  # noqa: E402
 from train_image_classifier import build_transforms  # noqa: E402
 
 
+def should_force_cpu() -> bool:
+    value = os.getenv("OPENWASTE_FORCE_CPU", "").strip().lower()
+    return value in {"1", "true", "yes", "on"}
+
+
+def is_cuda_runtime_error(error: Exception) -> bool:
+    message = str(error).lower()
+    return any(
+        token in message
+        for token in [
+            "cuda error",
+            "cuda runtime",
+            "cudnn",
+            "device-side assert",
+            "cuda kernel",
+        ]
+    )
+
+
 class PredictionService:
-    def __init__(self) -> None:
+    def __init__(self, preferred_device: str | None = None) -> None:
         self.training_config_path = REPO_ROOT / "ml" / "configs" / "train_stage_04_add_trashbox_clean.yaml"
         self.policy_config_path = REPO_ROOT / "ml" / "configs" / "final_decision_policy_v2_fusion_gate.yaml"
 
@@ -62,7 +81,7 @@ class PredictionService:
         self.threshold = float(self.policy_config["fusion_gate"]["threshold"])
         self.temperature = float(self.policy_config["temperature_scaling"]["temperature"])
 
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = self.resolve_device(preferred_device)
 
         self.model, self.class_names = load_classifier(
             training_config=self.training_config,
@@ -77,6 +96,25 @@ class PredictionService:
 
         self.mahalanobis_model = joblib.load(self.mahalanobis_model_path)
         self.fusion_gate = joblib.load(self.fusion_gate_model_path)
+
+    @staticmethod
+    def resolve_device(preferred_device: str | None = None) -> torch.device:
+        requested_device = str(
+            preferred_device
+            or os.getenv("OPENWASTE_INFERENCE_DEVICE", "")
+        ).strip().lower()
+
+        if should_force_cpu() or requested_device == "cpu":
+            return torch.device("cpu")
+
+        if requested_device == "cuda":
+            if not torch.cuda.is_available():
+                raise RuntimeError(
+                    "OPENWASTE_INFERENCE_DEVICE=cuda was requested, but CUDA is not available."
+                )
+            return torch.device("cuda")
+
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def predict(self, image_path: Path) -> dict[str, Any]:
         image_tensor = preprocess_image(
@@ -174,6 +212,12 @@ class ManualReviewDecisionRequest(BaseModel):
     promote_to_intelligence: bool = Field(default=False)
 
 
+class ManualReviewQueueRequest(BaseModel):
+    uploaded_filename: str | None = Field(default=None)
+    stored_image_path: str | None = Field(default=None)
+    result: dict[str, Any] = Field(default_factory=dict)
+
+
 def build_manual_review_item_response(item: dict[str, Any]) -> dict[str, Any]:
     return {
         **item,
@@ -190,6 +234,34 @@ def build_manual_review_queue_response() -> dict[str, Any]:
         ],
         "summary": queue_payload["summary"],
     }
+
+
+def rebuild_prediction_service(preferred_device: str | None = None) -> PredictionService:
+    return PredictionService(preferred_device=preferred_device)
+
+
+def predict_with_fallback(image_path: Path) -> dict[str, Any]:
+    global service
+
+    try:
+        return service.predict(image_path)
+    except Exception as error:
+        if service.device.type != "cuda" or not is_cuda_runtime_error(error):
+            raise
+
+        print(
+            "CUDA inference failed. Falling back to CPU for live inference. "
+            f"Original error: {error}",
+            flush=True,
+        )
+
+        try:
+            torch.cuda.empty_cache()
+        except Exception:
+            pass
+
+        service = rebuild_prediction_service(preferred_device="cpu")
+        return service.predict(image_path)
 
 
 app = FastAPI(
@@ -219,7 +291,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-service = PredictionService()
+service = rebuild_prediction_service()
 
 
 @app.get("/")
@@ -247,6 +319,58 @@ def health() -> dict[str, Any]:
 @app.get("/api/manual-review")
 def get_manual_review_queue() -> dict[str, Any]:
     return build_manual_review_queue_response()
+
+
+@app.post("/api/manual-review/queue")
+def queue_current_result_for_manual_review(
+    payload: ManualReviewQueueRequest,
+) -> dict[str, Any]:
+    uploaded_filename = str(payload.uploaded_filename or "").strip()
+    stored_image_path = str(payload.stored_image_path or "").strip()
+
+    if uploaded_filename == "":
+        raise HTTPException(
+            status_code=400,
+            detail="uploaded_filename is required to queue a manual review item.",
+        )
+
+    if stored_image_path == "":
+        raise HTTPException(
+            status_code=400,
+            detail="stored_image_path is required to queue a manual review item.",
+        )
+
+    if not payload.result:
+        raise HTTPException(
+            status_code=400,
+            detail="result payload is required to queue a manual review item.",
+        )
+
+    image_path = Path(stored_image_path)
+    if not image_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"Stored inference image not found: {stored_image_path}",
+        )
+
+    response_payload = {
+        "uploaded_filename": uploaded_filename,
+        "stored_image_path": stored_image_path,
+        "result": payload.result,
+    }
+
+    review_entry, was_created = queue_manual_review(
+        repo_root=REPO_ROOT,
+        review_id=uuid.uuid4().hex,
+        response_payload=response_payload,
+    )
+    queue_payload = build_manual_review_queue_response()
+
+    return {
+        "item": build_manual_review_item_response(review_entry),
+        "summary": queue_payload["summary"],
+        "queue_status": "queued" if was_created else "existing",
+    }
 
 
 @app.get("/api/manual-review/intelligence/export")
@@ -340,7 +464,7 @@ async def predict_image(file: UploadFile = File(...)) -> dict[str, Any]:
         with image_path.open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        result = service.predict(image_path)
+        result = predict_with_fallback(image_path)
 
         response = {
             "uploaded_filename": file.filename,

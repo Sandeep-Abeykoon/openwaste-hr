@@ -1,6 +1,5 @@
 import { startTransition, useEffect, useRef, useState } from "react";
 import {
-  DEMO_SCENARIOS,
   KNOWN_CLASSES,
   RESEARCH_STATS,
 } from "./demoScenarios.js";
@@ -17,6 +16,20 @@ const SUPPORTED_IMAGE_EXTENSIONS = [
   ".bmp",
   ".gif",
 ];
+
+const LIVE_IMAGE_PICKER_OPTIONS = {
+  id: "openwaste-live-inference-image",
+  multiple: false,
+  excludeAcceptAllOption: false,
+  types: [
+    {
+      description: "Image files",
+      accept: {
+        "image/*": SUPPORTED_IMAGE_EXTENSIONS,
+      },
+    },
+  ],
+};
 
 const MANUAL_REVIEW_OPTIONS = [
   ...KNOWN_CLASSES,
@@ -85,10 +98,6 @@ const TECHNICAL_TERM_DETAILS = {
   "Embedding dimension":
     "Number of numeric values in the extracted feature vector used for feature-space comparisons.",
 };
-
-function cloneScenario(payload) {
-  return JSON.parse(JSON.stringify(payload));
-}
 
 function normalizeApiBase() {
   return DEFAULT_API_BASE.trim().replace(/\/+$/, "");
@@ -1132,17 +1141,16 @@ export default function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
   const [resultImageUrl, setResultImageUrl] = useState("");
-  const [resultPayload, setResultPayload] = useState(
-    cloneScenario(DEMO_SCENARIOS.known.payload)
-  );
-  const [resultSource, setResultSource] = useState("demo");
+  const [resultPayload, setResultPayload] = useState(null);
+  const [resultSource, setResultSource] = useState("live");
   const [statusMessage, setStatusMessage] = useState({
     tone: "info",
-    text: DEMO_SCENARIOS.known.statusText,
+    text: "Upload an image and run live inference to see the result.",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCheckingHealth, setIsCheckingHealth] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isAddingCurrentToReview, setIsAddingCurrentToReview] = useState(false);
   const [manualReviewItems, setManualReviewItems] = useState([]);
   const [manualReviewSummary, setManualReviewSummary] = useState(
     EMPTY_REVIEW_SUMMARY
@@ -1161,6 +1169,8 @@ export default function App() {
   const loadingStageTimersRef = useRef([]);
 
   const result = resultPayload?.result || null;
+  const hasResult = Boolean(result);
+  const currentManualReviewEntry = resultPayload?.manual_review_entry || null;
   const prediction = result?.prediction || null;
   const fusionGate = result?.fusion_gate || null;
   const finalDecision = result?.final_decision || null;
@@ -1197,6 +1207,13 @@ export default function App() {
     isSubmitting ||
     isCheckingHealth ||
     statusMessage.tone !== "info";
+  const uploadSummaryFileName =
+    statusMessage.fileName || selectedFile?.name || "";
+  const uploadSummaryLabel = statusMessage.fileName
+    ? "Selected file"
+    : selectedFile
+      ? "Current sample"
+      : "System status";
   const sampleTitle =
     resultPayload?.uploaded_filename || selectedFile?.name || "No sample selected";
   const resultSampleCaption = displayedResultImageUrl
@@ -1241,6 +1258,12 @@ export default function App() {
     isIntelligenceTab
       ? "Select an intelligence photo to view its image, review notes, and promotion state."
       : "Once the backend blocks a live sample, it will appear here with an image preview, reviewer controls, and an option to add the result to future intelligence work.";
+  const canQueueCurrentLiveResult =
+    hasResult &&
+    resultSource === "live" &&
+    !currentManualReviewEntry &&
+    Boolean(resultPayload?.uploaded_filename) &&
+    Boolean(resultPayload?.stored_image_path);
 
   function clearLoadingStageTimers() {
     loadingStageTimersRef.current.forEach((timerId) => clearTimeout(timerId));
@@ -1398,9 +1421,13 @@ export default function App() {
   function clearLiveSample() {
     clearLoadingStageTimers();
     revokeObjectUrl(previewUrl);
+    revokeObjectUrl(resultImageUrl);
 
     setSelectedFile(null);
     setPreviewUrl("");
+    setResultImageUrl("");
+    setResultPayload(null);
+    setResultSource("live");
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -1412,7 +1439,31 @@ export default function App() {
     });
   }
 
-  function openFilePicker() {
+  async function openFilePicker() {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.showOpenFilePicker === "function"
+    ) {
+      try {
+        const [fileHandle] = await window.showOpenFilePicker(
+          LIVE_IMAGE_PICKER_OPTIONS
+        );
+        const nextFile = await fileHandle?.getFile();
+
+        if (nextFile) {
+          if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+          }
+          handleFile(nextFile);
+        }
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
     fileInputRef.current?.click();
   }
 
@@ -1428,15 +1479,22 @@ export default function App() {
     if (!hasImageMime && !hasAllowedExtension) {
       setStatusMessage({
         tone: "error",
-        text: "Please choose a valid image file for live inference.",
+        text: selectedFile
+          ? "Please choose a valid image file for live inference. The previous valid sample is still loaded."
+          : "Please choose a valid image file for live inference.",
+        fileName: file.name || "Unnamed file",
       });
       return;
     }
 
     revokeObjectUrl(previewUrl);
+    revokeObjectUrl(resultImageUrl);
 
     setSelectedFile(file);
     setPreviewUrl(URL.createObjectURL(file));
+    setResultImageUrl("");
+    setResultPayload(null);
+    setResultSource("live");
     setStatusMessage({
       tone: "info",
       text: "Image selected. Run live inference to update the result.",
@@ -1654,6 +1712,95 @@ export default function App() {
     }
   }
 
+  async function handleQueueCurrentResultForReview() {
+    const normalizedBase = normalizeApiBase();
+
+    if (!normalizedBase) {
+      setStatusMessage({
+        tone: "error",
+        text: "Backend URL is not configured for manual review.",
+      });
+      return;
+    }
+
+    if (!canQueueCurrentLiveResult) {
+      setStatusMessage({
+        tone: "error",
+        text: "Run a live prediction first before sending it to manual review.",
+      });
+      return;
+    }
+
+    setIsAddingCurrentToReview(true);
+    setStatusMessage({
+      tone: "info",
+      text: "Adding this live result to manual review...",
+    });
+
+    try {
+      const response = await fetch(`${normalizedBase}/api/manual-review/queue`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          uploaded_filename: resultPayload.uploaded_filename,
+          stored_image_path: resultPayload.stored_image_path,
+          result: resultPayload.result,
+        }),
+      });
+
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(extractErrorMessage(payload, response.status));
+      }
+
+      startTransition(() => {
+        setResultPayload((current) =>
+          current
+            ? {
+                ...current,
+                manual_review_entry: payload.item,
+                manual_review_entry_status: payload.queue_status,
+              }
+            : current
+        );
+      });
+
+      setManualReviewSummary(payload.summary || EMPTY_REVIEW_SUMMARY);
+      setReviewStatusMessage({
+        tone: "success",
+        text:
+          payload.queue_status === "existing"
+            ? "That filename was already in the manual review queue, so the existing item was kept."
+            : "The live result was added to manual review for later human checking.",
+      });
+      setStatusMessage({
+        tone: "success",
+        text:
+          payload.queue_status === "existing"
+            ? "This live result was already present in manual review."
+            : "Live result added to manual review. You can review it from the Manual Review tab.",
+      });
+
+      await refreshManualReviewQueue({
+        preferredReviewId: payload.item?.review_id || "",
+        replaceForm: false,
+        silent: true,
+      });
+    } catch (error) {
+      setStatusMessage({
+        tone: "error",
+        text:
+          error.message ||
+          "Could not add the live result to manual review. Please try again.",
+      });
+    } finally {
+      setIsAddingCurrentToReview(false);
+    }
+  }
+
   async function handleSubmitReview(event) {
     event.preventDefault();
 
@@ -1851,10 +1998,10 @@ export default function App() {
                   aria-live="polite"
                 >
                   <div className="upload-summary-head">
-                    <span>{selectedFile ? "Current sample" : "System status"}</span>
-                    {selectedFile ? (
-                      <strong title={selectedFile.name}>
-                        {truncateFileName(selectedFile.name, 38)}
+                    <span>{uploadSummaryLabel}</span>
+                    {uploadSummaryFileName ? (
+                      <strong title={uploadSummaryFileName}>
+                        {truncateFileName(uploadSummaryFileName, 38)}
                       </strong>
                     ) : null}
                   </div>
@@ -1892,147 +2039,186 @@ export default function App() {
           </aside>
 
           <section className="center-column">
-            <div className="panel result-panel simple-result-panel">
-              <div className={`decision-card tone-${accepted ? "accept" : "review"}`}>
-                <div className="decision-header">
-                  <div>
-                    <div className="decision-kicker">
-                      <div className="section-tag">Final Decision</div>
-                      <div
-                        className={`outcome-pill tone-${accepted ? "accept" : "review"}`}
-                      >
-                        {outcomeBadgeLabel}
-                      </div>
-                    </div>
-                    <h2>
-                      {accepted
-                        ? formatLabel(finalDecision?.user_visible_label)
-                        : "Manual review required"}
-                    </h2>
-                  </div>
-
-                  <div className={`source-pill tone-${resultSource}`}>
-                    {resultSource === "live" ? "Live" : "Demo"}
-                  </div>
-                </div>
-
-                <p>
-                  {finalDecision?.user_message || "No user-facing message returned."}
-                </p>
-
-                <div className="result-main-grid">
-                  <div className="sample-card result-sample-card">
-                    <div className="sample-frame">
-                      {activeSampleImageUrl ? (
-                        <>
-                          <img
-                            className="result-image"
-                            src={activeSampleImageUrl}
-                            alt="Evaluated waste sample preview"
-                          />
-                          <div className="image-caption">{resultSampleCaption}</div>
-                        </>
-                      ) : (
-                        <div
-                          className={`sample-placeholder ${accepted ? "accept" : "review"}`}
-                        >
-                          <div className="sample-type">
-                            {resultSource === "live" ? "Live sample" : "Demo replay"}
+            {hasResult ? (
+              <>
+                <div className="panel result-panel simple-result-panel">
+                  <div className={`decision-card tone-${accepted ? "accept" : "review"}`}>
+                    <div className="decision-header">
+                      <div>
+                        <div className="decision-kicker">
+                          <div className="section-tag">Final Decision</div>
+                          <div
+                            className={`outcome-pill tone-${accepted ? "accept" : "review"}`}
+                          >
+                            {outcomeBadgeLabel}
                           </div>
-                          <strong title={sampleTitle}>{sampleTitle}</strong>
-                          <span>{formatLabel(prediction?.internal_top1_prediction)}</span>
                         </div>
-                      )}
-                    </div>
-                  </div>
+                        <h2>
+                          {accepted
+                            ? formatLabel(finalDecision?.user_visible_label)
+                            : "Manual review required"}
+                        </h2>
+                      </div>
 
-                  <div className="result-main-stack">
-                    <GateMeter
-                      knownness={fusionGate?.knownness_score}
-                      threshold={fusionGate?.threshold}
-                      accepted={accepted}
-                      marginLabel={gateMarginLabel}
-                    />
-
-                    <div className="reason-chip-list" aria-label="Decision reasons">
-                      {decisionReasonChips.map((reason) => (
-                        <span
-                          className={`reason-chip tone-${accepted ? "accept" : "review"}`}
-                          key={reason}
-                        >
-                          {reason}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="score-block">
-                      <div className="section-tag">Important Scores</div>
-                      <div className="key-grid simple-key-grid">
-                        <KeyCard
-                          label="Shown to user"
-                          value={formatLabel(finalDecision?.user_visible_label)}
-                          tone={accepted ? "accept" : "review"}
-                        />
-                        <KeyCard
-                          label="Internal guess"
-                          value={formatLabel(prediction?.internal_top1_prediction)}
-                        />
-                        <KeyCard
-                          label="Knownness"
-                          value={formatNumber(fusionGate?.knownness_score)}
-                          tone={accepted ? "accept" : "review"}
-                        />
-                        <KeyCard
-                          label="Threshold"
-                          value={formatNumber(fusionGate?.threshold)}
-                        />
-                        <KeyCard
-                          label="Temp confidence"
-                          value={formatPercent(
-                            prediction?.temperature_scaled_confidence
-                          )}
-                          tone="live"
-                        />
-                        <KeyCard
-                          label="Raw confidence"
-                          value={formatPercent(prediction?.raw_confidence)}
-                        />
+                      <div className={`source-pill tone-${resultSource}`}>
+                        {resultSource === "live" ? "Live" : "Demo"}
                       </div>
                     </div>
 
-                    <SystemInfoSection result={result} />
+                    <p>
+                      {finalDecision?.user_message || "No user-facing message returned."}
+                    </p>
 
-                    <div className="decision-explainer">
-                      <div className="section-tag">Interpretation</div>
-                      <p>
-                        {interpretationSummary} The internal top-1 class is{" "}
-                        <strong>{formatLabel(prediction?.internal_top1_prediction)}</strong>.
+                    <div className="live-result-actions">
+                      {canQueueCurrentLiveResult ? (
+                        <button
+                          className="secondary-button"
+                          type="button"
+                          onClick={handleQueueCurrentResultForReview}
+                          disabled={isAddingCurrentToReview}
+                        >
+                          {isAddingCurrentToReview
+                            ? "Adding..."
+                            : "Add to manual review"}
+                        </button>
+                      ) : currentManualReviewEntry ? (
+                        <span className="live-result-status-chip">
+                          Already in manual review
+                        </span>
+                      ) : null}
+                      <p className="live-result-actions-note">
+                        Use this when the model prediction looks wrong, even if
+                        the sample was accepted.
                       </p>
                     </div>
 
-                    <div className="probability-section inline-probability">
-                      <div className="probability-heading">
-                        <div className="section-tag">Internal Prediction Scores</div>
-                        <span>Classifier percentages across known classes</span>
+                    <div className="result-main-grid">
+                      <div className="sample-card result-sample-card">
+                        <div className="sample-frame">
+                          {activeSampleImageUrl ? (
+                            <>
+                              <img
+                                className="result-image"
+                                src={activeSampleImageUrl}
+                                alt="Evaluated waste sample preview"
+                              />
+                              <div className="image-caption">{resultSampleCaption}</div>
+                            </>
+                          ) : (
+                            <div
+                              className={`sample-placeholder ${accepted ? "accept" : "review"}`}
+                            >
+                              <div className="sample-type">
+                                {resultSource === "live" ? "Live sample" : "Demo replay"}
+                              </div>
+                              <strong title={sampleTitle}>{sampleTitle}</strong>
+                              <span>{formatLabel(prediction?.internal_top1_prediction)}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <ProbabilityBars probabilities={prediction?.class_probabilities} />
-                    </div>
 
-                    <AdvancedEvidenceSection
-                      result={result}
-                      summaryLabel="Advanced evidence"
-                    />
+                      <div className="result-main-stack">
+                        <GateMeter
+                          knownness={fusionGate?.knownness_score}
+                          threshold={fusionGate?.threshold}
+                          accepted={accepted}
+                          marginLabel={gateMarginLabel}
+                        />
+
+                        <div className="reason-chip-list" aria-label="Decision reasons">
+                          {decisionReasonChips.map((reason) => (
+                            <span
+                              className={`reason-chip tone-${accepted ? "accept" : "review"}`}
+                              key={reason}
+                            >
+                              {reason}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="score-block">
+                          <div className="section-tag">Important Scores</div>
+                          <div className="key-grid simple-key-grid">
+                            <KeyCard
+                              label="Shown to user"
+                              value={formatLabel(finalDecision?.user_visible_label)}
+                              tone={accepted ? "accept" : "review"}
+                            />
+                            <KeyCard
+                              label="Internal guess"
+                              value={formatLabel(prediction?.internal_top1_prediction)}
+                            />
+                            <KeyCard
+                              label="Knownness"
+                              value={formatNumber(fusionGate?.knownness_score)}
+                              tone={accepted ? "accept" : "review"}
+                            />
+                            <KeyCard
+                              label="Threshold"
+                              value={formatNumber(fusionGate?.threshold)}
+                            />
+                            <KeyCard
+                              label="Temp confidence"
+                              value={formatPercent(
+                                prediction?.temperature_scaled_confidence
+                              )}
+                              tone="live"
+                            />
+                            <KeyCard
+                              label="Raw confidence"
+                              value={formatPercent(prediction?.raw_confidence)}
+                            />
+                          </div>
+                        </div>
+
+                        <SystemInfoSection result={result} />
+
+                        <div className="decision-explainer">
+                          <div className="section-tag">Interpretation</div>
+                          <p>
+                            {interpretationSummary} The internal top-1 class is{" "}
+                            <strong>{formatLabel(prediction?.internal_top1_prediction)}</strong>.
+                          </p>
+                        </div>
+
+                        <div className="probability-section inline-probability">
+                          <div className="probability-heading">
+                            <div className="section-tag">Internal Prediction Scores</div>
+                            <span>Classifier percentages across known classes</span>
+                          </div>
+                          <ProbabilityBars probabilities={prediction?.class_probabilities} />
+                        </div>
+
+                        <AdvancedEvidenceSection
+                          result={result}
+                          summaryLabel="Advanced evidence"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
+                
+                <details className="panel raw-json simple-details">
+                  <summary>More technical details</summary>
+                  <div className="details-body">
+                    <pre>{JSON.stringify(resultPayload, null, 2)}</pre>
+                  </div>
+                </details>
+              </>
+            ) : (
+              <div className="panel result-panel simple-result-panel empty-review-panel">
+                <div className="decision-card">
+                  <div className="section-tag">Live Result</div>
+                  <h2>No prediction yet</h2>
+                  <p>
+                    Upload an image and run live inference. The prediction, gate
+                    score, and technical details will appear here after the
+                    backend responds.
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <details className="panel raw-json simple-details">
-              <summary>More technical details</summary>
-              <div className="details-body">
-                <pre>{JSON.stringify(resultPayload, null, 2)}</pre>
-              </div>
-            </details>
+            )}
           </section>
         </section>
       ) : activeTab === "research" ? (

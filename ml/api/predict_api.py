@@ -240,13 +240,26 @@ def rebuild_prediction_service(preferred_device: str | None = None) -> Predictio
     return PredictionService(preferred_device=preferred_device)
 
 
-def predict_with_fallback(image_path: Path) -> dict[str, Any]:
+service: PredictionService | None = None
+
+
+def get_prediction_service() -> PredictionService:
     global service
 
+    if service is None:
+        service = rebuild_prediction_service()
+
+    return service
+
+
+def predict_with_fallback(image_path: Path) -> dict[str, Any]:
+    global service
+    active_service = get_prediction_service()
+
     try:
-        return service.predict(image_path)
+        return active_service.predict(image_path)
     except Exception as error:
-        if service.device.type != "cuda" or not is_cuda_runtime_error(error):
+        if active_service.device.type != "cuda" or not is_cuda_runtime_error(error):
             raise
 
         print(
@@ -291,28 +304,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-service = rebuild_prediction_service()
-
 
 @app.get("/")
 def root() -> dict[str, Any]:
+    active_service = get_prediction_service()
+
     return {
         "message": "OpenWaste-HR Prediction API is running.",
-        "policy_version": service.policy_config["policy_version"],
-        "device": str(service.device),
-        "known_classes": service.class_names,
+        "policy_version": active_service.policy_config["policy_version"],
+        "device": str(active_service.device),
+        "known_classes": active_service.class_names,
     }
 
 
 @app.get("/api/health")
 def health() -> dict[str, Any]:
+    active_service = get_prediction_service()
+
     return {
         "status": "ok",
-        "policy_version": service.policy_config["policy_version"],
-        "device": str(service.device),
-        "known_classes": service.class_names,
-        "threshold": service.threshold,
-        "temperature": service.temperature,
+        "policy_version": active_service.policy_config["policy_version"],
+        "device": str(active_service.device),
+        "known_classes": active_service.class_names,
+        "threshold": active_service.threshold,
+        "temperature": active_service.temperature,
     }
 
 

@@ -17,6 +17,20 @@ const SUPPORTED_IMAGE_EXTENSIONS = [
   ".gif",
 ];
 
+const LIVE_IMAGE_PICKER_OPTIONS = {
+  id: "openwaste-live-inference-image",
+  multiple: false,
+  excludeAcceptAllOption: false,
+  types: [
+    {
+      description: "Image files",
+      accept: {
+        "image/*": SUPPORTED_IMAGE_EXTENSIONS,
+      },
+    },
+  ],
+};
+
 const MANUAL_REVIEW_OPTIONS = [
   ...KNOWN_CLASSES,
   "biological",
@@ -1425,7 +1439,31 @@ export default function App() {
     });
   }
 
-  function openFilePicker() {
+  async function openFilePicker() {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.showOpenFilePicker === "function"
+    ) {
+      try {
+        const [fileHandle] = await window.showOpenFilePicker(
+          LIVE_IMAGE_PICKER_OPTIONS
+        );
+        const nextFile = await fileHandle?.getFile();
+
+        if (nextFile) {
+          if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+          }
+          handleFile(nextFile);
+        }
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
     fileInputRef.current?.click();
   }
 

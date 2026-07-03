@@ -1,0 +1,31 @@
+{
+  "image_path": "ml\\data\\raw\\garbage_v2\\clothes\\clothes_319.jpg",
+  "model_config": "ml\\configs\\train_stage_04_add_trashbox_clean.yaml",
+  "checkpoint": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\best_model.pt",
+  "policy": "ml\\configs\\final_decision_policy.yaml",
+  "device": "cuda",
+  "prediction": {
+    "predicted_label": "paper",
+    "predicted_index": 3,
+    "raw_confidence": 0.6594269871711731,
+    "temperature_scaled_confidence": 0.5049424171447754,
+    "energy": -4.132392883300781,
+    "class_probabilities": {
+      "cardboard": 0.18095910549163818,
+      "glass": 4.264667586539872e-05,
+      "metal": 0.0002670352114364505,
+      "paper": 0.6594269871711731,
+      "plastic": 0.15930411219596863
+    }
+  },
+  "decision": {
+    "decision": "unknown_manual_review",
+    "accepted_as_known": false,
+    "show_fine_label": false,
+    "show_coarse_label": false,
+    "fine_label": null,
+    "coarse_label": null,
+    "internal_top1_prediction": "paper",
+    "user_message": "The system is not confident that this item belongs to the supported known classes. Please send it for manual review.\n"
+  }
+}

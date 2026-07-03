@@ -1,0 +1,60 @@
+{
+  "policy_version": "fusion_gate_v2_mahalanobis_v1",
+  "image_path": "ml\\data\\raw\\garbage_v2\\clothes\\clothes_319.jpg",
+  "device": "cuda",
+  "embedding_layer": "classifier.3",
+  "embedding_dimension": 1280,
+  "known_classes": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic"
+  ],
+  "prediction": {
+    "internal_top1_prediction": "paper",
+    "pred_index": 3,
+    "raw_confidence": 0.6594269871711731,
+    "temperature_scaled_confidence": 0.5049406886100769,
+    "max_logit": 3.7160091400146484,
+    "energy": -4.132392883300781,
+    "softmax_margin": 0.4784678667783737,
+    "softmax_entropy": 0.8791800632848068,
+    "class_probabilities": {
+      "cardboard": 0.18095912039279938,
+      "glass": 4.264667222741991e-05,
+      "metal": 0.00026703518233262,
+      "paper": 0.6594269871711731,
+      "plastic": 0.15930409729480743
+    }
+  },
+  "mahalanobis": {
+    "mahalanobis_min_distance": 1771.123291015625,
+    "mahalanobis_knownness": -1771.123291015625,
+    "mahalanobis_nearest_class": "plastic"
+  },
+  "fusion_gate": {
+    "feature_names": [
+      "confidence",
+      "temperature_scaled_confidence",
+      "max_logit",
+      "energy",
+      "softmax_margin",
+      "softmax_entropy",
+      "mahalanobis_knownness"
+    ],
+    "knownness_score": 0.07132559245422432,
+    "threshold": 0.6314586412215439,
+    "accepted_as_known": false,
+    "decision_type": "unknown_manual_review"
+  },
+  "final_decision": {
+    "accepted_as_known": false,
+    "decision_type": "unknown_manual_review",
+    "user_visible_label": "manual_review_required",
+    "coarse_label": "manual_review_required",
+    "show_internal_prediction_to_user": false,
+    "internal_top1_prediction_logged": true,
+    "user_message": "The system is not confident that this item belongs to the supported recyclable classes. Please send it for manual review."
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "experiment": "local_stress_test_all_policies_v1",
+  "image_dir": "ml\\data\\local_stress_unknown\\images",
+  "description": "Independent local household-image stress test. These images are not used for model training, threshold tuning, or fusion-gate training.",
+  "total_unique_images": 462,
+  "policies_compared": [
+    "raw_classifier",
+    "confidence_threshold",
+    "temperature_scaled_confidence",
+    "max_logit",
+    "energy",
+    "fusion_gate_v1_score_only",
+    "mahalanobis_only",
+    "fusion_gate_v2_mahalanobis"
+  ],
+  "policy_summary": [
+    {
+      "policy_name": "raw_classifier",
+      "total_images": 462,
+      "accepted_as_known_count": 462,
+      "manual_review_count": 0,
+      "accepted_as_known_rate": 1.0,
+      "manual_review_rate": 0.0,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": "",
+      "policy_score_median": "",
+      "policy_score_min": "",
+      "policy_score_max": ""
+    },
+    {
+      "policy_name": "confidence_threshold",
+      "total_images": 462,
+      "accepted_as_known_count": 25,
+      "manual_review_count": 437,
+      "accepted_as_known_rate": 0.05411255411255411,
+      "manual_review_rate": 0.9458874458874459,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": 0.7547149031838297,
+      "policy_score_median": 0.7744482159614563,
+      "policy_score_min": 0.27695420384407043,
+      "policy_score_max": 0.9999995231628418
+    },
+    {
+      "policy_name": "temperature_scaled_confidence",
+      "total_images": 462,
+      "accepted_as_known_count": 34,
+      "manual_review_count": 428,
+      "accepted_as_known_rate": 0.0735930735930736,
+      "manual_review_rate": 0.9264069264069265,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": 0.6104392961183668,
+      "policy_score_median": 0.5826380252838135,
+      "policy_score_min": 0.24323029816150665,
+      "policy_score_max": 0.9992873072624207
+    },
+    {
+      "policy_name": "max_logit",
+      "total_images": 462,
+      "accepted_as_known_count": 25,
+      "manual_review_count": 437,
+      "accepted_as_known_rate": 0.05411255411255411,
+      "manual_review_rate": 0.9458874458874459,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": 3.5763690495839366,
+      "policy_score_median": 3.2096794843673706,
+      "policy_score_min": 0.19908231496810913,
+      "policy_score_max": 12.597675323486328
+    },
+    {
+      "policy_name": "energy",
+      "total_images": 462,
+      "accepted_as_known_count": 25,
+      "manual_review_count": 437,
+      "accepted_as_known_rate": 0.05411255411255411,
+      "manual_review_rate": 0.9458874458874459,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": -3.8980142032945313,
+      "policy_score_median": -3.4976136684417725,
+      "policy_score_min": -12.597676277160645,
+      "policy_score_max": -1.3964545726776123
+    },
+    {
+      "policy_name": "fusion_gate_v1_score_only",
+      "total_images": 462,
+      "accepted_as_known_count": 21,
+      "manual_review_count": 441,
+      "accepted_as_known_rate": 0.045454545454545456,
+      "manual_review_rate": 0.9545454545454546,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": 0.19086358615498208,
+      "policy_score_median": 0.13768314867383571,
+      "policy_score_min": 0.06200843559897577,
+      "policy_score_max": 0.9534159582724612
+    },
+    {
+      "policy_name": "mahalanobis_only",
+      "total_images": 462,
+      "accepted_as_known_count": 425,
+      "manual_review_count": 37,
+      "accepted_as_known_rate": 0.9199134199134199,
+      "manual_review_rate": 0.08008658008658008,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": -999.0066229089514,
+      "policy_score_median": -911.2387390136719,
+      "policy_score_min": -5261.11181640625,
+      "policy_score_max": -411.6331481933594
+    },
+    {
+      "policy_name": "fusion_gate_v2_mahalanobis",
+      "total_images": 462,
+      "accepted_as_known_count": 13,
+      "manual_review_count": 449,
+      "accepted_as_known_rate": 0.02813852813852814,
+      "manual_review_rate": 0.9718614718614719,
+      "internal_top1_prediction_counts_json": "{\"cardboard\": 70, \"plastic\": 82, \"paper\": 20, \"metal\": 108, \"glass\": 182}",
+      "policy_score_mean": 0.2049286759926673,
+      "policy_score_median": 0.15788684293407212,
+      "policy_score_min": 2.2574523075348502e-05,
+      "policy_score_max": 0.9939035591404931
+    }
+  ],
+  "research_interpretation_note": "For local stress images expected to be outside or uncertain relative to the known taxonomy, a higher manual-review rate is safer. Accepted cases should be manually inspected before being treated as correct known-class predictions.",
+  "output_files": {
+    "predictions": "ml\\outputs\\local_stress_test\\all_policies_v1\\local_stress_test_all_policy_predictions_v1.csv",
+    "summary_csv": "ml\\outputs\\local_stress_test\\all_policies_v1\\local_stress_test_all_policy_summary_v1.csv",
+    "summary_json": "ml\\outputs\\local_stress_test\\all_policies_v1\\local_stress_test_all_policy_summary_v1.json"
+  }
+}

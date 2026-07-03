@@ -1,0 +1,26 @@
+{
+  "policy": {
+    "name": "fusion_gate_policy_v1",
+    "base_model": "stage_04_add_trashbox_clean_v1",
+    "fusion_gate_model_path": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v1\\fusion_gate_model_v1.joblib",
+    "threshold": 0.5012177382379158,
+    "decision_rule": "accept_known_if_fusion_knownness_score_greater_or_equal_threshold",
+    "feature_names": [
+      "confidence",
+      "temperature_scaled_confidence",
+      "max_logit",
+      "energy",
+      "softmax_margin",
+      "softmax_entropy"
+    ],
+    "target_known_coverage_floor": 0.75
+  },
+  "test_reference": {
+    "known_coverage": 0.7626970227670753,
+    "unknown_rejection_rate": 0.8536144578313253,
+    "false_acceptance_rate": 0.1463855421686747,
+    "false_rejection_rate": 0.2373029772329247,
+    "known_accuracy_accepted": 0.9789513968618446,
+    "auroc_known_vs_unknown": 0.8792773546022971
+  }
+}

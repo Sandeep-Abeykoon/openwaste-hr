@@ -1,0 +1,68 @@
+{
+  "experiment": "stage_04_add_trashbox_clean_v1",
+  "checkpoint": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\best_model.pt",
+  "known_val_rows": 3417,
+  "known_test_rows": 3426,
+  "unknown_val_rows": 1660,
+  "unknown_test_rows": 1660,
+  "unknown_labels": [
+    "biological",
+    "textile"
+  ],
+  "known_val_ece": 0.03966723589615272,
+  "known_test_ece": 0.043029757441655936,
+  "methods": [
+    {
+      "score_method": "confidence",
+      "direction": "higher_is_known",
+      "selected_threshold_from_val": 0.998321158016373,
+      "val_binary_balanced_accuracy": 0.7811479456015458,
+      "val_known_coverage": 0.6719344454199591,
+      "val_unknown_rejection_rate": 0.8903614457831326,
+      "val_known_accuracy_accepted": 0.9921602787456446,
+      "val_selective_risk": 0.007839721254355392,
+      "val_auroc_known_vs_unknown": 0.8429287827340971,
+      "test_binary_balanced_accuracy": 0.7836561658191434,
+      "test_known_coverage": 0.684179801517805,
+      "test_unknown_rejection_rate": 0.883132530120482,
+      "test_known_accuracy_accepted": 0.9906143344709898,
+      "test_selective_risk": 0.009385665529010212,
+      "test_auroc_known_vs_unknown": 0.849801218886052
+    },
+    {
+      "score_method": "max_logit",
+      "direction": "higher_is_known",
+      "selected_threshold_from_val": 7.173780989790249,
+      "val_binary_balanced_accuracy": 0.8088921974112429,
+      "val_known_coverage": 0.752121744220076,
+      "val_unknown_rejection_rate": 0.8656626506024097,
+      "val_known_accuracy_accepted": 0.9782101167315175,
+      "val_selective_risk": 0.021789883268482524,
+      "val_auroc_known_vs_unknown": 0.8754015182767947,
+      "test_binary_balanced_accuracy": 0.8082550868975025,
+      "test_known_coverage": 0.7659077641564507,
+      "test_unknown_rejection_rate": 0.8506024096385543,
+      "test_known_accuracy_accepted": 0.9801829268292683,
+      "test_selective_risk": 0.01981707317073167,
+      "test_auroc_known_vs_unknown": 0.8782059938528194
+    },
+    {
+      "score_method": "energy",
+      "direction": "lower_is_known",
+      "selected_threshold_from_val": -7.177558458400871,
+      "val_binary_balanced_accuracy": 0.8099079372802889,
+      "val_known_coverage": 0.7547556335967223,
+      "val_unknown_rejection_rate": 0.8650602409638555,
+      "val_known_accuracy_accepted": 0.9763474214811942,
+      "val_selective_risk": 0.023652578518805756,
+      "val_auroc_known_vs_unknown": 0.876777346435787,
+      "test_binary_balanced_accuracy": 0.8082457676590776,
+      "test_known_coverage": 0.7664915353181553,
+      "test_unknown_rejection_rate": 0.85,
+      "test_known_accuracy_accepted": 0.9790555978674791,
+      "test_selective_risk": 0.020944402132520912,
+      "test_auroc_known_vs_unknown": 0.8789459062168112
+    }
+  ],
+  "rule": "Thresholds are selected using known_val + unknown_val only. Final open-set performance is reported on known_test + unknown_test."
+}

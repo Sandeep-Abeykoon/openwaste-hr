@@ -1,0 +1,49 @@
+{
+  "config": "ml\\configs\\train_stage_02_trashnet_realwaste.yaml",
+  "checkpoint": "ml\\outputs\\stage_02_trashnet_realwaste\\best_model.pt",
+  "input_csv": "ml\\data\\manifests\\stages\\stage_03_add_garbage_v2\\known_test_v1.csv",
+  "source_dataset_filter": "garbage_v2",
+  "evaluation_rows": 1082,
+  "metrics": {
+    "accuracy": 0.7476894639556377,
+    "macro_f1": 0.7493938383254808,
+    "balanced_accuracy": 0.7543315720065239,
+    "confusion_matrix": [
+      [
+        149,
+        1,
+        17,
+        17,
+        29
+      ],
+      [
+        13,
+        175,
+        15,
+        6,
+        60
+      ],
+      [
+        8,
+        3,
+        118,
+        7,
+        10
+      ],
+      [
+        34,
+        0,
+        2,
+        163,
+        8
+      ],
+      [
+        10,
+        9,
+        13,
+        11,
+        204
+      ]
+    ]
+  }
+}

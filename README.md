@@ -360,7 +360,9 @@ The repository includes the trained artifacts required for the final inference
 pipeline and API demo under `ml/outputs/`, so a fresh GitHub clone can run the
 final model after dependency installation. The raw datasets under `ml/data/raw/`
 are intentionally not committed; they are only needed if you want to retrain or
-reproduce dataset-building steps.
+reproduce dataset-building steps. Stable evidence artifacts such as evaluation
+CSV/JSON outputs and confusion matrices are included, while local datasets and
+transient runtime uploads under `ml/outputs/api_uploads/` remain untracked.
 
 ---
 

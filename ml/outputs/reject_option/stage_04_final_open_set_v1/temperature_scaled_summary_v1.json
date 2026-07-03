@@ -1,0 +1,32 @@
+{
+  "experiment": "stage_04_add_trashbox_clean_v1",
+  "checkpoint": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\best_model.pt",
+  "temperature": 1.8482154607772827,
+  "known_val_rows": 3417,
+  "known_test_rows": 3426,
+  "unknown_val_rows": 1660,
+  "unknown_test_rows": 1660,
+  "known_val_ece_before_temperature": 0.03966723589615272,
+  "known_val_ece_after_temperature": 0.011831035007326718,
+  "known_test_ece_before_temperature": 0.043029757441655936,
+  "known_test_ece_after_temperature": 0.00837887630466822,
+  "method": {
+    "score_method": "temperature_scaled_confidence",
+    "temperature": 1.8482154607772827,
+    "direction": "higher_is_known",
+    "selected_threshold_from_val": 0.9405356681418562,
+    "val_binary_balanced_accuracy": 0.7842066245667481,
+    "val_known_coverage": 0.7099795141937372,
+    "val_unknown_rejection_rate": 0.858433734939759,
+    "val_known_accuracy_accepted": 0.9896949711459192,
+    "val_selective_risk": 0.0103050288540808,
+    "val_auroc_known_vs_unknown": 0.8505030658190268,
+    "test_binary_balanced_accuracy": 0.7935521420181602,
+    "test_known_coverage": 0.7340922358435493,
+    "test_unknown_rejection_rate": 0.8530120481927711,
+    "test_known_accuracy_accepted": 0.9876739562624255,
+    "test_selective_risk": 0.01232604373757451,
+    "test_auroc_known_vs_unknown": 0.8572039471370596
+  },
+  "rule": "Temperature is fitted only on known_val labels. Reject threshold is selected using known_val + unknown_val. Final performance is reported on known_test + unknown_test."
+}

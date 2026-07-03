@@ -1,0 +1,45 @@
+{
+  "experiment": "stage_04_add_trashbox_clean_v1",
+  "class_names": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic"
+  ],
+  "input_shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "warmup_runs": 20,
+  "timed_runs": 100,
+  "checkpoint_path": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\best_model.pt",
+  "onnx_path": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\model_v1.onnx",
+  "checkpoint_size_mb": 16.253731727600098,
+  "onnx_size_mb": 0.3402547836303711,
+  "pytorch_cpu_latency": {
+    "mean_ms": 20.065846002544276,
+    "median_ms": 19.574000005377457,
+    "min_ms": 18.647900025825948,
+    "max_ms": 24.01069999905303,
+    "p95_ms": 23.721089996979572
+  },
+  "pytorch_cuda_latency": {
+    "mean_ms": 8.38005600089673,
+    "median_ms": 8.272250008303672,
+    "min_ms": 7.71759997587651,
+    "max_ms": 9.591599984560162,
+    "p95_ms": 9.303800019552
+  },
+  "onnxruntime_cpu_latency": {
+    "mean_ms": 4.949825999210589,
+    "median_ms": 4.411650006659329,
+    "min_ms": 4.199400020297617,
+    "max_ms": 34.412600041832775,
+    "p95_ms": 5.339704963262192,
+    "provider": "CPUExecutionProvider"
+  },
+  "note": "Latency is measured on a synthetic 1x3x224x224 tensor and excludes image loading, file I/O, and preprocessing time."
+}

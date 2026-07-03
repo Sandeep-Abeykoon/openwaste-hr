@@ -322,8 +322,7 @@ ml/
   outputs/                     model outputs, metrics, reports, and inference examples
   scripts/                     training, evaluation, fusion-gate, inference, and utility scripts
 
-web/
-  prediction-ui/               React + Vite prediction interface
+frontend/                      React + Vite prediction interface
 
 docs/
   methodology/                 method notes and protocol files
@@ -357,25 +356,26 @@ If using the prediction API, also install:
 python -m pip install fastapi uvicorn python-multipart
 ```
 
+The repository includes the trained artifacts required for the final inference
+pipeline and API demo under `ml/outputs/`, so a fresh GitHub clone can run the
+final model after dependency installation. The raw datasets under `ml/data/raw/`
+are intentionally not committed; they are only needed if you want to retrain or
+reproduce dataset-building steps.
+
 ---
 
 ## Run Final Single-Image Inference
 
-Known example:
+Use any local image file:
 
 ```powershell
 python ml\scripts\infer_with_fusion_gate_v2_policy.py `
-  --image "ml\data\raw\trashbox\plastic\plastic 1777.jpg" `
-  --output-json "ml\outputs\inference_examples\fusion_gate_v2_known_example_v1.json"
+  --image "path\to\your\image.jpg" `
+  --output-json "ml\outputs\inference_examples\inference_result_v1.json"
 ```
 
-Unknown/manual-review example:
-
-```powershell
-python ml\scripts\infer_with_fusion_gate_v2_policy.py `
-  --image "ml\data\raw\garbage_v2\clothes\clothes_319.jpg" `
-  --output-json "ml\outputs\inference_examples\fusion_gate_v2_unknown_example_v1.json"
-```
+If you also have the local research datasets available, you can run the original
+known/unknown examples with those dataset image paths.
 
 ---
 
@@ -402,14 +402,14 @@ Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/health" -Method GET
 Open a second PowerShell window:
 
 ```powershell
-cd "D:\Github Repositories\openwaste-hr\web\prediction-ui"
+cd "D:\Github Repositories\openwaste-hr\frontend"
 
 npm install
 npm run dev
 ```
 
 Optional: if the frontend should call a different API host, create
-`web/prediction-ui/.env` from `web/prediction-ui/.env.example` and set:
+`frontend/.env` from `frontend/.env.example` and set:
 
 ```text
 VITE_API_BASE_URL=http://127.0.0.1:8000

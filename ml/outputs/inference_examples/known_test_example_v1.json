@@ -1,0 +1,30 @@
+{
+  "image_path": "ml\\data\\raw\\trashbox\\plastic\\plastic 1777.jpg",
+  "model_config": "ml\\configs\\train_stage_04_add_trashbox_clean.yaml",
+  "checkpoint": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\best_model.pt",
+  "policy": "ml\\configs\\final_decision_policy.yaml",
+  "device": "cuda",
+  "prediction": {
+    "predicted_label": "plastic",
+    "predicted_index": 4,
+    "raw_confidence": 1.0,
+    "temperature_scaled_confidence": 0.9998893737792969,
+    "energy": -16.152263641357422,
+    "class_probabilities": {
+      "cardboard": 2.1732158295151294e-09,
+      "glass": 1.7196151187032216e-12,
+      "metal": 6.550117115367016e-10,
+      "paper": 2.6171935729735196e-08,
+      "plastic": 1.0
+    }
+  },
+  "decision": {
+    "decision": "known_fine_label",
+    "accepted_as_known": true,
+    "show_fine_label": true,
+    "show_coarse_label": true,
+    "fine_label": "plastic",
+    "coarse_label": "recyclable",
+    "user_message": "This item is likely plastic. It belongs to the recyclable category.\n"
+  }
+}

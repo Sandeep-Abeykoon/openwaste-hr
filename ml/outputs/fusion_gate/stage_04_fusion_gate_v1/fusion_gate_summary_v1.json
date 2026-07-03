@@ -1,0 +1,117 @@
+{
+  "experiment": "stage_04_fusion_gate_v1",
+  "base_model": "stage_04_add_trashbox_clean_v1",
+  "fusion_model": "LogisticRegression_L2_with_StandardScaler",
+  "feature_names": [
+    "confidence",
+    "temperature_scaled_confidence",
+    "max_logit",
+    "energy",
+    "softmax_margin",
+    "softmax_entropy"
+  ],
+  "feature_metadata": {
+    "probability_columns_detected": [
+      "prob_cardboard",
+      "prob_glass",
+      "prob_metal",
+      "prob_paper",
+      "prob_plastic"
+    ],
+    "probability_columns_available": true,
+    "derived_features": [
+      "softmax_margin",
+      "softmax_entropy"
+    ],
+    "note": "If class probability columns were unavailable, softmax margin and entropy were approximated from top-1 confidence."
+  },
+  "training_rows": {
+    "known_val": 3417,
+    "unknown_val": 1660,
+    "known_test": 3426,
+    "unknown_test": 1660
+  },
+  "target_known_coverage_floor": 0.75,
+  "c_tuning": {
+    "best_C": 10.0,
+    "rows": [
+      {
+        "C": 0.1,
+        "cv_auroc_mean": 0.8766670390689161,
+        "cv_auroc_std": 0.011962749573188746
+      },
+      {
+        "C": 1.0,
+        "cv_auroc_mean": 0.8773580051370878,
+        "cv_auroc_std": 0.011645528859769976
+      },
+      {
+        "C": 3.0,
+        "cv_auroc_mean": 0.8775326060864146,
+        "cv_auroc_std": 0.01159184281821899
+      },
+      {
+        "C": 10.0,
+        "cv_auroc_mean": 0.8776110813498788,
+        "cv_auroc_std": 0.011532866204585842
+      }
+    ]
+  },
+  "selected_threshold_from_validation": {
+    "threshold": 0.5012177382379158,
+    "known_rows": 3417,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7506584723441615,
+    "known_rejection_rate": 0.2493415276558385,
+    "unknown_rejection_rate": 0.8680722891566265,
+    "unknown_acceptance_rate": 0.13192771084337349,
+    "false_acceptance_rate": 0.13192771084337349,
+    "false_rejection_rate": 0.2493415276558385,
+    "known_accuracy_all": 0.9230318993268949,
+    "known_accuracy_accepted": 0.9750487329434698,
+    "selective_risk": 0.02495126705653017,
+    "binary_balanced_accuracy": 0.809365380750394,
+    "threshold_selection_mode": "minimize_false_acceptance_subject_to_known_coverage_floor"
+  },
+  "validation_result": {
+    "threshold": 0.5012177382379158,
+    "known_rows": 3417,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7506584723441615,
+    "known_rejection_rate": 0.2493415276558385,
+    "unknown_rejection_rate": 0.8680722891566265,
+    "unknown_acceptance_rate": 0.13192771084337349,
+    "false_acceptance_rate": 0.13192771084337349,
+    "false_rejection_rate": 0.2493415276558385,
+    "known_accuracy_all": 0.9230318993268949,
+    "known_accuracy_accepted": 0.9750487329434698,
+    "selective_risk": 0.02495126705653017,
+    "binary_balanced_accuracy": 0.809365380750394,
+    "auroc_known_vs_unknown": 0.8784881404458924
+  },
+  "test_result": {
+    "threshold": 0.5012177382379158,
+    "known_rows": 3426,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7626970227670753,
+    "known_rejection_rate": 0.2373029772329247,
+    "unknown_rejection_rate": 0.8536144578313253,
+    "unknown_acceptance_rate": 0.1463855421686747,
+    "false_acceptance_rate": 0.1463855421686747,
+    "false_rejection_rate": 0.2373029772329247,
+    "known_accuracy_all": 0.9211908931698775,
+    "known_accuracy_accepted": 0.9789513968618446,
+    "selective_risk": 0.021048603138155375,
+    "binary_balanced_accuracy": 0.8081557402992003,
+    "auroc_known_vs_unknown": 0.8792773546022971
+  },
+  "model_path": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v1\\fusion_gate_model_v1.joblib",
+  "output_files": {
+    "summary": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v1\\fusion_gate_summary_v1.json",
+    "metrics": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v1\\fusion_gate_metrics_v1.csv",
+    "predictions": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v1\\fusion_gate_predictions_v1.csv",
+    "c_tuning": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v1\\fusion_gate_c_tuning_v1.csv",
+    "model": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v1\\fusion_gate_model_v1.joblib"
+  },
+  "rule": "Fusion gate is trained using known_val + unknown_val only. The accept/reject threshold is selected on validation only. Final reporting uses known_test + unknown_test."
+}

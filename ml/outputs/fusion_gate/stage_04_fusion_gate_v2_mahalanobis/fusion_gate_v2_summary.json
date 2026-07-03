@@ -1,0 +1,118 @@
+{
+  "experiment": "stage_04_fusion_gate_v2_mahalanobis",
+  "base_model": "stage_04_add_trashbox_clean_v1",
+  "fusion_model": "LogisticRegression_with_StandardScaler",
+  "feature_names": [
+    "confidence",
+    "temperature_scaled_confidence",
+    "max_logit",
+    "energy",
+    "softmax_margin",
+    "softmax_entropy",
+    "mahalanobis_knownness"
+  ],
+  "feature_metadata": {
+    "probability_columns_detected": [
+      "prob_cardboard",
+      "prob_glass",
+      "prob_metal",
+      "prob_paper",
+      "prob_plastic"
+    ],
+    "probability_columns_available": true,
+    "derived_features": [
+      "softmax_margin",
+      "softmax_entropy"
+    ],
+    "mahalanobis_feature": "mahalanobis_knownness"
+  },
+  "training_rows": {
+    "known_val": 3417,
+    "unknown_val": 1660,
+    "known_test": 3426,
+    "unknown_test": 1660
+  },
+  "target_known_coverage_floor": 0.75,
+  "c_tuning": {
+    "best_C": 10.0,
+    "rows": [
+      {
+        "C": 0.1,
+        "cv_auroc_mean": 0.9227163927859598,
+        "cv_auroc_std": 0.007831820887181297
+      },
+      {
+        "C": 1.0,
+        "cv_auroc_mean": 0.9246524692693356,
+        "cv_auroc_std": 0.007171768851435261
+      },
+      {
+        "C": 3.0,
+        "cv_auroc_mean": 0.9249097852972085,
+        "cv_auroc_std": 0.0068781774822800745
+      },
+      {
+        "C": 10.0,
+        "cv_auroc_mean": 0.9250322783002239,
+        "cv_auroc_std": 0.00676531332235017
+      }
+    ]
+  },
+  "selected_threshold_from_validation": {
+    "threshold": 0.6314586412215439,
+    "known_rows": 3417,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7512437810945274,
+    "known_rejection_rate": 0.24875621890547261,
+    "unknown_rejection_rate": 0.9379518072289157,
+    "unknown_acceptance_rate": 0.06204819277108434,
+    "false_acceptance_rate": 0.06204819277108434,
+    "false_rejection_rate": 0.24875621890547261,
+    "known_accuracy_all": 0.9230318993268949,
+    "known_accuracy_accepted": 0.970783015192832,
+    "selective_risk": 0.029216984807167945,
+    "binary_balanced_accuracy": 0.8445977941617215,
+    "threshold_selection_mode": "minimize_false_acceptance_subject_to_known_coverage_floor"
+  },
+  "validation_result": {
+    "threshold": 0.6314586412215439,
+    "known_rows": 3417,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7512437810945274,
+    "known_rejection_rate": 0.24875621890547261,
+    "unknown_rejection_rate": 0.9379518072289157,
+    "unknown_acceptance_rate": 0.06204819277108434,
+    "false_acceptance_rate": 0.06204819277108434,
+    "false_rejection_rate": 0.24875621890547261,
+    "known_accuracy_all": 0.9230318993268949,
+    "known_accuracy_accepted": 0.970783015192832,
+    "selective_risk": 0.029216984807167945,
+    "binary_balanced_accuracy": 0.8445977941617215,
+    "auroc_known_vs_unknown": 0.9259406369992702
+  },
+  "test_result": {
+    "threshold": 0.6314586412215439,
+    "known_rows": 3426,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7656158785755983,
+    "known_rejection_rate": 0.23438412142440168,
+    "unknown_rejection_rate": 0.9337349397590361,
+    "unknown_acceptance_rate": 0.06626506024096386,
+    "false_acceptance_rate": 0.06626506024096386,
+    "false_rejection_rate": 0.23438412142440168,
+    "known_accuracy_all": 0.9211908931698775,
+    "known_accuracy_accepted": 0.9752192146397255,
+    "selective_risk": 0.024780785360274504,
+    "binary_balanced_accuracy": 0.8496754091673172,
+    "auroc_known_vs_unknown": 0.926860155156528
+  },
+  "model_path": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v2_mahalanobis\\fusion_gate_v2_mahalanobis_model.joblib",
+  "output_files": {
+    "summary": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v2_mahalanobis\\fusion_gate_v2_summary.json",
+    "metrics": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v2_mahalanobis\\fusion_gate_v2_metrics.csv",
+    "predictions": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v2_mahalanobis\\fusion_gate_v2_predictions.csv",
+    "c_tuning": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v2_mahalanobis\\fusion_gate_v2_c_tuning.csv",
+    "model": "ml\\outputs\\fusion_gate\\stage_04_fusion_gate_v2_mahalanobis\\fusion_gate_v2_mahalanobis_model.joblib"
+  },
+  "rule": "Fusion Gate v2 is trained using known_val + unknown_val only. Mahalanobis statistics were fitted using known_train only. Threshold is selected on validation only. Final reporting uses known_test + unknown_test."
+}

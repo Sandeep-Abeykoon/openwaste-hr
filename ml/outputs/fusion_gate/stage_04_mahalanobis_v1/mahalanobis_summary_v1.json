@@ -1,0 +1,72 @@
+{
+  "experiment": "stage_04_mahalanobis_v1",
+  "base_model": "stage_04_add_trashbox_clean_v1",
+  "checkpoint": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\best_model.pt",
+  "embedding_layer": "classifier.3",
+  "embedding_dimension": 1280,
+  "class_names": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic"
+  ],
+  "fit_split": "known_train",
+  "fit_rows": 15958,
+  "target_known_coverage_floor": 0.75,
+  "covariance_shrinkage": 0.0017963785212486982,
+  "selected_threshold_from_validation": {
+    "threshold": -1548.8591121639217,
+    "known_rows": 3417,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7509511267193445,
+    "known_rejection_rate": 0.2490488732806555,
+    "unknown_rejection_rate": 0.2939759036144578,
+    "unknown_acceptance_rate": 0.7060240963855422,
+    "false_acceptance_rate": 0.7060240963855422,
+    "false_rejection_rate": 0.2490488732806555,
+    "known_accuracy_all": 0.9230318993268949,
+    "known_accuracy_accepted": 0.9158222915042868,
+    "selective_risk": 0.08417770849571315,
+    "binary_balanced_accuracy": 0.5224635151669011,
+    "threshold_selection_mode": "minimize_false_acceptance_subject_to_known_coverage_floor"
+  },
+  "validation_result": {
+    "threshold": -1548.8591121639217,
+    "known_rows": 3417,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7509511267193445,
+    "known_rejection_rate": 0.2490488732806555,
+    "unknown_rejection_rate": 0.2939759036144578,
+    "unknown_acceptance_rate": 0.7060240963855422,
+    "false_acceptance_rate": 0.7060240963855422,
+    "false_rejection_rate": 0.2490488732806555,
+    "known_accuracy_all": 0.9230318993268949,
+    "known_accuracy_accepted": 0.9158222915042868,
+    "selective_risk": 0.08417770849571315,
+    "binary_balanced_accuracy": 0.5224635151669011,
+    "auroc_known_vs_unknown": 0.551875985064049
+  },
+  "test_result": {
+    "threshold": -1548.8591121639217,
+    "known_rows": 3426,
+    "unknown_rows": 1660,
+    "known_coverage": 0.7606538237011091,
+    "known_rejection_rate": 0.23934617629889088,
+    "unknown_rejection_rate": 0.3012048192771084,
+    "unknown_acceptance_rate": 0.6987951807228916,
+    "false_acceptance_rate": 0.6987951807228916,
+    "false_rejection_rate": 0.23934617629889088,
+    "known_accuracy_all": 0.9211908931698775,
+    "known_accuracy_accepted": 0.9067536454336147,
+    "selective_risk": 0.0932463545663853,
+    "binary_balanced_accuracy": 0.5309293214891088,
+    "auroc_known_vs_unknown": 0.5635514035124737
+  },
+  "output_files": {
+    "scores": "ml\\outputs\\fusion_gate\\stage_04_mahalanobis_v1\\mahalanobis_scores_v1.csv",
+    "summary": "ml\\outputs\\fusion_gate\\stage_04_mahalanobis_v1\\mahalanobis_summary_v1.json",
+    "model": "ml\\outputs\\fusion_gate\\stage_04_mahalanobis_v1\\mahalanobis_model_v1.joblib"
+  },
+  "rule": "Mahalanobis class statistics are fitted using known_train only. Threshold is selected using known_val + unknown_val only. Final reporting uses known_test + unknown_test."
+}

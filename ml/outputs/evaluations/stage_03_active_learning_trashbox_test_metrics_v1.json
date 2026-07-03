@@ -1,0 +1,49 @@
+{
+  "config": "ml\\configs\\train_stage_03_add_garbage_v2_active_learning.yaml",
+  "checkpoint": "ml\\outputs\\stage_03_add_garbage_v2_active_learning_v1\\best_model.pt",
+  "input_csv": "ml\\data\\manifests\\evaluation\\stage_03_trashbox_external_test_clean_v1.csv",
+  "source_dataset_filter": "",
+  "evaluation_rows": 1517,
+  "metrics": {
+    "accuracy": 0.6868820039551747,
+    "macro_f1": 0.690065321407183,
+    "balanced_accuracy": 0.6873134212985874,
+    "confusion_matrix": [
+      [
+        188,
+        4,
+        3,
+        81,
+        5
+      ],
+      [
+        12,
+        239,
+        9,
+        14,
+        25
+      ],
+      [
+        8,
+        16,
+        231,
+        42,
+        18
+      ],
+      [
+        95,
+        2,
+        11,
+        186,
+        18
+      ],
+      [
+        17,
+        39,
+        24,
+        32,
+        198
+      ]
+    ]
+  }
+}

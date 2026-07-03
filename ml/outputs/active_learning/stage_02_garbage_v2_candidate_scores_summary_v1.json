@@ -1,0 +1,31 @@
+{
+  "total_scored_candidates": 4880,
+  "prediction_mismatch_count": 1273,
+  "prediction_mismatch_rate": 0.2608606557377049,
+  "selection_reason_counts": {
+    "confident_wrong_candidate": 953,
+    "low_confidence_candidate": 511,
+    "not_priority": 3416
+  },
+  "uncertainty_band_counts": {
+    "high_uncertainty": 405,
+    "low_uncertainty": 3976,
+    "medium_uncertainty": 393,
+    "very_high_uncertainty": 106
+  },
+  "true_label_counts": {
+    "cardboard": 971,
+    "glass": 1216,
+    "metal": 632,
+    "paper": 933,
+    "plastic": 1128
+  },
+  "predicted_label_counts": {
+    "cardboard": 868,
+    "glass": 867,
+    "metal": 692,
+    "paper": 910,
+    "plastic": 1543
+  },
+  "note": "Selection is based mainly on uncertainty and model behaviour. Source labels are used as public-dataset reference labels, but selected samples still require human review before being added to active-learning training data."
+}

@@ -1,0 +1,60 @@
+{
+  "policy_version": "fusion_gate_v2_mahalanobis_v1",
+  "image_path": "ml\\data\\raw\\trashbox\\plastic\\plastic 1777.jpg",
+  "device": "cuda",
+  "embedding_layer": "classifier.3",
+  "embedding_dimension": 1280,
+  "known_classes": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic"
+  ],
+  "prediction": {
+    "internal_top1_prediction": "plastic",
+    "pred_index": 4,
+    "raw_confidence": 1.0,
+    "temperature_scaled_confidence": 0.9998892545700073,
+    "max_logit": 16.152263641357422,
+    "energy": -16.152263641357422,
+    "softmax_margin": 0.9999999738280625,
+    "softmax_entropy": 5.141717818800085e-07,
+    "class_probabilities": {
+      "cardboard": 2.1732160515597343e-09,
+      "glass": 1.7196151187032216e-12,
+      "metal": 6.550117115367016e-10,
+      "paper": 2.6171937506092036e-08,
+      "plastic": 1.0
+    }
+  },
+  "mahalanobis": {
+    "mahalanobis_min_distance": 2937.63623046875,
+    "mahalanobis_knownness": -2937.63623046875,
+    "mahalanobis_nearest_class": "plastic"
+  },
+  "fusion_gate": {
+    "feature_names": [
+      "confidence",
+      "temperature_scaled_confidence",
+      "max_logit",
+      "energy",
+      "softmax_margin",
+      "softmax_entropy",
+      "mahalanobis_knownness"
+    ],
+    "knownness_score": 0.9968887080867044,
+    "threshold": 0.6314586412215439,
+    "accepted_as_known": true,
+    "decision_type": "known_fine_label"
+  },
+  "final_decision": {
+    "accepted_as_known": true,
+    "decision_type": "known_fine_label",
+    "user_visible_label": "plastic",
+    "coarse_label": "recyclable",
+    "show_internal_prediction_to_user": true,
+    "internal_top1_prediction_logged": true,
+    "user_message": "This item is likely plastic. It belongs to the recyclable category."
+  }
+}

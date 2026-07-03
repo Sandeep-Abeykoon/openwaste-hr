@@ -1,0 +1,49 @@
+{
+  "config": "ml\\configs\\train_stage_04_add_trashbox_clean.yaml",
+  "checkpoint": "ml\\outputs\\stage_04_add_trashbox_clean_v1\\best_model.pt",
+  "input_csv": "ml\\data\\manifests\\stages\\stage_04_add_trashbox_clean_v1\\known_test_v1.csv",
+  "source_dataset_filter": "trashnet",
+  "evaluation_rows": 355,
+  "metrics": {
+    "accuracy": 0.9633802816901409,
+    "macro_f1": 0.9635708345947229,
+    "balanced_accuracy": 0.9639075731229767,
+    "confusion_matrix": [
+      [
+        65,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        73,
+        2,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        54,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        84,
+        1
+      ],
+      [
+        0,
+        3,
+        1,
+        3,
+        66
+      ]
+    ]
+  }
+}
